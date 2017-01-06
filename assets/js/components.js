@@ -4,50 +4,54 @@ var Component = function(img,h,w){
     this.img = img ;
     this.h = h ;
     this.w = w ;
-}
-Component.prototype.setX = function(x){
-  this.x = x ;
-  if(x < 20 ){
-    this.x = 20
-  }
-  if(this.x + this.w > GAME_WIDTH ){
-    this.x = GAME_WIDTH - this.w ;
-  }
-}
-Component.prototype.setY = function(y){
-  this.y = y
-  if( this.y < 20 ){
-    this.y = 20 ;
-  }
-  if(this.y + this.h > GAME_WIDTH ){
-    this.y = GAME_WIDTH - this.h ;
-  }
-}
-Component.prototype.getX = function(){
-  return this.x ;
-}
-Component.prototype.getY = function(){
-  return this.y ;
+    Object.defineProperty(this,'x',{
+      get : function(){
+        return x ;
+      },
+      set : function(xinput){
+          x = xinput ;
+        if(x < 20 ){
+          x = 20
+        }
+        if(x + w > GAME_WIDTH ){
+          x = GAME_WIDTH - w ;
+        }
+      }
+    });
+    Object.defineProperty(this,'y',{
+      get : function() {
+        return y ;
+      },
+      set : function(yinput){
+        y = yinput
+        if( y < 20 ){
+          y = 20 ;
+        }
+        if(y + h > GAME_WIDTH ){
+          y = GAME_WIDTH - h ;
+        }
+      }
+    });
 }
 Component.prototype.move = function(){}
 Component.prototype.setPosition = function(x,y){
   if(x){
-    this.setX(x) ;
+    this.x= x  ;
   }
   if(y){
-    this.setY(y) ;
+    this.y = y  ;
   }
 }
 
 
 var component = new Component('/images/penguin.png',100,50);
-// component.setX(10);
-// component.setY(10) ;
-// console.log(component.getX()) ;
-//
-// console.log(component.getY()) ;
-// console.log(component.img) ;
-// component.setPosition(200) ;
-// console.log(component.getX()) ;
-//
-// console.log(component.getY()) ;
+component.x = 10 ;
+component.y = 10 ;
+console.log(component.x) ;
+
+console.log(component.y) ;
+console.log(component.img) ;
+component.setPosition(200) ;
+console.log(component.x) ;
+
+console.log(component.y) ;
