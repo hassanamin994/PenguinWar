@@ -1,5 +1,7 @@
 var ZOMBIES = {
     init: function (options) {
+        ZOMBIES.hero = new Hero('hero');
+
         document.onkeydown = function(evt) {
             ZOMBIES.toggleKey(evt.keyCode, true);
         };
@@ -9,20 +11,21 @@ var ZOMBIES = {
         };
     },
     toggleKey : function (keyCode, isPressed) {
-        if (keyCode == LEFT_KEY) {
+        if (keyCode == 37) {
             //controller.left = isPressed;
         }
-        if (keyCode == RIGHT_KEY) {
+        if (keyCode == 39) {
             //controller.right = isPressed;
         }
-        if (keyCode == UP_KEY) {
+        if (keyCode == 38) {
             //controller.up = isPressed;
         }
-        if (keyCode == DOWN_KEY) {
+        if (keyCode == 40) {
             //controller.down = isPressed;
         }
-        if (keyCode == SPACE_KEY) {
+        if (keyCode == 32) {
             //controller.space = isPressed;
+            ZOMBIES.hero.element.classList.add("hero-is-shoot");
         }
     },
     helpers: {

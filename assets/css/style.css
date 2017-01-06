@@ -8,7 +8,7 @@
     z-index: 9999;
     left: 45%;
     bottom: 60px;
-
+    opacity: 0.9;
 }
 
 /*
@@ -16,20 +16,20 @@
  */
 
 .hero-is-flying{
-    animation: hero-is-flying linear 3s;
+    animation: hero-is-flying linear 2s;
     animation-iteration-count: infinite;
     transform-origin: 50% 50%;
 }
 
 @keyframes hero-is-flying{
     0% {
-        transform:  rotate(-10deg) ;
+        transform:  rotate(-5deg) ;
     }
     50% {
-        transform:  rotate(15deg) ;
+        transform:  rotate(10deg) ;
     }
     100% {
-        transform:  rotate(-10deg) ;
+        transform:  rotate(-5deg) ;
     }
 }
 
