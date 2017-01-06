@@ -34,3 +34,5 @@ var ZOMBIES = {
         }
     }
 };
+
+ZOMBIES.init();
