@@ -3,4 +3,5 @@ var Main = {
     characters:[],
     username:'',
     highscore:{name:'',score:0}
+    
 } 

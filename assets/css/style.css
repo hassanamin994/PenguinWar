@@ -11,6 +11,15 @@
     opacity: 0.9;
 }
 
+html {
+    background: url('../images/backgrounds/pen.jpg')  no-repeat center center fixed;  
+     background-size: cover;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+ 
+}
+
 /*
     HERO ANIMATION
  */
