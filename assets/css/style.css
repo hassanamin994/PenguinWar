@@ -1,6 +1,18 @@
+/*
+    HERO STYLE
+ */
+
+#hero {
+    position: absolute;
+    width: 120px;
+    z-index: 9999;
+    left: 45%;
+    bottom: 60px;
+
+}
 
 /*
-    HERO CSS
+    HERO ANIMATION
  */
 
 .hero-is-flying{
