@@ -1,6 +1,6 @@
 var ZOMBIES = {
     init: function (options) {
-        ZOMBIES.hero = new Hero('hero');
+        ZOMBIES.hero = new Hero('img',20,20);
 
         document.onkeydown = function(evt) {
             ZOMBIES.toggleKey(evt.keyCode, true);
