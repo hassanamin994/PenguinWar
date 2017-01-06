@@ -23,18 +23,18 @@
 
 @keyframes hero-is-flying{
     0% {
-        transform:  rotate(-5deg) ;
+        transform:  rotate(0deg) ;
     }
     50% {
-        transform:  rotate(10deg) ;
+        transform:  rotate(7deg) ;
     }
     100% {
-        transform:  rotate(-5deg) ;
+        transform:  rotate(0deg) ;
     }
 }
 
 .hero-is-shoot{
-    animation: hero-is-shoot linear 0.8s;
+    animation: hero-is-shoot linear 0.5s;
     animation-iteration-count: 1;
     transform-origin: 50% 50%;
 }
@@ -44,13 +44,13 @@
         transform:  translate(0px,0px)  ;
     }
     15% {
-        transform:  translate(0px,-25px)  ;
+        transform:  translate(0px,-15px)  ;
     }
     30% {
         transform:  translate(0px,0px)  ;
     }
     45% {
-        transform:  translate(0px,-15px)  ;
+        transform:  translate(0px,-5px)  ;
     }
     60% {
         transform:  translate(0px,0px)  ;

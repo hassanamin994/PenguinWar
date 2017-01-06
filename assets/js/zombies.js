@@ -25,7 +25,11 @@ var ZOMBIES = {
         }
         if (keyCode == 32) {
             //controller.space = isPressed;
-            ZOMBIES.hero.element.classList.add("hero-is-shoot");
+            if (!isPressed) {
+                ZOMBIES.hero.element.classList.remove("hero-is-shoot");
+            }else {
+                ZOMBIES.hero.element.classList.add("hero-is-shoot");
+            }
         }
     },
     helpers: {
@@ -34,3 +38,5 @@ var ZOMBIES = {
         }
     }
 };
+
+ZOMBIES.init();
