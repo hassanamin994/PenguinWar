@@ -7,6 +7,7 @@ var Component = function(img,x,y,h,w){
     this.w = w ;
     this.id = "" ;
     this.element = document.createElement('img');
+    this.element.src = img;
     this.element.style.left = x +"px";
     this.element.style.top = y +"px";
     this.element.style.width = w+"px";
