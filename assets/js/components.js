@@ -1,11 +1,18 @@
 var GAME_WIDTH = window.innerWidth-90;
 var GAME_HEIGHT = window.innerHeight-50;
 
-var Component = function(img,h,w){
+var Component = function(img,x,y,h,w){
     this.img = img ;
     this.h = h ;
     this.w = w ;
     this.id = "" ;
+    this.element = document.createElement('img');
+    this.element.style.left = x +"px";
+    this.element.style.top = y +"px";
+    this.element.style.width = w+"px";
+    this.element.style.height = h+"px";
+    this.x =x ;
+    this.y = y;
     Object.defineProperty(this,'x',{
       get : function(){
         return x ;
@@ -16,10 +23,10 @@ var Component = function(img,h,w){
           x = this.w;
         }
         if(x + w > GAME_WIDTH ){
-          
+
           x = GAME_WIDTH - w ;
         }
-         
+
       }
     });
     Object.defineProperty(this,'y',{

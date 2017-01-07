@@ -3,17 +3,13 @@ Hero.prototype = Object.create(Component.prototype);
 Hero.prototype.constructor  = Hero;
 
 function Hero(img,height,width) {
-	Component.call(this,img,height,width);
-	this.element = document.createElement('img');
+	var heroX = window.innerWidth/2 -25;
+	var heroY =  window.innerHeight-80;
+	Component.call(this, img, heroX, heroY, height, width);
+
 	this.element.src = img;
-	this.id = 'hero'
+	this.id = 'hero' ;
 	this.element.id = this.id ;
-	this.element.style.left = window.innerWidth/2 -25+"px";
-	this.element.style.top = window.innerHeight-80 +"px";
-	this.element.style.width = width+"px";
-	this.element.style.height = height+"px";
-	this.x = window.innerWidth/2 -25;
-	this.y = window.innerHeight-80 ;
 	document.body.appendChild(this.element);
 	this.HERO_MOVEMENT = 5;
 	this.controller = {
@@ -66,7 +62,3 @@ function Hero(img,height,width) {
 		    this.setPosition.call(this,this.x , this.y ) ;
 		  }
 		}
-
-	
-		
-
