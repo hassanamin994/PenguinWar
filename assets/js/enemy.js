@@ -1,5 +1,7 @@
 var Enemy = function(img, height, width) {
-    var x = ZOMBIES.helpers.getRandom(GAME_WIDTH);
+    var BLINDSIDE = 40 ;
+
+    var x = BLINDSIDE + ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE)
     var y = 40;
 
     Component.call(this, img, x, y, height, width, 'enemy' + ZOMBIES.helpers.getRandom(1000000), 'enemy');
