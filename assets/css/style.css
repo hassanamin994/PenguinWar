@@ -203,6 +203,10 @@ html {
     transform-origin: 50% 50%;
 }
 
+.laser{
+	position: absolute;
+}
+
 @keyframes hero-is-shoot{
     0% {
         transform:  translate(0px,0px)  ;
