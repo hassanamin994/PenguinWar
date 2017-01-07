@@ -1,3 +1,4 @@
+
 var ZOMBIES = {
     lastLoopRun:0,
     timeInit : 0,
@@ -66,6 +67,9 @@ var ZOMBIES = {
 
 
             }else {
+
+                var laser = new Laser('assets/images/heros/male-hero.png',20,5,'laser',this.hero.x,this.hero.y);
+                console.log(laser);
                 console.log(ZOMBIES.timeInit)
                 if(!ZOMBIES.timeInit){
                   ZOMBIES.timeInit = setInterval(function () {
