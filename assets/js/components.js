@@ -12,8 +12,8 @@ var Component = function(img,h,w){
       },
       set : function(xinput){
           x = xinput ;
-        if(x < 20 ){
-          x = 20
+        if(x < this.w ){
+          x = this.w;
         }
         if(x + w > GAME_WIDTH ){
           
@@ -28,11 +28,8 @@ var Component = function(img,h,w){
       },
       set : function(yinput){
         y = yinput
-        console.log(yinput);
-        console.log(GAME_HEIGHT);
-        console.log(h);
-        if( y < 20 ){
-          y = 20 ;
+        if( y < this.h ){
+          y = this.h ;
         }
         if(y + h > GAME_HEIGHT ){
           y = GAME_HEIGHT - h ;

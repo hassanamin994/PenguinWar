@@ -10,6 +10,8 @@ function Hero(img,height,width) {
 	this.element.id = this.id ;
 	this.element.style.left = window.innerWidth/2 -25+"px";
 	this.element.style.top = window.innerHeight-80 +"px";
+	this.element.style.width = width+"px";
+	this.element.style.height = height+"px";
 	this.x = window.innerWidth/2 -25;
 	this.y = window.innerHeight-80 ;
 	document.body.appendChild(this.element);

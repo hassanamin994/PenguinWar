@@ -1,10 +1,12 @@
 var ZOMBIES = {
     lastLoopRun:0,
     timeInit : 0,
+    HEROWIDTH : 80,
+    HEROHEIGHT : 80,
 
     init: function (options) {
 
-        ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png',20,20);
+        ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png',this.HEROHEIGHT,this.HEROWIDTH);
 
         document.onkeydown = function(evt) {
             ZOMBIES.toggleKey(evt.keyCode, true);
