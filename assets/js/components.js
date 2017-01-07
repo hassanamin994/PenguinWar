@@ -4,6 +4,7 @@ var Component = function(img,h,w){
     this.img = img ;
     this.h = h ;
     this.w = w ;
+    this.elementId = "" ;
     Object.defineProperty(this,'x',{
       get : function(){
         return x ;
@@ -36,10 +37,14 @@ var Component = function(img,h,w){
 Component.prototype.move = function(){}
 Component.prototype.setPosition = function(x,y){
   if(x){
+    var e = document.getElementById(this.elementId);
     this.x= x  ;
+    e.style.left = x + 'px';
   }
   if(y){
+    var e = document.getElementById(this.elementId);
     this.y = y  ;
+    e.style.top = y + 'px';
   }
 }
 
