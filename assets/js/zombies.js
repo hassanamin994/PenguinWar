@@ -50,37 +50,7 @@ var ZOMBIES = {
         }
         if (keyCode == 32) {
             this.hero.fire(isPressed);
-            if (!isPressed) {
-
-
-                setTimeout(function (argument) {
-                    console.log(ZOMBIES.timeInit) ;
-                    clearInterval(ZOMBIES.timeInit);
-                    ZOMBIES.timeInit = null;
-                    console.log(ZOMBIES.timeInit) ;
-                  //  ZOMBIES.timeInit = null ;
-                    ZOMBIES.hero.element.classList.remove("hero-is-shoot");
-                    ZOMBIES.hero.element.classList.add("dont-shoot");
-                },500);
-
-                  console.log("space up ") ;
-
-
-            }else {
-
-                var laser = new Laser('assets/images/heros/male-hero.png',20,5,this.hero.x,this.hero.y);
-                console.log(laser);
-                console.log(ZOMBIES.timeInit)
-                if(!ZOMBIES.timeInit){
-                  ZOMBIES.timeInit = setInterval(function () {
-                      ZOMBIES.hero.element.classList.add("hero-is-shoot");
-                      setTimeout(function(){
-                        ZOMBIES.hero.element.classList.remove("hero-is-shoot");
-                      },100);
-                  },200);
-                }
-                console.log("space down ") ;
-            }
+            var laser = new Laser('assets/images/heros/male-hero.png',20,5,this.hero.x,this.hero.y);
         }
     },
     helpers: {
