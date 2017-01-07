@@ -2,7 +2,7 @@ var ZOMBIES = {
     lastLoopRun:0,
     timeInit : 0,
     HEROWIDTH : 80,
-    HEROHEIGHT : 80,
+    HEROHEIGHT : 64,
 
     init: function (options) {
 
@@ -37,9 +37,11 @@ var ZOMBIES = {
     toggleKey : function (keyCode, isPressed) {
         if (keyCode == 37) {
             this.hero.moveLeft(isPressed);
+
         }
         if (keyCode == 39) {
             this.hero.moveRight(isPressed);
+            this.hero.addClass('hero-go-right');
         }
         if (keyCode == 38) {
             this.hero.moveUp(isPressed);
@@ -49,34 +51,7 @@ var ZOMBIES = {
         }
         if (keyCode == 32) {
             this.hero.fire(isPressed);
-            if (!isPressed) {
 
-
-                setTimeout(function (argument) {
-                    console.log(ZOMBIES.timeInit) ;
-                    clearInterval(ZOMBIES.timeInit);
-                    ZOMBIES.timeInit = null;
-                    console.log(ZOMBIES.timeInit) ;
-                  //  ZOMBIES.timeInit = null ;
-                    ZOMBIES.hero.element.classList.remove("hero-is-shoot");
-                    ZOMBIES.hero.element.classList.add("dont-shoot");
-                },500);
-
-                  console.log("space up ") ;
-
-
-            }else {
-                console.log(ZOMBIES.timeInit)
-                if(!ZOMBIES.timeInit){
-                  ZOMBIES.timeInit = setInterval(function () {
-                      ZOMBIES.hero.element.classList.add("hero-is-shoot");
-                      setTimeout(function(){
-                        ZOMBIES.hero.element.classList.remove("hero-is-shoot");
-                      },100);
-                  },200);
-                }
-                console.log("space down ") ;
-            }
         }
     },
     helpers: {
