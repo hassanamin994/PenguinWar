@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4bd15034-a572-4bb3-b60a-98decfecb35e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/hero.js" afterPath="$PROJECT_DIR$/assets/js/hero.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/zombies.js" afterPath="$PROJECT_DIR$/assets/js/zombies.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -36,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+              <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -91,8 +90,8 @@
         <option value="$PROJECT_DIR$/assets/css/backgounds.css" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/assets/css/style.css" />
-        <option value="$PROJECT_DIR$/assets/js/zombies.js" />
         <option value="$PROJECT_DIR$/assets/js/hero.js" />
+        <option value="$PROJECT_DIR$/assets/js/zombies.js" />
       </list>
     </option>
   </component>
@@ -321,12 +320,12 @@
       <workItem from="1483728652719" duration="5007000" />
       <workItem from="1483734561114" duration="4734000" />
       <workItem from="1483778396780" duration="2721000" />
-      <workItem from="1483791786556" duration="4760000" />
+      <workItem from="1483791786556" duration="5271000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17222000" />
+    <option name="totallyTimeSpent" value="17733000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-4" width="1311" height="772" extended-state="6" />
@@ -520,7 +519,7 @@
     <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+          <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
           <folding />
         </state>
       </provider>
