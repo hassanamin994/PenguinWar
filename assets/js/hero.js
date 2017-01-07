@@ -5,12 +5,7 @@ Hero.prototype.constructor  = Hero;
 function Hero(img,height,width) {
 	var heroX = window.innerWidth/2 -25;
 	var heroY =  window.innerHeight-80;
-	Component.call(this, img, heroX, heroY, height, width);
-
-	this.element.src = img;
-	this.id = 'hero' ;
-	this.element.id = this.id ;
-	document.body.appendChild(this.element);
+	Component.call(this, img, heroX, heroY, height, width,'hero');
 	this.HERO_MOVEMENT = 5;
 	this.controller = {
 		left:false,

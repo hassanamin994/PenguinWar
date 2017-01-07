@@ -1,19 +1,14 @@
 var GAME_WIDTH = window.innerWidth-90;
 var GAME_HEIGHT = window.innerHeight-50;
 
-var Component = function(img,x,y,h,w){
+var Component = function(img,x,y,h,w,id){
     this.img = img ;
     this.h = h ;
     this.w = w ;
-    this.id = "" ;
-    this.element = document.createElement('img');
-    this.element.src = img;
-    this.element.style.left = x +"px";
-    this.element.style.top = y +"px";
-    this.element.style.width = w+"px";
-    this.element.style.height = h+"px";
+    this.id = id ;
     this.x =x ;
     this.y = y;
+    this.createComponent() ;
     Object.defineProperty(this,'x',{
       get : function(){
         return x ;
@@ -46,6 +41,16 @@ var Component = function(img,x,y,h,w){
     });
 }
 Component.prototype.move = function(){}
+Component.prototype.createComponent = function(){
+  this.element = document.createElement('img');
+  this.element.src = this.img;
+  this.element.id = this.id
+  this.element.style.left = this.x +"px";
+  this.element.style.top = this.y +"px";
+  this.element.style.width = this.w+"px";
+  this.element.style.height = this.h +"px";
+  document.body.appendChild(this.element);
+}
 Component.prototype.setPosition = function(x,y){
   if(x){
     var e = document.getElementById(this.id);
@@ -61,7 +66,7 @@ Component.prototype.setPosition = function(x,y){
 }
 
 
-var component = new Component('/images/penguin.png',100,50);
+// var component = new Component('/images/penguin.png',100,50);
 // component.x = 10 ;
 // component.y = 10 ;
 // console.log(component.x) ;
