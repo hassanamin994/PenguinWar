@@ -1,6 +1,9 @@
 var ZOMBIES = {
+
+    timeInit : 0,
+
     init: function (options) {
-        ZOMBIES.hero = new Hero('img',20,20);
+        ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png',20,20);
 
         document.onkeydown = function(evt) {
             ZOMBIES.toggleKey(evt.keyCode, true);
@@ -12,23 +15,34 @@ var ZOMBIES = {
     },
     toggleKey : function (keyCode, isPressed) {
         if (keyCode == 37) {
-            //controller.left = isPressed;
+            this.hero.moveLeft(isPressed);
         }
         if (keyCode == 39) {
-            //controller.right = isPressed;
+            this.hero.moveRight(isPressed);
         }
         if (keyCode == 38) {
-            //controller.up = isPressed;
+            this.hero.moveUp(isPressed);
         }
         if (keyCode == 40) {
-            //controller.down = isPressed;
+            this.hero.moveDown(isPressed);
         }
         if (keyCode == 32) {
-            //controller.space = isPressed;
+            this.hero.fire(isPressed);
             if (!isPressed) {
-                ZOMBIES.hero.element.classList.remove("hero-is-shoot");
+                
+
+                setTimeout(function (argument) {
+                    clearInterval(this.timeInit);
+                    ZOMBIES.hero.element.classList.remove("hero-is-shoot");
+                },500);
+                
+
             }else {
-                ZOMBIES.hero.element.classList.add("hero-is-shoot");
+                console.log(this.timeInit)
+                this.timeInit = setInterval(function () {
+                    ZOMBIES.hero.element.classList.add("hero-is-shoot");
+                }, 20);
+                
             }
         }
     },

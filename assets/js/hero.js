@@ -4,31 +4,41 @@ Hero.prototype.constructor  = Hero;
 
 function Hero(img,height,width) {
 	Component.call(this,img,height,width);
+	this.element = document.createElement('img');
+	this.element.src = img;
+	this.element.id = 'hero';
+	document.body.appendChild(this.element);
 	this.HERO_MOVEMENT = 5;
 	this.controller = {
 		left:false,
 		right:false,
 		up:false,
-		down:false
+		down:false,
+		space:false
 	};
+}
 
-	var moveLeft = function (isPressed) {
-		controller.left = isPressed;
+	Hero.prototype.moveLeft = function (isPressed) {
+		this.controller.left = isPressed;
+		console.log(isPressed)
 	}
 
-	var moveRight = function (isPressed) {
-		controller.right = isPressed;
+	Hero.prototype.moveRight = function (isPressed) {
+		this.controller.right = isPressed;
 	}
 
-	var moveUp = function (isPressed) {
-		controller.up = isPressed;
+	Hero.prototype.moveUp = function (isPressed) {
+		this.controller.up = isPressed;
 	}
 
-	var moveDown = function (isPressed) {
-		controller.down = isPressed;
+	Hero.prototype.moveDown = function (isPressed) {
+		this.controller.down = isPressed;
+	}
+	Hero.prototype.fire = function (isPressed) {
+		this.controller.space = isPressed;
 	}
 
-	var handelControllers = function (argument) {
+	Hero.prototype.handelControllers = function (argument) {
 		if (this.controller.up) {
 		    this.y -= HERO_MOVEMENT;
 		  }
@@ -43,22 +53,6 @@ function Hero(img,height,width) {
 		  }
 		}
 
-}
-
-
-var newh = new Hero('img',20,30);
-newh.
-
-console.log(newh);
-/*
-var Hero = function () {
-
-	
-	/*
-	
-
-
 	
 		
-}
-*/
+
