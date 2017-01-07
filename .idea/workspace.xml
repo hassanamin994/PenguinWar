@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bd15034-a572-4bb3-b60a-98decfecb35e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/backgounds.css" afterPath="$PROJECT_DIR$/assets/css/backgounds.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/components.js" afterPath="$PROJECT_DIR$/assets/js/components.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/hero.js" afterPath="$PROJECT_DIR$/assets/js/hero.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/laser.js" afterPath="$PROJECT_DIR$/assets/js/laser.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/zombies.js" afterPath="$PROJECT_DIR$/assets/js/zombies.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,7 +33,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zombies.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="zombies.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="474">
@@ -58,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hero.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="hero.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/hero.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1062">
-              <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="62" selection-end-column="2" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -109,9 +104,9 @@
         <option value="$PROJECT_DIR$/assets/css/style.css" />
         <option value="$PROJECT_DIR$/assets/css/backgounds.css" />
         <option value="$PROJECT_DIR$/assets/js/zombies.js" />
-        <option value="$PROJECT_DIR$/assets/js/hero.js" />
         <option value="$PROJECT_DIR$/assets/js/laser.js" />
         <option value="$PROJECT_DIR$/assets/js/components.js" />
+        <option value="$PROJECT_DIR$/assets/js/hero.js" />
       </list>
     </option>
   </component>
@@ -340,12 +335,12 @@
       <workItem from="1483728652719" duration="5007000" />
       <workItem from="1483734561114" duration="4734000" />
       <workItem from="1483778396780" duration="2721000" />
-      <workItem from="1483791786556" duration="14463000" />
+      <workItem from="1483791786556" duration="14785000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26925000" />
+    <option name="totallyTimeSpent" value="27247000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-4" width="1311" height="772" extended-state="6" />
@@ -512,14 +507,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/hero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1062">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="62" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/components.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -540,6 +527,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="474">
           <caret line="56" column="13" lean-forward="true" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/hero.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
