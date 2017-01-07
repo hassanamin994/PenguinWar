@@ -2,8 +2,8 @@ Hero.prototype = Object.create(Component.prototype);
 Hero.prototype.constructor = Hero;
 
 function Hero(img, height, width) {
-    var heroX = window.innerWidth / 2 - 25;
-    var heroY = window.innerHeight - 80;
+    var heroX = window.innerWidth / 2 - 50;
+    var heroY = window.innerHeight - 150;
     Component.call(this, img, heroX, heroY, height, width, 'hero');
     this.HERO_MOVEMENT = 5;
     this.controller = {
