@@ -70,8 +70,8 @@ var ZOMBIES = {
                       ZOMBIES.hero.element.classList.add("hero-is-shoot");
                       setTimeout(function(){
                         ZOMBIES.hero.element.classList.remove("hero-is-shoot");
-                      },300);
-                  },350);
+                      },100);
+                  },200);
                 }
                 console.log("space down ") ;
             }
