@@ -16,6 +16,9 @@
 .laser {
     position: absolute;
 }
+.enemy {
+    position: absolute;
+}
 
 /*
     HERO ANIMATION
