@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/assets/js/zombies.js" line="48" mnemonic="9" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4bd15034-a572-4bb3-b60a-98decfecb35e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/backgounds.css" afterPath="$PROJECT_DIR$/assets/css/backgounds.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/components.js" afterPath="$PROJECT_DIR$/assets/js/components.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/hero.js" afterPath="$PROJECT_DIR$/assets/js/hero.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/laser.js" afterPath="$PROJECT_DIR$/assets/js/laser.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/zombies.js" afterPath="$PROJECT_DIR$/assets/js/zombies.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -31,11 +38,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zombies.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="zombies.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+            <state relative-caret-position="366">
+              <caret line="50" column="46" lean-forward="false" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="components.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/js/components.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -44,18 +61,18 @@
       <file leaf-file-name="hero.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/hero.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="39" column="52" lean-forward="false" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+            <state relative-caret-position="1062">
+              <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="62" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/css/style.css">
+      <file leaf-file-name="laser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/laser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            <state relative-caret-position="198">
+              <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -69,6 +86,7 @@
       <find>z-</find>
       <find>transform</find>
       <find>HEROHEIGHT</find>
+      <find>isGotOut</find>
     </findStrings>
     <replaceStrings>
       <replace>../images/backgrounds</replace>
@@ -87,11 +105,13 @@
         <option value="$PROJECT_DIR$/menu.html" />
         <option value="$PROJECT_DIR$/../../Game/night-sky-with-twinkling-stars-css3-only/index.html" />
         <option value="$PROJECT_DIR$/assets/css/space-backgound.css" />
-        <option value="$PROJECT_DIR$/assets/css/backgounds.css" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/assets/css/style.css" />
-        <option value="$PROJECT_DIR$/assets/js/hero.js" />
+        <option value="$PROJECT_DIR$/assets/css/backgounds.css" />
         <option value="$PROJECT_DIR$/assets/js/zombies.js" />
+        <option value="$PROJECT_DIR$/assets/js/hero.js" />
+        <option value="$PROJECT_DIR$/assets/js/laser.js" />
+        <option value="$PROJECT_DIR$/assets/js/components.js" />
       </list>
     </option>
   </component>
@@ -320,12 +340,12 @@
       <workItem from="1483728652719" duration="5007000" />
       <workItem from="1483734561114" duration="4734000" />
       <workItem from="1483778396780" duration="2721000" />
-      <workItem from="1483791786556" duration="5271000" />
+      <workItem from="1483791786556" duration="14355000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17733000" />
+    <option name="totallyTimeSpent" value="26817000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-4" width="1311" height="772" extended-state="6" />
@@ -468,30 +488,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/index.html" />
     <entry file="file://$PROJECT_DIR$/assets/css/space-backgound.css" />
-    <entry file="file://$PROJECT_DIR$/assets/css/backgounds.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/components.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1179">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/laser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="25" lean-forward="false" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -508,18 +504,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/hero.js">
+    <entry file="file://$PROJECT_DIR$/assets/css/backgounds.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="39" column="52" lean-forward="false" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+        <state relative-caret-position="126">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        <state relative-caret-position="366">
+          <caret line="50" column="46" lean-forward="false" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/laser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/hero.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1062">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="62" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/components.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
           <folding />
         </state>
       </provider>

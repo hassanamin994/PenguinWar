@@ -1,11 +1,8 @@
-Hero.prototype = Object.create(Component.prototype);
-Hero.prototype.constructor = Hero;
-
-function Hero(img, height, width) {
+var Hero = function (img, height, width) {
     var heroX = window.innerWidth / 2 - 25;
-    var heroY = window.innerHeight - 80;
+    var heroY = window.innerHeight - 150;
     Component.call(this, img, heroX, heroY, height, width, 'hero');
-    this.HERO_MOVEMENT = 5;
+    this.HERO_MOVEMENT = 25;
     this.controller = {
         left: false,
         right: false,
@@ -13,7 +10,10 @@ function Hero(img, height, width) {
         down: false,
         space: false
     };
-}
+};
+
+Hero.prototype = Object.create(Component.prototype);
+Hero.prototype.constructor = Hero;
 
 Hero.prototype.moveLeft = function (isPressed) {
     this.controller.left = isPressed;
@@ -29,9 +29,6 @@ Hero.prototype.moveUp = function (isPressed) {
 
 Hero.prototype.moveDown = function (isPressed) {
     this.controller.down = isPressed;
-}
-Hero.prototype.fire = function (isPressed) {
-    this.controller.space = isPressed;
 }
 
 Hero.prototype.handelControllers = function () {
@@ -58,7 +55,9 @@ Hero.prototype.handelControllers = function () {
         this.removeClass('hero-go-right');
     }
 
-    if (this.controller.space) {
-        var laser = new Laser('assets/images/heros/male-hero.png',20,5,this.x,this.y);
-    }
-}
+};
+
+Hero.prototype.gotOut = function (x,y) {
+    this.x = x;
+    this.y = y;
+};
