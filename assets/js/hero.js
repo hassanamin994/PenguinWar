@@ -17,7 +17,6 @@ function Hero(img, height, width) {
 
 Hero.prototype.moveLeft = function (isPressed) {
     this.controller.left = isPressed;
-    console.log('left');
 }
 
 Hero.prototype.moveRight = function (isPressed) {
@@ -37,11 +36,8 @@ Hero.prototype.fire = function (isPressed) {
 
 Hero.prototype.handelControllers = function () {
     if (this.controller.up) {
-        console.log(this.y);
         this.y -= this.HERO_MOVEMENT;
         this.setPosition.call(this, this.x, this.y);
-
-        console.log(this.y);
     }
     if (this.controller.down) {
         this.y += this.HERO_MOVEMENT;
@@ -60,5 +56,9 @@ Hero.prototype.handelControllers = function () {
         this.addClass('hero-go-right');
     } else {
         this.removeClass('hero-go-right');
+    }
+
+    if (this.controller.space) {
+        var laser = new Laser('assets/images/heros/male-hero.png',20,5,this.x,this.y);
     }
 }

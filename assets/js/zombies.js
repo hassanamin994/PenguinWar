@@ -1,63 +1,73 @@
-
 var ZOMBIES = {
-    lastLoopRun:0,
-    timeInit : 0,
-    HEROWIDTH : 80,
-    HEROHEIGHT : 80,
+        lastLoopRun: 0,
+        timeInit: 0,
+        HEROWIDTH: 80,
+        HEROHEIGHT: 80,
 
-    init: function (options) {
+        LEFT_KEY: 37,
+        UP_KEY: 38,
+        RIGHT_KEY: 39,
+        DOWN_KEY: 40,
+        SPACE_KEY: 32,
 
-        ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png',this.HEROHEIGHT,this.HEROWIDTH);
 
-        document.onkeydown = function(evt) {
-            ZOMBIES.toggleKey(evt.keyCode, true);
-        };
+        init: function (options) {
 
-        document.onkeyup = function(evt) {
-            ZOMBIES.toggleKey(evt.keyCode, false);
-        };
+            ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', this.HEROHEIGHT, this.HEROWIDTH);
 
-        this.loop();
-    },
-    loop:function(){
-        if (new Date().getTime() - this.lastLoopRun > 40) {
+            document.onkeydown = function (evt) {
+                ZOMBIES.toggleKey(evt.keyCode, true);
+            };
+
+            document.onkeyup = function (evt) {
+                ZOMBIES.toggleKey(evt.keyCode, false);
+            };
+
+            this.loop();
+        }
+        ,
+        loop: function () {
+            if (new Date().getTime() - this.lastLoopRun > 40) {
 
                 // this.updatePositions();
                 this.hero.handelControllers();
                 // this.checkCollisions();
-                
+
                 // this.addEnemy();
-                
+
                 // this.showSprites();
-                
+
                 this.lastLoopRun = new Date().getTime();
                 //iterations++;
+            }
+            setTimeout('ZOMBIES.loop();', 41);
         }
-        setTimeout('ZOMBIES.loop();', 41);
-    },
-    toggleKey : function (keyCode, isPressed) {
-        if (keyCode == 37) {
-            this.hero.moveLeft(isPressed);
+        ,
+        toggleKey: function (keyCode, isPressed) {
+            console.log(keyCode,isPressed);
+            if (keyCode == ZOMBIES.LEFT_KEY) {
+                this.hero.moveLeft(isPressed);
+            }
+            if (keyCode == ZOMBIES.RIGHT_KEY) {
+                this.hero.moveRight(isPressed);
+            }
+            if (keyCode == ZOMBIES.UP_KEY) {
+                this.hero.moveUp(isPressed);
+            }
+            if (keyCode == ZOMBIES.DOWN_KEY) {
+                this.hero.moveDown(isPressed);
+            }
+            if (keyCode == ZOMBIES.SPACE_KEY) {
+                this.hero.fire(isPressed);
+            }
         }
-        if (keyCode == 39) {
-            this.hero.moveRight(isPressed);
-        }
-        if (keyCode == 38) {
-            this.hero.moveUp(isPressed);
-        }
-        if (keyCode == 40) {
-            this.hero.moveDown(isPressed);
-        }
-        if (keyCode == 32) {
-            this.hero.fire(isPressed);
-            var laser = new Laser('assets/images/heros/male-hero.png',20,5,this.hero.x,this.hero.y);
-        }
-    },
-    helpers: {
-        getRandom : function (maxSize) {
-            return parseInt(Math.random() * maxSize);
+        ,
+        helpers: {
+            getRandom: function (maxSize) {
+                return parseInt(Math.random() * maxSize);
+            }
         }
     }
-};
+    ;
 
 ZOMBIES.init();
