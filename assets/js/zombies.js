@@ -6,7 +6,7 @@ var ZOMBIES = {
     enemies: [],
     LEVEL: 1,
     LEVEL_SPEED_Enemy_Generate: 500,
-    LEVEL_SPEED_Enemy_Move: 1,
+    LEVEL_SPEED_Enemy_Move: 5,
     iterations: 0,
     LEFT_KEY: 65,
     UP_KEY: 87,
@@ -17,11 +17,14 @@ var ZOMBIES = {
     laserArray: [],
     ENEMYHEIGHT: 40,
     ENEMYWIDTH: 40,
+    finish:false,
+    score:0,
+     
 
     init: function (options) {
 
         ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', this.HEROHEIGHT, this.HEROWIDTH);
-
+        ZOMBIES.scoreDiv = document.getElementById('score');
         document.onkeydown = function (evt) {
             ZOMBIES.toggleKey(evt.keyCode, true);
         };
@@ -47,6 +50,9 @@ var ZOMBIES = {
             this.lastLoopRun = new Date().getTime();
             this.iterations++;
         }
+        if (ZOMBIES.finish){
+            return;
+        }
         setTimeout('ZOMBIES.loop();', 41);
     }
     ,
@@ -66,7 +72,7 @@ var ZOMBIES = {
                 ZOMBIES.enemies[i].remove();
                 ZOMBIES.enemies.splice(i, 1);
             } else {
-                ZOMBIES.enemies[i].y += ZOMBIES.LEVEL_SPEED_Enemy_Move;
+                ZOMBIES.enemies[i].y += ZOMBIES.helpers.getRandom(ZOMBIES.LEVEL_SPEED_Enemy_Move);
             }
         }
 
@@ -84,8 +90,8 @@ var ZOMBIES = {
         if (keyCode == ZOMBIES.DOWN_KEY) {
             this.hero.moveDown(isPressed);
         }
-        if (keyCode == ZOMBIES.SPACE_KEY && !isPressed) {
-            if (ZOMBIES.laserArray.length < 3) {
+        if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
+            if (ZOMBIES.laserArray.length < 3 ) {
                 ZOMBIES.laserArray[ZOMBIES.laserArray.length] = new Laser('assets/images/heros/male-hero.png', 20, 5, this.hero.x + (this.hero.w / 2) - 3, this.hero.y);
             }
         }
@@ -101,7 +107,9 @@ var ZOMBIES = {
                 this.enemies.splice(i, 1);
                 i--;
                 laser.y = -laser.h;
-                // score += 100;
+                 ZOMBIES.score += 100;
+                 ZOMBIES.scoreDiv.innerText= ZOMBIES.score ;
+
             } else if (this.intersects(this.hero, this.enemies[i])) {
                 this.gameOver();
             } else if (this.enemies[i].y + this.enemies[i].h >= 500) {
@@ -126,10 +134,8 @@ var ZOMBIES = {
 
     ,
     gameOver: function () {
-        var element = document.getElementById(hero.id);
-        element.style.visibility = 'hidden';
-        // element = document.getElementById('gameover');
-        // element.style.visibility = 'visible';
+        this.hero.remove();
+        this.finish = true;
     }
     ,
     intersects: function (a, b) {

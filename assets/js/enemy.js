@@ -1,8 +1,10 @@
 Enemy.prototype = Object.create(Component.prototype);
 Enemy.prototype.constructor  = Enemy;
 
+var BLINDSIDE = 40 ; 
+
 function Enemy(img,height,width) {
-	Component.call(this,img, ZOMBIES.helpers.getRandom(GAME_WIDTH),40,height,width,'enemy' + ZOMBIES.helpers.getRandom(1000000),'enemy');
+	Component.call(this,img, BLINDSIDE+ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE),40,height,width,'enemy' + ZOMBIES.helpers.getRandom(1000000),'enemy');
 //	this.element = document.createElement('img');
 	this.move =function(){
     this.y += 4;
