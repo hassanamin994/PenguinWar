@@ -20,7 +20,7 @@ function Hero(img,height,width) {
 
 	Hero.prototype.moveLeft = function (isPressed) {
 		this.controller.left = isPressed;
-		console.log(isPressed)
+		console.log('left');
 	}
 
 	Hero.prototype.moveRight = function (isPressed) {
@@ -38,18 +38,18 @@ function Hero(img,height,width) {
 		this.controller.space = isPressed;
 	}
 
-	Hero.prototype.handelControllers = function (argument) {
+	Hero.prototype.handelControllers = function () {
 		if (this.controller.up) {
-		    this.y -= HERO_MOVEMENT;
+		    this.y -= this.HERO_MOVEMENT;
 		  }
-		  if (controller.down) {
-		    this.y += HERO_MOVEMENT;
+		  if (this.controller.down) {
+		    this.y += this.HERO_MOVEMENT;
 		  }
-		  if (controller.left) {
-		    this.x -= HERO_MOVEMENT;
+		  if (this.controller.left) {
+		    this.x -= this.HERO_MOVEMENT;
 		  }
-		  if (controller.right) {
-		    this.x += HERO_MOVEMENT;
+		  if (this.controller.right) {
+		    this.x += this.HERO_MOVEMENT;
 		  }
 		}
 
