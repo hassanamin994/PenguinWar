@@ -37,7 +37,6 @@ var ZOMBIES = {
     toggleKey : function (keyCode, isPressed) {
         if (keyCode == 37) {
             this.hero.moveLeft(isPressed);
-
         }
         if (keyCode == 39) {
             this.hero.moveRight(isPressed);
