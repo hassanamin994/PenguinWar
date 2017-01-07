@@ -50,7 +50,7 @@ Component.prototype.createComponent = function(){
   this.element.style.top = this.y +"px";
   this.element.style.width = this.w+"px";
   this.element.style.height = this.h +"px";
-  this.element.class = this.elementClass ;
+  this.element.classList.add(this.elementClass);
   document.body.appendChild(this.element);
 }
 Component.prototype.setPosition = function(x,y){
