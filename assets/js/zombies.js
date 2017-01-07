@@ -48,20 +48,32 @@ var ZOMBIES = {
         if (keyCode == 32) {
             this.hero.fire(isPressed);
             if (!isPressed) {
-                
+
 
                 setTimeout(function (argument) {
-                    clearInterval(this.timeInit);
+                    console.log(ZOMBIES.timeInit) ;
+                    clearInterval(ZOMBIES.timeInit);
+                    ZOMBIES.timeInit = null;
+                    console.log(ZOMBIES.timeInit) ;
+                  //  ZOMBIES.timeInit = null ;
                     ZOMBIES.hero.element.classList.remove("hero-is-shoot");
+                    ZOMBIES.hero.element.classList.add("dont-shoot");
                 },500);
-                
+
+                  console.log("space up ") ;
+
 
             }else {
-                console.log(this.timeInit)
-                this.timeInit = setInterval(function () {
-                    ZOMBIES.hero.element.classList.add("hero-is-shoot");
-                }, 20);
-                
+                console.log(ZOMBIES.timeInit)
+                if(!ZOMBIES.timeInit){
+                  ZOMBIES.timeInit = setInterval(function () {
+                      ZOMBIES.hero.element.classList.add("hero-is-shoot");
+                      setTimeout(function(){
+                        ZOMBIES.hero.element.classList.remove("hero-is-shoot");
+                      },300);
+                  },350);
+                }
+                console.log("space down ") ;
             }
         }
     },

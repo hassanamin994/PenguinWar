@@ -45,13 +45,13 @@ Component.prototype.setPosition = function(x,y){
 
 
 var component = new Component('/images/penguin.png',100,50);
-component.x = 10 ;
-component.y = 10 ;
-console.log(component.x) ;
-
-console.log(component.y) ;
-console.log(component.img) ;
-component.setPosition(200) ;
-console.log(component.x) ;
-
-console.log(component.y) ;
+// component.x = 10 ;
+// component.y = 10 ;
+// console.log(component.x) ;
+//
+// console.log(component.y) ;
+// console.log(component.img) ;
+// component.setPosition(200) ;
+// console.log(component.x) ;
+//
+// console.log(component.y) ;
