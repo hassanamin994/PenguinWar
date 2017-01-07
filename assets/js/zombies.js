@@ -112,13 +112,14 @@ var ZOMBIES = {
 
             } else if (this.intersects(this.hero, this.enemies[i])) {
                 this.gameOver();
-            } else if (this.enemies[i].y + this.enemies[i].h >= 500) {
-                var element = document.getElementById(this.enemies[i].id);
-                element.style.visibility = 'hidden';
-                element.parentNode.removeChild(element);
-                this.enemies.splice(i, 1);
-                i--;
-            }
+             }
+            //   else if (this.enemies[i].y + this.enemies[i].h >= 500) {
+            //     var element = document.getElementById(this.enemies[i].id);
+            //     element.style.visibility = 'hidden';
+            //     element.parentNode.removeChild(element);
+            //     this.enemies.splice(i, 1);
+            //     i--;
+            // }
         }
     },
     getIntersectingLaser: function (enemy) {
