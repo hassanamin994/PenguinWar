@@ -1,7 +1,7 @@
 var Hero = function (img, height, width) {
-    var heroX = window.innerWidth / 2 - 25;
-    var heroY = window.innerHeight - 150;
-    Component.call(this, img, heroX, heroY, height, width, 'hero');
+    var x = window.innerWidth / 2 - 25;
+    var y = window.innerHeight - 150;
+    Component.call(this, img, x, y, height, width, 'hero');
     this.HERO_MOVEMENT = 25;
     this.controller = {
         left: false,
@@ -10,6 +10,37 @@ var Hero = function (img, height, width) {
         down: false,
         space: false
     };
+
+    Object.defineProperty(this, 'x', {
+        get: function () {
+            return x;
+        },
+        set: function (xinput) {
+            x = xinput;
+            if (x < this.w/4) {
+                x = this.w/4;
+            }
+            if (x + this.w/4 > GAME_WIDTH) {
+                x = GAME_WIDTH - this.w/4;
+            }
+            this.element.style.left = x + 'px';
+        }
+    });
+    Object.defineProperty(this, 'y', {
+        get: function () {
+            return y;
+        },
+        set: function (yinput) {
+            y = yinput
+            if (y < this.h/2) {
+                y = this.h/2;
+            }
+            if (y + this.h/2 > GAME_HEIGHT) {
+                y = GAME_HEIGHT - this.h/2;
+            }
+            this.element.style.top = y + 'px';
+        }
+    });
 };
 
 Hero.prototype = Object.create(Component.prototype);
@@ -55,9 +86,4 @@ Hero.prototype.handelControllers = function () {
         this.removeClass('hero-go-right');
     }
 
-};
-
-Hero.prototype.gotOut = function (x,y) {
-    this.x = x;
-    this.y = y;
 };

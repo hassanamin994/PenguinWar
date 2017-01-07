@@ -1,4 +1,10 @@
+/*
+    GENERAL
+ */
 
+img {
+    max-width: 100%;
+}
 
 /*
     HERO STYLE
@@ -31,4 +37,43 @@
 
 .hero-go-right {
     transform:  rotate(15deg);
+}
+
+/*
+    ENEMY
+ */
+.explode {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin-top: -32px;
+    margin-left: -32px;
+    background-image: url(../images/effects/explode.png);
+    background-repeat: no-repeat;
+    background-position: 64px 0;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+}
+
+.explode_ignite {
+    -webkit-animation: ignite 0.5s steps(25) 0s 1 normal forwards running;
+    animation: ignite 0.5s steps(25) 0s 1 normal forwards running;
+}
+
+@-webkit-keyframes ignite {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1600px 0;
+    }
+}
+
+@keyframes ignite {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1600px 0;
+    }
 }
