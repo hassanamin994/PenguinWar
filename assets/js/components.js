@@ -1,10 +1,11 @@
-var GAME_WIDTH = 480 ;
+var GAME_WIDTH = window.innerWidth-90;
+var GAME_HEIGHT = window.innerHeight-50;
 
 var Component = function(img,h,w){
     this.img = img ;
     this.h = h ;
     this.w = w ;
-    this.elementId = "" ;
+    this.id = "" ;
     Object.defineProperty(this,'x',{
       get : function(){
         return x ;
@@ -15,8 +16,10 @@ var Component = function(img,h,w){
           x = 20
         }
         if(x + w > GAME_WIDTH ){
+          
           x = GAME_WIDTH - w ;
         }
+         
       }
     });
     Object.defineProperty(this,'y',{
@@ -25,11 +28,14 @@ var Component = function(img,h,w){
       },
       set : function(yinput){
         y = yinput
+        console.log(yinput);
+        console.log(GAME_HEIGHT);
+        console.log(h);
         if( y < 20 ){
           y = 20 ;
         }
-        if(y + h > GAME_WIDTH ){
-          y = GAME_WIDTH - h ;
+        if(y + h > GAME_HEIGHT ){
+          y = GAME_HEIGHT - h ;
         }
       }
     });
@@ -37,12 +43,13 @@ var Component = function(img,h,w){
 Component.prototype.move = function(){}
 Component.prototype.setPosition = function(x,y){
   if(x){
-    var e = document.getElementById(this.elementId);
+    var e = document.getElementById(this.id);
+    console.log(this)
     this.x= x  ;
     e.style.left = x + 'px';
   }
   if(y){
-    var e = document.getElementById(this.elementId);
+    var e = document.getElementById(this.id);
     this.y = y  ;
     e.style.top = y + 'px';
   }

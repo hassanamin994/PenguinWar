@@ -6,7 +6,12 @@ function Hero(img,height,width) {
 	Component.call(this,img,height,width);
 	this.element = document.createElement('img');
 	this.element.src = img;
-	this.element.id = 'hero';
+	this.id = 'hero'
+	this.element.id = this.id ;
+	this.element.style.left = window.innerWidth/2 -25+"px";
+	this.element.style.top = window.innerHeight-80 +"px";
+	this.x = window.innerWidth/2 -25;
+	this.y = window.innerHeight-80 ;
 	document.body.appendChild(this.element);
 	this.HERO_MOVEMENT = 5;
 	this.controller = {
@@ -40,16 +45,23 @@ function Hero(img,height,width) {
 
 	Hero.prototype.handelControllers = function () {
 		if (this.controller.up) {
-		    this.y -= this.HERO_MOVEMENT;
+			console.log(this.y);
+		    this.y -= this.HERO_MOVEMENT ;
+		    this.setPosition.call(this,this.x , this.y ) ;
+
+			console.log(this.y);
 		  }
 		  if (this.controller.down) {
 		    this.y += this.HERO_MOVEMENT;
+		    this.setPosition.call(this,this.x , this.y ) ;
 		  }
 		  if (this.controller.left) {
 		    this.x -= this.HERO_MOVEMENT;
+		    this.setPosition.call(this,this.x , this.y ) ;
 		  }
 		  if (this.controller.right) {
 		    this.x += this.HERO_MOVEMENT;
+		    this.setPosition.call(this,this.x , this.y ) ;
 		  }
 		}
 

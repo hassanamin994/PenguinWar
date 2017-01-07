@@ -95,7 +95,7 @@ p {
     margin: -400px 0 0 -400px;
     background: url(../images/backgrounds/light.png) no-repeat center center;
     -webkit-animation-name: lightAnimation;
-    -webkit-animation-duration: 1s;
+    -webkit-animation-duration: 10s;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
 }
