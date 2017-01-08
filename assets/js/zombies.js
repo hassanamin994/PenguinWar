@@ -17,11 +17,14 @@ var ZOMBIES = {
         laserArray: [],
         ENEMYHEIGHT: 40,
         ENEMYWIDTH: 40,
+        FINISH:false,
+        SCORE:0,
 
         init: function (options) {
 
             ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
-
+            ZOMBIES.scoreDiv = document.getElementById('score');
+            console.log(ZOMBIES.scoreDiv);
             document.onkeydown = function (evt) {
                 ZOMBIES.toggleKey(evt.keyCode, true);
             };
@@ -47,6 +50,8 @@ var ZOMBIES = {
                 ZOMBIES.lastLoopRun = new Date().getTime();
                 ZOMBIES.iterations++;
             }
+
+            if(!ZOMBIES.FINISH)
             setTimeout('ZOMBIES.loop();', 41);
         }
         ,
@@ -85,7 +90,7 @@ var ZOMBIES = {
             if (keyCode == ZOMBIES.DOWN_KEY) {
                 ZOMBIES.hero.moveDown(isPressed);
             }
-            if (keyCode == ZOMBIES.SPACE_KEY && !isPressed) {
+            if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
                 if (ZOMBIES.laserArray.length < 3) {
                     ZOMBIES.laserArray[ZOMBIES.laserArray.length] = new Laser('assets/images/heros/male-hero.png', 20, 5, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 3, ZOMBIES.hero.y);
                 }
@@ -104,17 +109,24 @@ var ZOMBIES = {
                         ZOMBIES.enemies[i2].onDie();
 
                         setTimeout(function () {
-                            ZOMBIES.enemies[i2].remove();
-                            ZOMBIES.enemies.splice(i2, 1);
-                            console.log(i2 + 'deletedd')
+                            if (ZOMBIES.enemies[i2]) {
+                                ZOMBIES.enemies[i2].remove();
+                                ZOMBIES.enemies.splice(i2, 1);
+                            }
                         }, 500)
                     })();
 
 
                     i--;
                     laser.y = -laser.h;
-                    // score += 100;
+                    ZOMBIES.SCORE += 100;
+                    
+                    ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE ;
+                    console.log(ZOMBIES.scoreDiv.innerHtml );
+                    console.log(ZOMBIES.scoreDiv);
                 } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i])) {
+
+                    ZOMBIES.enemies[i].onDie();
                     ZOMBIES.gameOver();
                 }
             }
@@ -132,8 +144,10 @@ var ZOMBIES = {
 
         ,
         gameOver: function () {
+            ZOMBIES.FINISH = true;
             var element = document.getElementById(hero.id);
             element.style.visibility = 'hidden';
+            //element.parentElement
             // element = document.getElementById('gameover');
             // element.style.visibility = 'visible';
         }
