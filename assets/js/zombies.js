@@ -46,6 +46,7 @@ var ZOMBIES = {
 
                 ZOMBIES.lastLoopRun = new Date().getTime();
                 ZOMBIES.iterations++;
+                console.log(ZOMBIES.iterations);
             }
             setTimeout('ZOMBIES.loop();', 41);
         }
@@ -101,11 +102,12 @@ var ZOMBIES = {
                     (function () {
                         var i2 = i; // closure of i (lexical scope: for-loop)
 
+                        // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
                         ZOMBIES.enemies[i2].onDie();
-
+                        var temp =  ZOMBIES.enemies[i2] ;
+                        ZOMBIES.enemies.splice(i2, 1);
                         setTimeout(function () {
-                            ZOMBIES.enemies[i2].remove();
-                            ZOMBIES.enemies.splice(i2, 1);
+                            temp.remove();
                             console.log(i2 + 'deletedd')
                         }, 500)
                     })();
