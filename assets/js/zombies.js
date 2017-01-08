@@ -24,7 +24,6 @@ var ZOMBIES = {
 
             ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
             ZOMBIES.scoreDiv = document.getElementById('score');
-            console.log(ZOMBIES.scoreDiv);
             document.onkeydown = function (evt) {
                 ZOMBIES.toggleKey(evt.keyCode, true);
             };
@@ -57,9 +56,7 @@ var ZOMBIES = {
         ,
         updatePositions: function () {
             for (var i = 0; i < ZOMBIES.laserArray.length; i++) {
-                //console.log(ZOMBIES.laserArray[i]);
                 if (ZOMBIES.laserArray[i].isGotOut) {
-                    console.log('remove');
                     ZOMBIES.laserArray[i].remove();
                     ZOMBIES.laserArray.splice(i, 1);
                 } else {
@@ -106,13 +103,13 @@ var ZOMBIES = {
                     (function () {
                         var i2 = i; // closure of i (lexical scope: for-loop)
 
+                        // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
                         ZOMBIES.enemies[i2].onDie();
-
+                        var temp =  ZOMBIES.enemies[i2] ;
+                        ZOMBIES.enemies.splice(i2, 1);
                         setTimeout(function () {
-                            if (ZOMBIES.enemies[i2]) {
-                                ZOMBIES.enemies[i2].remove();
-                                ZOMBIES.enemies.splice(i2, 1);
-                            }
+                            
+                                temp.remove();
                         }, 500)
                     })();
 
@@ -120,10 +117,7 @@ var ZOMBIES = {
                     i--;
                     laser.y = -laser.h;
                     ZOMBIES.SCORE += 100;
-                    
                     ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE ;
-                    console.log(ZOMBIES.scoreDiv.innerHtml );
-                    console.log(ZOMBIES.scoreDiv);
                 } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i])) {
 
                     ZOMBIES.enemies[i].onDie();
