@@ -17,9 +17,10 @@ var ZOMBIES = {
         laserArray: [],
         ENEMYHEIGHT: 40,
         ENEMYWIDTH: 40,
-        FINISH:false,
-        SCORE:0,
-        interval:50,
+        FINISH: false,
+        SCORE: 0,
+        interval: 50,
+        terminalElement: document.getElementById('cmds'),
 
         init: function (options) {
 
@@ -51,8 +52,8 @@ var ZOMBIES = {
                 ZOMBIES.iterations++;
             }
 
-            if(!ZOMBIES.FINISH)
-            setTimeout('ZOMBIES.loop();', 41);
+            if (!ZOMBIES.FINISH)
+                setTimeout('ZOMBIES.loop();', 41);
         }
         ,
         updatePositions: function () {
@@ -102,25 +103,23 @@ var ZOMBIES = {
                 if (laser) {
 
                     (function () {
-                        var i2 = i; // closure of i (lexical scope: for-loop)
-
+                        var i2 = i;
                         // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
                         ZOMBIES.enemies[i2].onDie();
-                        var temp =  ZOMBIES.enemies[i2] ;
+                        var temp = ZOMBIES.enemies[i2];
                         ZOMBIES.enemies.splice(i2, 1);
                         setTimeout(function () {
-                            
-                                temp.remove();
+
+                            temp.remove();
                         }, 500)
                     })();
-
 
                     i--;
                     laser.y = -laser.h;
                     ZOMBIES.SCORE += 100;
-                    ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE ;
+                    ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
                 } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i])) {
-
+                    ZOMBIES.addToTerminal('kernel error');
                     ZOMBIES.enemies[i].onDie();
                     ZOMBIES.gameOver();
                 }
@@ -152,11 +151,11 @@ var ZOMBIES = {
             return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
         }
         ,
-        checkScore: function(score){
+        checkScore: function (score) {
             if (score % 100 == 0) {
                 ZOMBIES.LEVEL++;
-                ZOMBIES.interval -=20;
-                console.log(ZOMBIES.interval);
+                ZOMBIES.interval -= 5;
+                ZOMBIES.addToTerminal('sudo apt-get update level');
             }
         }
         ,
@@ -164,17 +163,13 @@ var ZOMBIES = {
             getRandom: function (maxSize) {
                 return parseInt(Math.random() * maxSize);
             }
-        }
-        , addEnemy: function () {
-
-            //   if (ZOMBIES.iterations > ZOMBIES.LEVEL * ZOMBIES.LEVEL_SPEED_Enemy_Generate) {
-            //     ZOMBIES.interval = 5;
-            //   } else if (ZOMBIES.iterations > ZOMBIES.LEVEL * ZOMBIES.LEVEL_SPEED_Enemy_Generate) {
-            //     ZOMBIES.interval = 20;
-            //   } else if (ZOMBIES.iterations > ZOMBIES.LEVEL * ZOMBIES.LEVEL_SPEED_Enemy_Generate) {
-            //     ZOMBIES.interval = 35;
-            //   }
-
+        },
+        addToTerminal: function (cmd) {
+            var cmdElement = document.createElement('p');
+            cmdElement.innerHTML = '<strong>root@Zombies:~$</strong> ' + cmd;
+            ZOMBIES.terminalElement.appendChild(cmdElement);
+        },
+        addEnemy: function () {
             if (ZOMBIES.helpers.getRandom(ZOMBIES.interval) == 0) {
                 var elementName = 'enemy' + ZOMBIES.helpers.getRandom(10000000);
                 var enemy = new Enemy('assets/images/heros/male-hero.png', ZOMBIES.ENEMYHEIGHT, ZOMBIES.ENEMYWIDTH);
