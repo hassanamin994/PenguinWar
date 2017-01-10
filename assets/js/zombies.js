@@ -19,6 +19,7 @@ var ZOMBIES = {
         ENEMYWIDTH: 40,
         FINISH:false,
         SCORE:0,
+        interval:50,
 
         init: function (options) {
 
@@ -64,7 +65,7 @@ var ZOMBIES = {
                 }
             }
             for (var i = 0; i < ZOMBIES.enemies.length; i++) {
-                ZOMBIES.enemies[i].y += ZOMBIES.LEVEL_SPEED_Enemy_Move;
+                ZOMBIES.enemies[i].y += ZOMBIES.LEVEL_SPEED_Enemy_Move * ZOMBIES.LEVEL;
                 if (ZOMBIES.enemies[i].isGotOut) {
                     ZOMBIES.enemies[i].remove();
                     ZOMBIES.enemies.splice(i, 1);
@@ -130,6 +131,7 @@ var ZOMBIES = {
             for (var i = 0; i < ZOMBIES.laserArray.length; i++) {
                 if (ZOMBIES.intersects(ZOMBIES.laserArray[i], enemy)) {
                     result = ZOMBIES.laserArray[i];
+                    ZOMBIES.checkScore(ZOMBIES.SCORE);
                     break;
                 }
             }
@@ -150,13 +152,20 @@ var ZOMBIES = {
             return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
         }
         ,
+        checkScore: function(score){
+            if (score % 100 == 0) {
+                ZOMBIES.LEVEL++;
+                ZOMBIES.interval -=20;
+                console.log(ZOMBIES.interval);
+            }
+        }
+        ,
         helpers: {
             getRandom: function (maxSize) {
                 return parseInt(Math.random() * maxSize);
             }
         }
         , addEnemy: function () {
-            ZOMBIES.interval = 50;
 
             //   if (ZOMBIES.iterations > ZOMBIES.LEVEL * ZOMBIES.LEVEL_SPEED_Enemy_Generate) {
             //     ZOMBIES.interval = 5;
