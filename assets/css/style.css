@@ -6,6 +6,29 @@ img {
     max-width: 100%;
 }
 
+#terminal{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 280px;
+    height: 150px;
+    background: #360028;
+    opacity: 0.6;
+    z-index: 99999;
+    overflow: hidden;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#terminal p {
+    color: #fff;
+    font-size: 12px;
+    min-height: 145px;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+
 /*
     HERO STYLE
  */
