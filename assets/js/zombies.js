@@ -1,6 +1,6 @@
 Array.prototype.random = function () {
     return this[Math.floor((Math.random()*this.length))];
-}
+};
 
 var ZOMBIES = {
         lastLoopRun: 0,
@@ -18,12 +18,18 @@ var ZOMBIES = {
         DOWN_KEY: 83,
         SPACE_KEY: 32,
         LAZER_SPEED: 25,
-        laserArray: [],
         ENEMYHEIGHT: 60,
         ENEMYWIDTH: 60,
         FINISH: false,
         SCORE: 0,
         interval: 50,
+
+        laserArray: [],
+        exirArray: [],
+
+        weaponsArray: ['os','ruby'],
+        currentWeapon: 0,
+
         terminalElement: document.getElementById('cmds'),
 
         init: function (options) {
@@ -95,16 +101,28 @@ var ZOMBIES = {
             }
             if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
                 if (ZOMBIES.laserArray.length < 3) {
-                    ZOMBIES.laserArray[ZOMBIES.laserArray.length] = new Laser('assets/images/heros/male-hero.png', 20, 5, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 3, ZOMBIES.hero.y);
+                    ZOMBIES.laserArray[ZOMBIES.laserArray.length] = new Laser('assets/images/weapons/' + ZOMBIES.weaponsArray[ZOMBIES.currentWeapon] + '.png', 10, 10, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 5, ZOMBIES.hero.y);
                 }
             }
         }
         ,
         checkCollisions: function () {
+            for (var i = 0; i < ZOMBIES.exirArray.length; i++) {
+                if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.exirArray[i])) {
+                    ZOMBIES.currentWeapon = 1;
+                    ZOMBIES.addToTerminal('sudo apt-get install ruby');
+                    ZOMBIES.exirArray[i].remove();
+                    ZOMBIES.exirArray.splice(i, 1);
+                }
+            }
+
+
             for (var i = 0; i < ZOMBIES.enemies.length; i++) {
 
                 var laser = ZOMBIES.getIntersectingLaser(ZOMBIES.enemies[i]);
                 if (laser) {
+                    var enemyX = ZOMBIES.enemies[i].x;
+                    var enemyY = ZOMBIES.enemies[i].y;
 
                     (function () {
                         var i2 = i;
@@ -115,8 +133,13 @@ var ZOMBIES = {
                         setTimeout(function () {
 
                             temp.remove();
-                        }, 500)
+                        }, 500);
                     })();
+
+                    if (ZOMBIES.helpers.getRandom(2) == 1) {
+                        var exirName = ['ruby'].random();
+                        ZOMBIES.exirArray.push(new Exir(exirName,"assets/images/exirs/" + exirName + '.png',enemyX,enemyY))
+                    }
 
                     i--;
                     laser.y = -laser.h;
@@ -178,7 +201,7 @@ var ZOMBIES = {
                 var enemyName = 'enemy' + ZOMBIES.helpers.getRandom(10000000);
                 var enemyObj = new Enemy('assets/images/enemy/' + ['duke2.png','duke.png'].random(), ZOMBIES.ENEMYHEIGHT, ZOMBIES.ENEMYWIDTH);
 
-                enemyObj.addClass(['tada-animation','woble-animation'].random());
+                enemyObj.addClass(['tada-animation','woble-animation','shake-animation','bounce-animation'].random());
 
                 ZOMBIES.enemies.push(enemyObj);
             }
