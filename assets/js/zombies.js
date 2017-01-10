@@ -1,3 +1,7 @@
+Array.prototype.random = function () {
+    return this[Math.floor((Math.random()*this.length))];
+}
+
 var ZOMBIES = {
         lastLoopRun: 0,
         timeInit: 0,
@@ -15,8 +19,8 @@ var ZOMBIES = {
         SPACE_KEY: 32,
         LAZER_SPEED: 25,
         laserArray: [],
-        ENEMYHEIGHT: 40,
-        ENEMYWIDTH: 40,
+        ENEMYHEIGHT: 60,
+        ENEMYWIDTH: 60,
         FINISH: false,
         SCORE: 0,
         interval: 50,
@@ -171,12 +175,14 @@ var ZOMBIES = {
         },
         addEnemy: function () {
             if (ZOMBIES.helpers.getRandom(ZOMBIES.interval) == 0) {
-                var elementName = 'enemy' + ZOMBIES.helpers.getRandom(10000000);
-                var enemy = new Enemy('assets/images/heros/male-hero.png', ZOMBIES.ENEMYHEIGHT, ZOMBIES.ENEMYWIDTH);
-                ZOMBIES.enemies.push(enemy);
+                var enemyName = 'enemy' + ZOMBIES.helpers.getRandom(10000000);
+                var enemyObj = new Enemy('assets/images/enemy/' + ['duke2.png','duke.png'].random(), ZOMBIES.ENEMYHEIGHT, ZOMBIES.ENEMYWIDTH);
+
+                enemyObj.addClass(['tada-animation','woble-animation'].random());
+
+                ZOMBIES.enemies.push(enemyObj);
             }
         }
 
-    }
-    ;
+    };
 ZOMBIES.init();
