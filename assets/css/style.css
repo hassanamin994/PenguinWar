@@ -33,6 +33,34 @@ img {
     margin: 0;
 }
 
+#weapons_list {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    z-index: 99999;
+}
+
+#weapons_list ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#weapons_list ul li {
+    display: inline-block;
+    color: #fff;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+#weapons_list ul li img{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+
 /*
     HERO STYLE
  */

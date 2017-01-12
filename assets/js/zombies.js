@@ -39,7 +39,9 @@ var ZOMBIES = {
     // all weapons player take to toggle between them
     MY_WEAPONS: ['OS'],
 
-    WEAPONS_LIMITS: {},
+    WEAPONS_LIMITS: {
+        'OS' : 0
+    },
 
     WEAPONS_MAP: {
         OS: {
@@ -49,8 +51,13 @@ var ZOMBIES = {
         },
         RUBY: {
             IMAGE: 'ruby.png',
-            SPEED: 50,
+            SPEED: 40,
             LIMIT: 10
+        },
+        PYTHON: {
+            IMAGE: 'python.png',
+            SPEED: 50,
+            LIMIT: 5
         }
     },
 
@@ -60,14 +67,20 @@ var ZOMBIES = {
             IMAGE: 'ruby.png',
             ACTION: 'CHANGE_WEAPON',
             VALUE: 'RUBY'
+        },
+        PYTHON: {
+            NAME: 'PYTHON',
+            IMAGE: 'python.png',
+            ACTION: 'CHANGE_WEAPON',
+            VALUE: 'PYTHON'
         }
     },
 
     GAME_MAP: {
         1: {
-            NAME: 'Kill Duke',
+            NAME: 'Kill Dukes',
             ENEMY_SPEED: 5,
-            EXIRS: ['RUBY']
+            EXIRS: ['RUBY','PYTHON']
         }
     },
 
@@ -77,6 +90,8 @@ var ZOMBIES = {
 
         ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ZOMBIES.scoreDiv = document.getElementById('score');
+        ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
+
         document.onkeydown = function (evt) {
             ZOMBIES.toggleKey(evt.keyCode, true);
         };
@@ -86,6 +101,7 @@ var ZOMBIES = {
         };
 
         ZOMBIES.loop();
+        ZOMBIES.refreshWeaponsList();
     }
     ,
     loop: function () {
@@ -141,7 +157,7 @@ var ZOMBIES = {
         }
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
             if (ZOMBIES.laserArray.length < 3) {
-                ZOMBIES.laserArray[ZOMBIES.laserArray.length] = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 10, 10, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 5, ZOMBIES.hero.y);
+                ZOMBIES.laserArray[ZOMBIES.laserArray.length] = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y);
 
                 //if the weapon is limited
                 if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].LIMIT > 0) {
@@ -153,10 +169,17 @@ var ZOMBIES = {
                         ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] -= 1;
                     }
                     //back to the previous weapon in the list
-                    if (ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] == 0) {
-                        ZOMBIES.CURRENT_WEAPON = 'OS';
+                    if (ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] <= 0) {
+                        //exceed the limit, remove the weapon from my weapons by get index first then splice
+                        var current_weapon_index = ZOMBIES.MY_WEAPONS.indexOf(ZOMBIES.CURRENT_WEAPON);
+                        ZOMBIES.MY_WEAPONS.splice(current_weapon_index, 1);
+                        ZOMBIES.addToTerminal('sudo apt-get purge ' + ZOMBIES.CURRENT_WEAPON);
+                        //set current weapon to the previous weapon (index - 1) , it will never be 0 because os always the first, because its infinite
+                        ZOMBIES.CURRENT_WEAPON = ZOMBIES.MY_WEAPONS[current_weapon_index - 1];
                     }
                 }
+
+                ZOMBIES.refreshWeaponsList();
 
             }
         }
@@ -169,13 +192,12 @@ var ZOMBIES = {
                     ZOMBIES.CURRENT_WEAPON = ZOMBIES.exirArray[i].config.VALUE;
                     ZOMBIES.addToTerminal('sudo apt-get install ' + ZOMBIES.exirArray[i].config.VALUE);
                     // to add the weapon to the list to toggle between them
-                    ZOMBIES.MY_WEAPONS.push(ZOMBIES.exirArray[i].config.VALUE);
+                    ZOMBIES.addWeapon(ZOMBIES.exirArray[i].config.VALUE);
                 }
                 ZOMBIES.exirArray[i].remove();
                 ZOMBIES.exirArray.splice(i, 1);
             }
         }
-
 
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
 
@@ -224,7 +246,6 @@ var ZOMBIES = {
         }
         return result;
     }
-
     ,
     gameOver: function () {
         ZOMBIES.FINISH = true;
@@ -245,8 +266,7 @@ var ZOMBIES = {
             ZOMBIES.interval -= 5;
             ZOMBIES.addToTerminal('sudo apt-get update level');
         }
-    }
-    ,
+    },
     helpers: {
         getRandom: function (maxSize) {
             return parseInt(Math.random() * maxSize);
@@ -256,6 +276,33 @@ var ZOMBIES = {
         var cmdElement = document.createElement('p');
         cmdElement.innerHTML = '<strong>root@Zombies:~$</strong> ' + cmd;
         ZOMBIES.terminalElement.appendChild(cmdElement);
+    },
+    refreshWeaponsList: function () {
+        var ul = ZOMBIES.weaponsListDiv.children[0];
+        ul.innerHTML = '';
+        for (var i = 0; i < ZOMBIES.MY_WEAPONS.length; i++) {
+            var weapon = ZOMBIES.MY_WEAPONS[i];
+            var item = document.createElement('li');
+                var itemImg = document.createElement('img');
+                itemImg.src = 'assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[weapon].IMAGE;
+                item.appendChild(itemImg);
+            item.innerHTML += (ZOMBIES.WEAPONS_LIMITS[weapon] > 0) ? ZOMBIES.WEAPONS_LIMITS[weapon] : '&#x221e;';
+            ul.appendChild(item);
+
+        }
+
+    },
+    addWeapon : function (weapon) {
+        //if i do not have this weapon, add it to the list
+        if (ZOMBIES.MY_WEAPONS.indexOf(weapon) == -1) {
+            ZOMBIES.MY_WEAPONS.push(weapon);
+            ZOMBIES.WEAPONS_LIMITS[weapon] = ZOMBIES.WEAPONS_MAP[weapon].LIMIT
+        }else{
+            //if i have the weapon increase the list by the weapon limit
+            ZOMBIES.WEAPONS_LIMITS[weapon] += ZOMBIES.WEAPONS_MAP[weapon].LIMIT
+        }
+
+        ZOMBIES.refreshWeaponsList();
     },
     addEnemy: function () {
         if (ZOMBIES.helpers.getRandom(ZOMBIES.interval) == 0) {
