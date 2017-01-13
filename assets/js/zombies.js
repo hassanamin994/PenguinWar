@@ -109,20 +109,24 @@ var ZOMBIES = {
             NAME: 'Kill Dukes',
             ENEMY_SPEED: 5,
             EXIRS: ['RUBY','PYTHON'],
-            ENEMIES: ['DUKE']
+            ENEMIES: ['DUKE'],
+            MONSTER: ['ORACLE']
+
         },
         2: {
             NAME: 'Kill Microsoft',
             ENEMY_SPEED: 10,
             EXIRS: ['RUBY','PYTHON'],
-            ENEMIES: ['DUKE']
+            ENEMIES: ['DUKE'],
+            MONSTER: ['ORACLE']
+            
         },
         3: {
             NAME: 'Kill Microsoft',
             ENEMY_SPEED: 10,
             EXIRS: ['RUBY','PYTHON'],
             ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE'],
+            MONSTER: ['ORACLE']
         }
 
     },
@@ -134,6 +138,16 @@ var ZOMBIES = {
         ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
+
+        for (var i = 1 ; i <= ZOMBIES.hero.live ; i++){
+            var lives = document.createElement('div');
+            lives.classList.add("heart");
+            lives.classList.add("pulse2");
+            lives.style.right = (i*3) + '%';  
+            lives.innerText='♥';
+            lives.id="lives"+i;
+            document.body.appendChild(lives);
+        }
 
         setTimeout(function () {
             ZOMBIES.hero.removeClass('animated');
@@ -355,9 +369,13 @@ var ZOMBIES = {
     ,
     gameOver: function () {
 
+        document.body.removeChild(document.getElementById("lives"+ZOMBIES.hero.live));
+        ZOMBIES.hero.live-- ;
+        console.log( ZOMBIES.hero.live)
         ZOMBIES.FINISH = true;
         var element = document.getElementById(hero.id);
         element.style.visibility = 'hidden';
+        if(ZOMBIES.hero.live > 0){
         setTimeout(function () {
             ZOMBIES.FINISH = false;
             var element = document.getElementById(hero.id);            
@@ -366,6 +384,10 @@ var ZOMBIES = {
             ZOMBIES.hero.y = window.innerHeight - 150;
             ZOMBIES.loop();
         },3000);
+        }
+        else{
+
+        }
 
         //element.parentElement
         // element = document.getElementById('gameover');
@@ -447,6 +469,7 @@ var ZOMBIES = {
     addMonster: function () {
         ZOMBIES.monster = true;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
+        console.log(monsterKey);
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
         monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, GAME_WIDTH/2);
         monsterObj.addClass('monster-rotate');
