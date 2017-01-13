@@ -5,8 +5,12 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
 
-}
 
+}
+html , body{
+  height: 100%;
+  width:100%:
+}
 * {
     margin: 0;
     padding: 0;
@@ -19,13 +23,13 @@ html {
   MENU STYLE
 
 */
-ul {
+#menu ul {
     position:absolute;
-    right:15%;
+    right:10%;
     text-align: center;
 }
 
-li {
+#menu li {
     list-style: none;
     position: relative;
     margin-top:20px;
@@ -160,4 +164,45 @@ a.yellow:hover {
 .yellow span {
     background: rgba(161,145,0,.7);
 
+}
+
+/*
+  New game styles
+*/
+
+.new-game{
+  width:50%;
+  height:80%;
+  color:black;
+  margin:50px auto ;
+  padding:10px;
+  color:white;
+  background-image: url("../images/backgrounds/menu3.jpg.png");
+}
+.characters{
+  width:40%;
+  margin:10px;
+  display:inline-block;
+}
+.characters:hover{
+  cursor:pointer;
+}
+.characters img  {
+  width:100%;
+  margin:10px;
+  margin-top:100px;
+  height: 200px;
+  padding:5px;
+  transition: border 0.2s ;
+}
+#go{
+  float:right;
+  width:200px;
+  height:50px;
+  background:red;
+  border-color:transparent;
+}
+#errors{
+  color:white;
+  padding-left: 10px;
 }
