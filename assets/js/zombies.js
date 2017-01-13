@@ -27,6 +27,8 @@ var ZOMBIES = {
     ENEMYHEIGHT: 60,
     ENEMYWIDTH: 60,
     FINISH: false,
+    //to stop generate enemy when become false in add monster function
+    ADDENEMY: true,
     SCORE: 0,
     interval: 50,
 
@@ -76,7 +78,15 @@ var ZOMBIES = {
             IMAGE: ['duke2.png', 'duke.png'],
             ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
             WIDTH : 60,
-            HEIGHT : 60
+            HEIGHT : 60,
+        }
+    },
+    MONSTERS_MAP: {
+        ORACLE: {
+            IMAGE: 'oracle_1.png',
+            ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
+            WIDTH : 300,
+            HEIGHT : 300,
         }
     },
     EXIRS_MAP: {
@@ -99,7 +109,8 @@ var ZOMBIES = {
             NAME: 'Kill Dukes',
             ENEMY_SPEED: 5,
             EXIRS: ['RUBY','PYTHON'],
-            ENEMIES: ['DUKE']
+            ENEMIES: ['DUKE'],
+            MONSTER: ['ORACLE'],
         }
     },
 
@@ -138,6 +149,7 @@ var ZOMBIES = {
             ZOMBIES.hero.handelControllers();
             ZOMBIES.checkCollisions();
 
+            if(ZOMBIES.ADDENEMY)
             ZOMBIES.addEnemy();
 
             // ZOMBIES.showSprites();
@@ -189,7 +201,8 @@ var ZOMBIES = {
         if (keyCode == ZOMBIES.DOWN_KEY) {
             ZOMBIES.hero.moveDown(isPressed);
         }
-        if (ZOMBIES.MY_WEAPONS.length > 1) {
+
+        if (ZOMBIES.MY_WEAPONS.length > 1 && !ZOMBIES.FINISH ) {
             var current_weapon_index = ZOMBIES.getCurrentWeaponIndex();
             if (keyCode == ZOMBIES.NEXT_WEAPON && !isPressed) {
                 current_weapon_index++;
@@ -199,7 +212,7 @@ var ZOMBIES = {
                 ZOMBIES.CURRENT_WEAPON = ZOMBIES.MY_WEAPONS[current_weapon_index];
                 ZOMBIES.refreshWeaponsList();
             }
-            if (keyCode == ZOMBIES.PREV_WEAPON && !isPressed) {
+            if (keyCode == ZOMBIES.PREV_WEAPON  && !isPressed ) {
                 current_weapon_index--;
                 if (current_weapon_index < 0) {
                     current_weapon_index = ZOMBIES.MY_WEAPONS.length - 1;
@@ -208,7 +221,7 @@ var ZOMBIES = {
                 ZOMBIES.refreshWeaponsList();
             }
         }
-        if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
+        if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed) {
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -287,7 +300,6 @@ var ZOMBIES = {
             if (laser) {
                 var enemyX = ZOMBIES.enemies[i].x;
                 var enemyY = ZOMBIES.enemies[i].y;
-
                 (function () {
                     var i2 = i;
                     // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
@@ -305,7 +317,6 @@ var ZOMBIES = {
                     var exirConfig = ZOMBIES.EXIRS_MAP[exirKey];
                     ZOMBIES.exirArray.push(new Exir(exirConfig, enemyX, enemyY))
                 }
-
                 i--;
                 laser.y = -laser.h;
                 ZOMBIES.SCORE += 100;
@@ -330,6 +341,7 @@ var ZOMBIES = {
     }
     ,
     gameOver: function () {
+
         ZOMBIES.FINISH = true;
         var element = document.getElementById(hero.id);
         element.style.visibility = 'hidden';
@@ -343,7 +355,8 @@ var ZOMBIES = {
     }
     ,
     checkScore: function (score) {
-        if (score % 100 == 0) {
+        if (score % 3000 == 0) {
+            ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
             ZOMBIES.addToTerminal('sudo apt-get update level');
@@ -408,7 +421,15 @@ var ZOMBIES = {
 
             ZOMBIES.enemies.push(enemyObj);
         }
-    }
+    },
+    addMonster: function () {
+        ZOMBIES.ADDENEMY = false;
+        var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
+        var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
+        monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH);
+        console.log(monsterConfig);
+
+    },
 
 };
 ZOMBIES.init();
