@@ -27,6 +27,8 @@ var ZOMBIES = {
     ENEMYHEIGHT: 60,
     ENEMYWIDTH: 60,
     FINISH: false,
+    //to stop generate enemy when become false in add monster function
+    ADDENEMY: true,
     SCORE: 0,
     interval: 50,
 
@@ -81,7 +83,7 @@ var ZOMBIES = {
     },
     MONSTERS_MAP: {
         ORACLE: {
-            IMAGE: ['oracle_1.png', 'oracle_1.png'],
+            IMAGE: 'oracle_1.png',
             ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
             WIDTH : 300,
             HEIGHT : 300,
@@ -147,6 +149,7 @@ var ZOMBIES = {
             ZOMBIES.hero.handelControllers();
             ZOMBIES.checkCollisions();
 
+            if(ZOMBIES.ADDENEMY)
             ZOMBIES.addEnemy();
 
             // ZOMBIES.showSprites();
@@ -420,9 +423,10 @@ var ZOMBIES = {
         }
     },
     addMonster: function () {
-        
+        ZOMBIES.ADDENEMY = false;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
+        monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH);
         console.log(monsterConfig);
 
     },
