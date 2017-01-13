@@ -51,6 +51,11 @@ img {
     color: #fff;
     font-weight: bold;
     margin-right: 5px;
+    padding-bottom: 5px;
+}
+
+#weapons_list ul li.current{
+    border-bottom:2px solid #fff;
 }
 
 #weapons_list ul li img{

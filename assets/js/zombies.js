@@ -13,11 +13,16 @@ var ZOMBIES = {
     LEVEL_SPEED_Enemy_Move: 2,
 
     iterations: 0,
+
     LEFT_KEY: 65,
     UP_KEY: 87,
     RIGHT_KEY: 68,
     DOWN_KEY: 83,
     SPACE_KEY: 32,
+    NEXT_WEAPON: 69,
+    PREV_WEAPON: 81,
+
+
     LAZER_SPEED: 25,
     ENEMYHEIGHT: 60,
     ENEMYWIDTH: 60,
@@ -184,11 +189,30 @@ var ZOMBIES = {
         if (keyCode == ZOMBIES.DOWN_KEY) {
             ZOMBIES.hero.moveDown(isPressed);
         }
+        if (ZOMBIES.MY_WEAPONS.length > 1) {
+            var current_weapon_index = ZOMBIES.getCurrentWeaponIndex();
+            if (keyCode == ZOMBIES.NEXT_WEAPON && !isPressed) {
+                current_weapon_index++;
+                if (current_weapon_index >= ZOMBIES.MY_WEAPONS.length) {
+                    current_weapon_index = 0;
+                }
+                ZOMBIES.CURRENT_WEAPON = ZOMBIES.MY_WEAPONS[current_weapon_index];
+                ZOMBIES.refreshWeaponsList();
+            }
+            if (keyCode == ZOMBIES.PREV_WEAPON && !isPressed) {
+                current_weapon_index--;
+                if (current_weapon_index < 0) {
+                    current_weapon_index = ZOMBIES.MY_WEAPONS.length - 1;
+                }
+                ZOMBIES.CURRENT_WEAPON = ZOMBIES.MY_WEAPONS[current_weapon_index];
+                ZOMBIES.refreshWeaponsList();
+            }
+        }
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
-                // to make the weapon shoot more than one rocket once
+                // to make the weapon shoot more than one rocket
                 for (var i = 1; i <= laserMultiple; i++) {
                     //if we have 3 rockets 1 = left , 2 = center, 3 = right and so on
                     var laserDirection = 'straight';
@@ -198,7 +222,6 @@ var ZOMBIES = {
                         //if i less than the middle to left
                         if (i < Math.ceil(laserMultiple/2)) {
                             laserDirection = 'left';
-                            console.log(Math.ceil(laserMultiple/2),i)
                         }else if (i > Math.ceil(laserMultiple/2)) {
                             laserDirection = 'right';
                         }
@@ -213,7 +236,6 @@ var ZOMBIES = {
                     }
 
                     ZOMBIES.laserArray[ZOMBIES.laserArray.length] = lasser;
-                    console.log(lasser);
                 }
 
                 //if the weapon is limited
@@ -228,7 +250,7 @@ var ZOMBIES = {
                     //back to the previous weapon in the list
                     if (ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] <= 0) {
                         //exceed the limit, remove the weapon from my weapons by get index first then splice
-                        var current_weapon_index = ZOMBIES.MY_WEAPONS.indexOf(ZOMBIES.CURRENT_WEAPON);
+                        var current_weapon_index = ZOMBIES.getCurrentWeaponIndex();
                         ZOMBIES.MY_WEAPONS.splice(current_weapon_index, 1);
                         ZOMBIES.addToTerminal('sudo apt-get purge ' + ZOMBIES.CURRENT_WEAPON);
                         //set current weapon to the previous weapon (index - 1) , it will never be 0 because os always the first, because its infinite
@@ -246,7 +268,10 @@ var ZOMBIES = {
         for (var i = 0; i < ZOMBIES.exirArray.length; i++) {
             if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.exirArray[i])) {
                 if (ZOMBIES.exirArray[i].config.ACTION == 'CHANGE_WEAPON') {
-                    ZOMBIES.CURRENT_WEAPON = ZOMBIES.exirArray[i].config.VALUE;
+                    //if it is a new weapon, if i have the weapon just increase the limit and not change weapon
+                    if (ZOMBIES.MY_WEAPONS.indexOf(ZOMBIES.exirArray[i].config.VALUE) == -1) {
+                        ZOMBIES.CURRENT_WEAPON = ZOMBIES.exirArray[i].config.VALUE;
+                    }
                     ZOMBIES.addToTerminal('sudo apt-get install ' + ZOMBIES.exirArray[i].config.VALUE);
                     // to add the weapon to the list to toggle between them
                     ZOMBIES.addWeapon(ZOMBIES.exirArray[i].config.VALUE);
@@ -329,6 +354,9 @@ var ZOMBIES = {
             return parseInt(Math.random() * maxSize);
         }
     },
+    getCurrentWeaponIndex: function () {
+      return ZOMBIES.MY_WEAPONS.indexOf(ZOMBIES.CURRENT_WEAPON);
+    },
     addToTerminal: function (cmd) {
         var cmdElement = document.createElement('p');
         cmdElement.innerHTML = '<strong>root@Zombies:~$</strong> ' + cmd.toLowerCase();
@@ -344,6 +372,9 @@ var ZOMBIES = {
                 itemImg.src = 'assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[weapon].IMAGE;
                 item.appendChild(itemImg);
             item.innerHTML += (ZOMBIES.WEAPONS_LIMITS[weapon] > 0) ? ZOMBIES.WEAPONS_LIMITS[weapon] : '&#x221e;';
+            if (i == ZOMBIES.getCurrentWeaponIndex()) {
+                item.classList.toggle('current')
+            }
             ul.appendChild(item);
 
         }
