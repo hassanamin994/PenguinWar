@@ -47,17 +47,20 @@ var ZOMBIES = {
         OS: {
             IMAGE: 'os.png',
             SPEED: 20,
-            LIMIT: 0
+            LIMIT: 0,
+            ANIMATE: 'flip'
         },
         RUBY: {
             IMAGE: 'ruby.png',
-            SPEED: 40,
-            LIMIT: 10
+            SPEED: 30,
+            LIMIT: 10,
+            ANIMATE: 'wobble'
         },
         PYTHON: {
             IMAGE: 'python.png',
-            SPEED: 50,
-            LIMIT: 5
+            SPEED: 40,
+            LIMIT: 5,
+            ANIMATE: 'wobble'
         }
     },
 
@@ -89,6 +92,14 @@ var ZOMBIES = {
     init: function (options) {
 
         ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
+        ZOMBIES.hero.addClass('animated');
+        ZOMBIES.hero.addClass('fadeInUp');
+
+        setTimeout(function () {
+            ZOMBIES.hero.removeClass('animated');
+            ZOMBIES.hero.removeClass('fadeInUp');
+        },800);
+
         ZOMBIES.scoreDiv = document.getElementById('score');
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
 
@@ -157,7 +168,16 @@ var ZOMBIES = {
         }
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
             if (ZOMBIES.laserArray.length < 3) {
-                ZOMBIES.laserArray[ZOMBIES.laserArray.length] = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y);
+                var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y);
+
+                //if the current weapon has animation effect
+                if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
+                    lasser.addClass('animated');
+                    lasser.addClass(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE);
+                    console.log(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE);
+                }
+
+                ZOMBIES.laserArray[ZOMBIES.laserArray.length] = lasser;
 
                 //if the weapon is limited
                 if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].LIMIT > 0) {
@@ -274,7 +294,7 @@ var ZOMBIES = {
     },
     addToTerminal: function (cmd) {
         var cmdElement = document.createElement('p');
-        cmdElement.innerHTML = '<strong>root@Zombies:~$</strong> ' + cmd;
+        cmdElement.innerHTML = '<strong>root@Zombies:~$</strong> ' + cmd.toLowerCase();
         ZOMBIES.terminalElement.appendChild(cmdElement);
     },
     refreshWeaponsList: function () {
@@ -309,8 +329,9 @@ var ZOMBIES = {
             var enemyName = 'enemy' + ZOMBIES.helpers.getRandom(10000000);
             var enemyObj = new Enemy('assets/images/enemy/' + ['duke2.png', 'duke.png'].random(), ZOMBIES.ENEMYHEIGHT, ZOMBIES.ENEMYWIDTH);
 
-            enemyObj.addClass(['tada-animation', 'woble-animation', 'shake-animation', 'bounce-animation'].random());
-
+            enemyObj.addClass('animated');
+            enemyObj.addClass('infinite');
+            enemyObj.addClass(['bounce','pulse','rubberBand','shake','headShake','swing','tada'].random());
             ZOMBIES.enemies.push(enemyObj);
         }
     }

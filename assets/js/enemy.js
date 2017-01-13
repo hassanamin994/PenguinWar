@@ -48,6 +48,7 @@ Enemy.prototype = Object.create(Component.prototype);
 Enemy.prototype.constructor = Enemy;
 
 Enemy.prototype.onDie = function () {
+    this.removeClass('infinite');
     this.addClass('explode');
     this.addClass('explode_ignite');
     this.element.style.width = null;
