@@ -15,6 +15,65 @@
 	      <li><a href="#" class="round yellow">About<span class="round">Stop wasting time, <br>Just Play!</span></a></li>
     </ul>
 </div>
+<div class="new-game">
+  <form id="form" action="index.html" method="post">
+    <label for="name">Please Enter your name:</label>
+    <input type="text" name="name" value="" id="username" />
+    <br>
+    <label for="character">Select Your Character </label>
+    <br>
+    <div class="characters">
+      <img src="assets/images/heros/penguin.png" alt="">
+      <input type="radio" name="character" value="male"> Penguin
+    </div>
+    <div class="characters">
+      <img src="assets/images/heros/penguinna.png" alt="">
+      <input type="radio" name="character" value="female"> Penguinna
+    </div>
+    <br>
+      <input id="go" type="submit" value="Go!" name="submit" >
+      <div style="clear:both"></div>
+  </form>
+  <div id="errors" style="width:200px;height:100px">
+    <ul></ul>
+  </div>
+</div>
+
 <script src="assets/js/menu.js"></script>
+<script type="text/javascript">
+  var characters = document.getElementById('form').getElementsByTagName('img') ;
+  var username = document.getElementById('username') ;
+  var errors = document.getElementById('errors').getElementsByTagName('ul')[0] ;
+  var charactersInput = document.getElementsByName('character');
+  var form = document.getElementsByTagName('form')[0] ;
+
+  for( i = 0 ; i < characters.length ; i++ ){
+    characters[i].addEventListener('click',function(e){
+      for( j = 0 ; j < characters.length ; j++  ){
+        characters[j].style.border = "none" ;
+        console.log(characters[j].style.border);
+      }
+      e.target.parentElement.getElementsByTagName('input')[0].checked=true;
+      e.target.style.border = "5px solid blue";
+    });
+  }
+  // Form Validation
+  form.addEventListener('submit',function(e){
+    var validform = true;
+    errors.innerHTML = "" ;
+    if(!username.value)
+    {
+      errors.innerHTML += "<li>Name field is required!</li>" ;
+      validform = false ;
+    }
+    if(!(charactersInput[0].checked || charactersInput[1].checked)){
+      errors.innerHTML += "<li>Please select a character !</li>" ;
+      validform = false ;
+    }
+    if(!validform)
+      e.preventDefault() ;
+
+  });
+</script>
 </body>
 </html>
