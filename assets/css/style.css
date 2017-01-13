@@ -219,6 +219,19 @@ ANIMATIONS
     transform-origin: 50% 50%;
 }
 
+.monster-rotate {
+
+    -webkit-animation:spin 0.5s linear infinite;
+    -moz-animation:spin 0.5s linear infinite;
+    animation:spin 0.5s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotateY(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotateY(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotateY(360deg); transform:rotateY(360deg); } }
+
+
+
 @keyframes bounceFrames {
     0% {
         transform: translate(0px, 0px);
