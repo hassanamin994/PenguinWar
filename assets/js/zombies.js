@@ -9,8 +9,8 @@ var ZOMBIES = {
     HEROHEIGHT: 80,
 
 
-    LEVEL_SPEED_Enemy_Generate: 500,
-    LEVEL_SPEED_Enemy_Move: 2,
+    // LEVEL_SPEED_Enemy_Generate: 500,
+    // LEVEL_SPEED_Enemy_Move: 2,
 
     iterations: 0,
 
@@ -111,8 +111,25 @@ var ZOMBIES = {
             ENEMY_SPEED: 5,
             EXIRS: ['RUBY','PYTHON'],
             ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE'],
+            MONSTER: ['ORACLE']
+
+        },
+        2: {
+            NAME: 'Kill Microsoft',
+            ENEMY_SPEED: 10,
+            EXIRS: ['RUBY','PYTHON'],
+            ENEMIES: ['DUKE'],
+            MONSTER: ['ORACLE']
+            
+        },
+        3: {
+            NAME: 'Kill Microsoft',
+            ENEMY_SPEED: 10,
+            EXIRS: ['RUBY','PYTHON'],
+            ENEMIES: ['DUKE'],
+            MONSTER: ['ORACLE']
         }
+
     },
 
     terminalElement: document.getElementById('cmds'),
@@ -122,6 +139,16 @@ var ZOMBIES = {
         ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
+
+        for (var i = 1 ; i <= ZOMBIES.hero.live ; i++){
+            var lives = document.createElement('div');
+            lives.classList.add("heart");
+            lives.classList.add("pulse2");
+            lives.style.right = (i*3) + '%';  
+            lives.innerText='♥';
+            lives.id="lives"+i;
+            document.body.appendChild(lives);
+        }
 
         setTimeout(function () {
             ZOMBIES.hero.removeClass('animated');
@@ -144,7 +171,7 @@ var ZOMBIES = {
     }
     ,
     loop: function () {
-
+        console.log('sddd ');
         if (new Date().getTime() - ZOMBIES.lastLoopRun > 40) {
             ZOMBIES.updatePositions();
             ZOMBIES.hero.handelControllers();
@@ -327,6 +354,19 @@ var ZOMBIES = {
             } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i])) {
                 ZOMBIES.addToTerminal('kernel error');
                 ZOMBIES.enemies[i].onDie();
+                (function () {
+                    var i2 = i;
+                    // kazafy >> copy hassan code to remove enemy when intersect whith hero
+                    // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
+                    ZOMBIES.enemies[i2].onDie();
+                    var temp = ZOMBIES.enemies[i2];
+                    ZOMBIES.enemies.splice(i2, 1);
+                    setTimeout(function () {
+
+                        temp.remove();
+                    }, 500);
+                    })();
+
                 ZOMBIES.gameOver();
             }else if (laser && ZOMBIES.enemies[i].monster) {
                 var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER ;
@@ -367,9 +407,26 @@ var ZOMBIES = {
     ,
     gameOver: function () {
 
+        document.body.removeChild(document.getElementById("lives"+ZOMBIES.hero.live));
+        ZOMBIES.hero.live-- ;
+        console.log( ZOMBIES.hero.live)
         ZOMBIES.FINISH = true;
         var element = document.getElementById(hero.id);
         element.style.visibility = 'hidden';
+        if(ZOMBIES.hero.live > 0){
+        setTimeout(function () {
+            ZOMBIES.FINISH = false;
+            var element = document.getElementById(hero.id);            
+            element.style.visibility = 'visible';
+            ZOMBIES.hero.x = window.innerWidth / 2 - 25;
+            ZOMBIES.hero.y = window.innerHeight - 150;
+            ZOMBIES.loop();
+        },3000);
+        }
+        else{
+
+        }
+
         //element.parentElement
         // element = document.getElementById('gameover');
         // element.style.visibility = 'visible';
@@ -450,6 +507,7 @@ var ZOMBIES = {
     addMonster: function () {
         ZOMBIES.monster = false;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
+        console.log(monsterKey);
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
         ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, GAME_WIDTH/2);
         ZOMBIES.monsterObj.addClass('fadeInDown');

@@ -1,6 +1,7 @@
 var Hero = function (img, height, width) {
     var x = window.innerWidth / 2 - 25;
     var y = window.innerHeight - 150;
+    this.live = 3;
     Component.call(this, img, x, y, height, width, 'hero');
     this.HERO_MOVEMENT = 25;
     this.controller = {
