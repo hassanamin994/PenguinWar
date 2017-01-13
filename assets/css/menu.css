@@ -57,7 +57,7 @@ html , body{
     100% {transform: rotate(-360deg);}
 }
 
-.round {
+#menu .round {
     display: block;
     position: absolute;
     left: 0;
@@ -82,7 +82,7 @@ html , body{
     border-style: solid;
 }
 
-.round:hover {
+#menu .round:hover {
     width: 130%;
     height: 130%;
     left: -15%;
@@ -101,37 +101,37 @@ html , body{
     transform: rotate(-360deg);
 }
 
-a.red {
+#menu a.red {
     background-color: rgba(239,57,50,1);
     color: rgba(133,32,28,1);
     border-color: rgba(133,32,28,.2);
 }
 
-a.red:hover {
+#menu a.red:hover {
     color: rgba(239,57,50,1);
 }
 
-a.green {
+#menu a.green {
     background-color: rgba(1,151,171,1);
     color: rgba(0,63,71,1);
     border-color: rgba(0,63,71,.2);
 }
 
-a.green:hover {
+#menu a.green:hover {
     color: rgba(1,151,171,1);
 }
 
-a.yellow {
+#menu a.yellow {
     background-color: rgba(252,227,1,1);
     color: rgba(153,38,0,1);
     border-color: rgba(153,38,0,.2);
 }
 
-a.yellow:hover {
+#menu a.yellow:hover {
     color: rgba(252,227,1,1);
 }
 
-.round span.round {
+#menu .round span.round {
     display: block;
     opacity: 0;
     -webkit-transition: all .5s ease-in-out;
@@ -144,7 +144,7 @@ a.yellow:hover {
     color: #fff;
 }
 
-.round span:hover {
+#menu .round span:hover {
     opacity: .85;
     font-size: 16px;
     -webkit-text-shadow: 0 1px 1px rgba(0,0,0,.5);
@@ -153,15 +153,15 @@ a.yellow:hover {
     text-shadow: 0 1px 1px rgba(0,0,0,.5);
 }
 
-.green span {
+#menu .green span {
     background: rgba(0,63,71,.7);
 }
 
-.red span {
+#menu .red span {
     background: rgba(133,32,28,.7);
 }
 
-.yellow span {
+#menu .yellow span {
     background: rgba(161,145,0,.7);
 
 }
@@ -170,24 +170,31 @@ a.yellow:hover {
   New game styles
 */
 
-.new-game{
+#new-game , #high-scores{
   width:50%;
   height:80%;
   color:black;
-  margin:50px auto ;
   padding:10px;
   color:white;
   background-image: url("../images/backgrounds/menu3.jpg.png");
+  visibility:hidden ;
+  position:absolute;;
+  top:10%;
+  left:-50%;
+  transition: left 0.5s ;
 }
-.characters{
+#high-scores {
+  text-align: center;
+}
+#menu-div .characters{
   width:40%;
   margin:10px;
   display:inline-block;
 }
-.characters:hover{
+#menu-div .characters:hover{
   cursor:pointer;
 }
-.characters img  {
+#menu-div .characters img  {
   width:100%;
   margin:10px;
   margin-top:100px;
@@ -203,6 +210,8 @@ a.yellow:hover {
   border-color:transparent;
 }
 #errors{
+  width:200px;
+  height:100px;
   color:white;
   padding-left: 10px;
 }
