@@ -28,7 +28,7 @@ var ZOMBIES = {
     ENEMYWIDTH: 60,
     FINISH: false,
     //to stop generate enemy when become false in add monster function
-    ADDENEMY: true,
+    monster: false,
     SCORE: 0,
     interval: 50,
 
@@ -149,7 +149,7 @@ var ZOMBIES = {
             ZOMBIES.hero.handelControllers();
             ZOMBIES.checkCollisions();
 
-            if(ZOMBIES.ADDENEMY)
+            if(!ZOMBIES.monster)
             ZOMBIES.addEnemy();
 
             // ZOMBIES.showSprites();
@@ -180,10 +180,8 @@ var ZOMBIES = {
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
             if (ZOMBIES.enemies[i].isGotOut) {
                 ZOMBIES.enemies[i].remove();
-                console.log('monster vanish');
                 ZOMBIES.enemies.splice(i, 1);
-            } else {
-                console.log('monster speed');
+            } else if(!ZOMBIES.enemies[i].monster) {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
             }
@@ -425,13 +423,18 @@ var ZOMBIES = {
         }
     },
     addMonster: function () {
-        ZOMBIES.ADDENEMY = false;
+        ZOMBIES.monster = true;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
         monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, GAME_WIDTH/2);
+        monsterObj.addClass('monster-rotate');
+        monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(monsterObj);
         console.log(ZOMBIES.enemies);
-        console.log(monsterConfig);
+
+    },
+    monsterAnimate: function(){
+
 
     },
 

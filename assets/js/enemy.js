@@ -6,6 +6,7 @@ var Enemy = function(img, height, width, xAxis) {
     if (xAxis) {
         x= xAxis;
         y=100;
+        this.monster = true;
     }
     Component.call(this, img, x, y, height, width, 'enemy' + ZOMBIES.helpers.getRandom(1000000), 'enemy');
 
