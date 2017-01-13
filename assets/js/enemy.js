@@ -3,6 +3,7 @@ var Enemy = function(img, height, width, xAxis) {
 
     var x = BLINDSIDE + ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE);
     var y = 60;
+    this.monster = false;
     if (xAxis) {
         x= xAxis;
         y=100;

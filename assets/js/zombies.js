@@ -85,8 +85,9 @@ var ZOMBIES = {
         ORACLE: {
             IMAGE: 'oracle_1.png',
             ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
-            WIDTH : 200,
+            WIDTH : 150,
             HEIGHT : 100,
+            HEALTH : 3,
         }
     },
     EXIRS_MAP: {
@@ -149,7 +150,7 @@ var ZOMBIES = {
             ZOMBIES.hero.handelControllers();
             ZOMBIES.checkCollisions();
 
-            if(!ZOMBIES.monster)
+           // if(!ZOMBIES.monster)
             ZOMBIES.addEnemy();
 
             // ZOMBIES.showSprites();
@@ -179,12 +180,14 @@ var ZOMBIES = {
         }
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
             if (ZOMBIES.enemies[i].isGotOut) {
+                 console.log(ZOMBIES.enemies[i].monster);
                 ZOMBIES.enemies[i].remove();
                 ZOMBIES.enemies.splice(i, 1);
             } else if(!ZOMBIES.enemies[i].monster) {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
             }
+
         }
 
     },
@@ -297,7 +300,7 @@ var ZOMBIES = {
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
 
             var laser = ZOMBIES.getIntersectingLaser(ZOMBIES.enemies[i]);
-            if (laser) {
+            if (laser && !ZOMBIES.enemies[i].monster) {
                 var enemyX = ZOMBIES.enemies[i].x;
                 var enemyY = ZOMBIES.enemies[i].y;
                 (function () {
@@ -325,6 +328,28 @@ var ZOMBIES = {
                 ZOMBIES.addToTerminal('kernel error');
                 ZOMBIES.enemies[i].onDie();
                 ZOMBIES.gameOver();
+            }else if (laser && ZOMBIES.enemies[i].monster) {
+                var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER ;
+                var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
+                laser.remove();
+                ZOMBIES.laserArray.splice(ZOMBIES.laserArray.indexOf(laser), 1);
+                if (monsterConfig.HEALTH == 1) {
+                    (function () {
+                        var i2 = i;
+                        // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
+                        ZOMBIES.enemies[i2].onDie();
+                        var temp = ZOMBIES.enemies[i2];
+                        ZOMBIES.enemies.splice(i2, 1);
+                        setTimeout(function () {
+
+                            temp.remove();
+                        }, 500);
+                    })();
+                }else{
+                   monsterConfig.HEALTH--; 
+                }
+                
+                console.log(monsterConfig.HEALTH);
             }
         }
     },
@@ -423,18 +448,20 @@ var ZOMBIES = {
         }
     },
     addMonster: function () {
-        ZOMBIES.monster = true;
+        ZOMBIES.monster = false;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, GAME_WIDTH/2);
-        monsterObj.addClass('monster-rotate');
-        monsterObj.addClass('fadeInDown');
-        ZOMBIES.enemies.push(monsterObj);
-        console.log(ZOMBIES.enemies);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, GAME_WIDTH/2);
+        ZOMBIES.monsterObj.addClass('fadeInDown');
+        ZOMBIES.enemies.push(ZOMBIES.monsterObj);
+        ZOMBIES.monsterAnimate();
+        //console.log(ZOMBIES.enemies);
 
     },
     monsterAnimate: function(){
-
+       // console.log(ZOMBIES.enemies);
+        ZOMBIES.monsterObj.toggleClass('monster-rotate');
+        setTimeout('ZOMBIES.monsterAnimate();', 5000);
 
     },
 

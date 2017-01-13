@@ -48,9 +48,9 @@ Component.prototype.removeClass = function (cls) {
 };
 Component.prototype.toggleClass = function (cls) {
     if (this.element.classList.contains(cls)) {
-        this.element.removeClass(cls);
+        this.removeClass(cls);
     } else {
-        this.element.addClass(cls);
+        this.addClass(cls);
     }
 
 };
