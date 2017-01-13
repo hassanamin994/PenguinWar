@@ -48,22 +48,32 @@ var ZOMBIES = {
             IMAGE: 'os.png',
             SPEED: 20,
             LIMIT: 0,
-            ANIMATE: 'flip'
+            ANIMATE: 'flip',
+            MULTIPLE: 1
         },
         RUBY: {
             IMAGE: 'ruby.png',
             SPEED: 30,
             LIMIT: 10,
-            ANIMATE: 'wobble'
+            ANIMATE: 'wobble',
+            MULTIPLE: 3
         },
         PYTHON: {
             IMAGE: 'python.png',
             SPEED: 40,
             LIMIT: 5,
-            ANIMATE: 'wobble'
+            ANIMATE: 'wobble',
+            MULTIPLE: 5
         }
     },
-
+    ENEMIES_MAP: {
+        DUKE : {
+            IMAGE: ['duke2.png', 'duke.png'],
+            ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
+            WIDTH : 60,
+            HEIGHT : 60
+        }
+    },
     EXIRS_MAP: {
         RUBY: {
             NAME: 'RUBY',
@@ -83,7 +93,8 @@ var ZOMBIES = {
         1: {
             NAME: 'Kill Dukes',
             ENEMY_SPEED: 5,
-            EXIRS: ['RUBY','PYTHON']
+            EXIRS: ['RUBY','PYTHON'],
+            ENEMIES: ['DUKE']
         }
     },
 
@@ -141,6 +152,12 @@ var ZOMBIES = {
                 ZOMBIES.laserArray.splice(i, 1);
             } else {
                 ZOMBIES.laserArray[i].y -= ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SPEED;
+                if (ZOMBIES.laserArray[i].direction == 'left') {
+                    ZOMBIES.laserArray[i].x -= ZOMBIES.helpers.getRandom(20);
+                }
+                if (ZOMBIES.laserArray[i].direction == 'right') {
+                    ZOMBIES.laserArray[i].x += ZOMBIES.helpers.getRandom(20);
+                }
             }
         }
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
@@ -149,6 +166,7 @@ var ZOMBIES = {
                 ZOMBIES.enemies.splice(i, 1);
             } else {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
+                //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
             }
         }
 
@@ -168,16 +186,35 @@ var ZOMBIES = {
         }
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.finish && !isPressed) {
             if (ZOMBIES.laserArray.length < 3) {
-                var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y);
+                var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
-                //if the current weapon has animation effect
-                if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
-                    lasser.addClass('animated');
-                    lasser.addClass(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE);
-                    console.log(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE);
+                // to make the weapon shoot more than one rocket once
+                for (var i = 1; i <= laserMultiple; i++) {
+                    //if we have 3 rockets 1 = left , 2 = center, 3 = right and so on
+                    var laserDirection = 'straight';
+
+                    //if weapon has the Multiple option
+                    if (laserMultiple > 1) {
+                        //if i less than the middle to left
+                        if (i < Math.ceil(laserMultiple/2)) {
+                            laserDirection = 'left';
+                            console.log(Math.ceil(laserMultiple/2),i)
+                        }else if (i > Math.ceil(laserMultiple/2)) {
+                            laserDirection = 'right';
+                        }
+                    }
+
+                    var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y,laserDirection);
+
+                    //if the current weapon has animation effect
+                    if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
+                        lasser.addClass('animated');
+                        lasser.addClass(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE);
+                    }
+
+                    ZOMBIES.laserArray[ZOMBIES.laserArray.length] = lasser;
+                    console.log(lasser);
                 }
-
-                ZOMBIES.laserArray[ZOMBIES.laserArray.length] = lasser;
 
                 //if the weapon is limited
                 if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].LIMIT > 0) {
@@ -326,12 +363,18 @@ var ZOMBIES = {
     },
     addEnemy: function () {
         if (ZOMBIES.helpers.getRandom(ZOMBIES.interval) == 0) {
-            var enemyName = 'enemy' + ZOMBIES.helpers.getRandom(10000000);
-            var enemyObj = new Enemy('assets/images/enemy/' + ['duke2.png', 'duke.png'].random(), ZOMBIES.ENEMYHEIGHT, ZOMBIES.ENEMYWIDTH);
 
-            enemyObj.addClass('animated');
-            enemyObj.addClass('infinite');
-            enemyObj.addClass(['bounce','pulse','rubberBand','shake','headShake','swing','tada'].random());
+            var enemyKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMIES.random();
+            var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
+
+            var enemyObj = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH);
+
+            if (enemyConfig.ANIMATE) {
+                enemyObj.addClass('animated');
+                enemyObj.addClass('infinite');
+                enemyObj.addClass(enemyConfig.ANIMATE.random());
+            }
+
             ZOMBIES.enemies.push(enemyObj);
         }
     }

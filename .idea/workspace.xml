@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4bd15034-a572-4bb3-b60a-98decfecb35e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/enemy.js" afterPath="$PROJECT_DIR$/assets/js/enemy.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/laser.js" afterPath="$PROJECT_DIR$/assets/js/laser.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/zombies.js" afterPath="$PROJECT_DIR$/assets/js/zombies.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,8 +37,18 @@
       <file leaf-file-name="zombies.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+            <state relative-caret-position="216">
+              <caret line="65" column="20" lean-forward="false" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="laser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/laser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -51,18 +60,6 @@
             <state relative-caret-position="1530">
               <caret line="85" column="30" lean-forward="true" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="enemy.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/js/enemy.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="50" column="21" lean-forward="false" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
-              <folding>
-                <marker date="1484293961307" expanded="true" signature="1341:1352" ph="{...}" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -126,13 +123,13 @@
         <option value="$PROJECT_DIR$/assets/css/space-backgound.css" />
         <option value="$PROJECT_DIR$/assets/js/components.js" />
         <option value="$PROJECT_DIR$/assets/js/hero.js" />
-        <option value="$PROJECT_DIR$/assets/js/laser.js" />
         <option value="$PROJECT_DIR$/assets/css/backgounds.css" />
         <option value="$PROJECT_DIR$/assets/js/exir.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/assets/js/enemy.js" />
         <option value="$PROJECT_DIR$/assets/css/animate.css" />
         <option value="$PROJECT_DIR$/assets/css/style.css" />
+        <option value="$PROJECT_DIR$/assets/js/laser.js" />
         <option value="$PROJECT_DIR$/assets/js/zombies.js" />
       </list>
     </option>
@@ -454,12 +451,12 @@
       <workItem from="1484079323427" duration="4460000" />
       <workItem from="1484214413478" duration="4817000" />
       <workItem from="1484243286632" duration="9100000" />
-      <workItem from="1484293205047" duration="5688000" />
+      <workItem from="1484293205047" duration="9591000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66468000" />
+    <option name="totallyTimeSpent" value="70371000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-4" width="1311" height="772" extended-state="6" />
@@ -827,14 +824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/laser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/exir.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -861,14 +850,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="85" column="30" lean-forward="true" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/animate.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -877,20 +858,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1530">
+          <caret line="85" column="30" lean-forward="true" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/enemy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="50" column="21" lean-forward="false" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+        <state relative-caret-position="0">
+          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
           <folding>
             <marker date="1484293961307" expanded="true" signature="1341:1352" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/laser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+        <state relative-caret-position="216">
+          <caret line="65" column="20" lean-forward="false" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="20" />
           <folding />
         </state>
       </provider>

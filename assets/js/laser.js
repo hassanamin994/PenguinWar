@@ -1,6 +1,9 @@
-var Laser = function(img,height,width,x,y){
+var Laser = function(img,height,width,x,y,direction){
 	var laserId = "laser"+new Date().getTime();
 	var classCss = 'laser';
+
+	this.direction = direction;
+
 	Component.call(this, img,x,y,height, width,laserId,classCss);
 
     Object.defineProperty(this, 'x', {
