@@ -1,9 +1,12 @@
-var Enemy = function(img, height, width) {
+var Enemy = function(img, height, width, xAxis) {
     var BLINDSIDE = 60 ;
 
-    var x = BLINDSIDE + ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE)
+    var x = BLINDSIDE + ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE);
     var y = 60;
-
+    if (xAxis) {
+        x= xAxis;
+        y=100;
+    }
     Component.call(this, img, x, y, height, width, 'enemy' + ZOMBIES.helpers.getRandom(1000000), 'enemy');
 
     this.move = function () {

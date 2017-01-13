@@ -85,8 +85,8 @@ var ZOMBIES = {
         ORACLE: {
             IMAGE: 'oracle_1.png',
             ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
-            WIDTH : 300,
-            HEIGHT : 300,
+            WIDTH : 200,
+            HEIGHT : 100,
         }
     },
     EXIRS_MAP: {
@@ -180,8 +180,10 @@ var ZOMBIES = {
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
             if (ZOMBIES.enemies[i].isGotOut) {
                 ZOMBIES.enemies[i].remove();
+                console.log('monster vanish');
                 ZOMBIES.enemies.splice(i, 1);
             } else {
+                console.log('monster speed');
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
             }
@@ -426,7 +428,9 @@ var ZOMBIES = {
         ZOMBIES.ADDENEMY = false;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH);
+        monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, GAME_WIDTH/2);
+        ZOMBIES.enemies.push(monsterObj);
+        console.log(ZOMBIES.enemies);
         console.log(monsterConfig);
 
     },
