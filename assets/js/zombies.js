@@ -351,6 +351,19 @@ var ZOMBIES = {
             } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i])) {
                 ZOMBIES.addToTerminal('kernel error');
                 ZOMBIES.enemies[i].onDie();
+                (function () {
+                    var i2 = i;
+                    // kazafy >> copy hassan code to remove enemy when intersect whith hero
+                    // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
+                    ZOMBIES.enemies[i2].onDie();
+                    var temp = ZOMBIES.enemies[i2];
+                    ZOMBIES.enemies.splice(i2, 1);
+                    setTimeout(function () {
+
+                        temp.remove();
+                    }, 500);
+                    })();
+
                 ZOMBIES.gameOver();
             }
         }
