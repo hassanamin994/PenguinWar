@@ -9,8 +9,8 @@ var ZOMBIES = {
     HEROHEIGHT: 80,
 
 
-    LEVEL_SPEED_Enemy_Generate: 500,
-    LEVEL_SPEED_Enemy_Move: 2,
+    // LEVEL_SPEED_Enemy_Generate: 500,
+    // LEVEL_SPEED_Enemy_Move: 2,
 
     iterations: 0,
 
@@ -100,7 +100,20 @@ var ZOMBIES = {
             ENEMY_SPEED: 5,
             EXIRS: ['RUBY','PYTHON'],
             ENEMIES: ['DUKE']
+        },
+        2: {
+            NAME: 'Kill Microsoft',
+            ENEMY_SPEED: 10,
+            EXIRS: ['RUBY','PYTHON'],
+            ENEMIES: ['DUKE']
+        },
+        3: {
+            NAME: 'Kill Microsoft',
+            ENEMY_SPEED: 10,
+            EXIRS: ['RUBY','PYTHON'],
+            ENEMIES: ['DUKE']
         }
+
     },
 
     terminalElement: document.getElementById('cmds'),
@@ -132,7 +145,7 @@ var ZOMBIES = {
     }
     ,
     loop: function () {
-
+        console.log('sddd ');
         if (new Date().getTime() - ZOMBIES.lastLoopRun > 40) {
             ZOMBIES.updatePositions();
             ZOMBIES.hero.handelControllers();
@@ -333,6 +346,15 @@ var ZOMBIES = {
         ZOMBIES.FINISH = true;
         var element = document.getElementById(hero.id);
         element.style.visibility = 'hidden';
+        setTimeout(function () {
+            ZOMBIES.FINISH = false;
+            var element = document.getElementById(hero.id);            
+            element.style.visibility = 'visible';
+            ZOMBIES.hero.x = window.innerWidth / 2 - 25;
+            ZOMBIES.hero.y = window.innerHeight - 150;
+            ZOMBIES.loop();
+        },3000);
+
         //element.parentElement
         // element = document.getElementById('gameover');
         // element.style.visibility = 'visible';
