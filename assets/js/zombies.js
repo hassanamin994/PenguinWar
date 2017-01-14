@@ -88,6 +88,7 @@ var ZOMBIES = {
             WIDTH : 150,
             HEIGHT : 100,
             HEALTH : 3,
+            DIRECTION : null,
         }
     },
     EXIRS_MAP: {
@@ -120,7 +121,7 @@ var ZOMBIES = {
             EXIRS: ['RUBY','PYTHON'],
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE']
-            
+
         },
         3: {
             NAME: 'Kill Microsoft',
@@ -144,7 +145,7 @@ var ZOMBIES = {
             var lives = document.createElement('div');
             lives.classList.add("heart");
             lives.classList.add("pulse2");
-            lives.style.right = (i*3) + '%';  
+            lives.style.right = (i*3) + '%';
             lives.innerText='♥';
             lives.id="lives"+i;
             document.body.appendChild(lives);
@@ -206,13 +207,41 @@ var ZOMBIES = {
             }
         }
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
-            if (ZOMBIES.enemies[i].isGotOut) {
-                 console.log(ZOMBIES.enemies[i].monster);
+            if (ZOMBIES.enemies[i].isGotOut && !ZOMBIES.enemies[i].monster) {
+                 //console.log(ZOMBIES.enemies[i].monster);
                 ZOMBIES.enemies[i].remove();
                 ZOMBIES.enemies.splice(i, 1);
             } else if(!ZOMBIES.enemies[i].monster) {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
+            }else if (ZOMBIES.enemies[i].monster){
+              var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
+              var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
+              if(monsterConfig.DIRECTION == null ){
+                if(ZOMBIES.helpers.getRandom(2) == 1){
+                  monsterConfig.DIRECTION = "left";
+                }else{
+                  monsterConfig.DIRECTION = "right";
+                }
+                //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION)
+              }else{
+                if(ZOMBIES.enemies[i].x < 20){
+                  monsterConfig.DIRECTION = "right";
+                  console.log("Direction changed to right ") ;
+                }else if (ZOMBIES.enemies[i].x > 680){
+                  monsterConfig.DIRECTION = "left";
+                  //console.log("Direction changed to left ") ;
+                }
+              }
+              if(monsterConfig.DIRECTION == "right"){
+                ZOMBIES.enemies[i].x += 2;
+              }
+              if(monsterConfig.DIRECTION == "left"){
+                ZOMBIES.enemies[i].x -= 2 ;
+              }
+              ZOMBIES.MONSTERS_MAP[monsterKey] = monsterConfig;
+              //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION );
+              //console.log(ZOMBIES.enemies[i].x);
             }
 
         }
@@ -352,7 +381,12 @@ var ZOMBIES = {
                 ZOMBIES.SCORE += 100;
                 ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
             } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i])) {
-                ZOMBIES.addToTerminal('kernel error');
+
+                if(ZOMBIES.hero.live > 1 ){
+                  ZOMBIES.addToTerminal('<span style="color:red;">Fetal Error, entering rescue mode... </span>');
+                }else{
+                  ZOMBIES.addToTerminal('<span style="color:red;">KERNEL ERROR! System require Manual reset</span>');
+                }
                 ZOMBIES.enemies[i].onDie();
                 (function () {
                     var i2 = i;
@@ -386,9 +420,9 @@ var ZOMBIES = {
                         }, 500);
                     })();
                 }else{
-                   monsterConfig.HEALTH--; 
+                   monsterConfig.HEALTH--;
                 }
-                
+
                 console.log(monsterConfig.HEALTH);
             }
         }
@@ -416,10 +450,11 @@ var ZOMBIES = {
         if(ZOMBIES.hero.live > 0){
         setTimeout(function () {
             ZOMBIES.FINISH = false;
-            var element = document.getElementById(hero.id);            
+            var element = document.getElementById(hero.id);
             element.style.visibility = 'visible';
             ZOMBIES.hero.x = window.innerWidth / 2 - 25;
             ZOMBIES.hero.y = window.innerHeight - 150;
+            ZOMBIES.addToTerminal("<span style='color:green;'>sudo resurrect hero </span>")
             ZOMBIES.loop();
         },3000);
         }
