@@ -10,8 +10,54 @@
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/backgounds.css">
+    <link rel="stylesheet" href="assets/css/menu.css">
 </head>
 <body>
+  <div id="menu-div">
+    <div id="menu">
+        <ul>
+            <li id="new-game-button"><a href="#" class="round green">New Game<span class="round">Become a Hero for Open Source Technologies!!</span></a></li>
+            <li id="high-scores-button"><a href="#" class="round red">High Scores<span class="round">See who are your Compatitors! </span></a></li>
+    	      <li><a href="#" class="round yellow">How To Play<span class="round">Press New Game and start shooting non-open source Techs!</span></a></li>
+    	      <li><a href="#" class="round yellow">About<span class="round">Stop wasting time, <br>Just Play!</span></a></li>
+        </ul>
+    </div>
+    <div id="new-game">
+      <form id="form" action="index.html" method="post">
+        <label for="name">Please Enter your name:</label>
+        <input type="text" name="name" value="" id="username" />
+        <br>
+        <label for="character">Select Your Character </label>
+        <br>
+        <div class="characters">
+          <img src="assets/images/heros/penguin.png" alt="">
+          <input type="radio" name="character" value="male"> Penguin
+        </div>
+        <div class="characters">
+          <img src="assets/images/heros/penguinna.png" alt="">
+          <input type="radio" name="character" value="female"> Penguinna
+        </div>
+        <br>
+          <input id="go" type="submit" value="Go!" name="submit" >
+          <div style="clear:both"></div>
+          <div id="errors">
+            <ul></ul>
+          </div>
+      </form>
+    </div>
+    <div id="high-scores">
+      <table style="width:100%">
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+        <tr>
+          <td>Jill</td>
+          <td>Smith</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 <div id="pause">
     <div class="pausetext animated tada">
         <h1>Why did you stop Fighting ?!!</h1>
@@ -43,5 +89,6 @@
 <script src="assets/js/laser.js"></script>
 <script src="assets/js/enemy.js"></script>
 <script src="assets/js/zombies.js"></script>
+<script src="assets/js/menu.js"></script>
 </body>
 </html>

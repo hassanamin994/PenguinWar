@@ -53,7 +53,18 @@ form.addEventListener('submit',function(e){
     errors.innerHTML += "<li>Please select a character !</li>" ;
     validform = false ;
   }
-  if(!validform)
+  if(!validform){
+        e.preventDefault() ;
+  }else{
+    // Hiding the menu if the form is valid
+    // and Initializing the game 
+    document.getElementById('menu-div').style.zindex = "-9999" ;
+    document.getElementById('menu-div').style.visibility = 'hidden' ;
+    document.getElementById('menu-div').style.left= "-999px" ;
+    ZOMBIES.init() ;
+    console.log('game init ') ;
     e.preventDefault() ;
+
+  }
 
 });

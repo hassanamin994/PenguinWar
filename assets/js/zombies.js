@@ -136,7 +136,8 @@ var ZOMBIES = {
     },
 
     terminalElement: document.getElementById('cmds'),
-
+    // Initialization function
+    // GAME ENTRY POINT HERE
     init: function (options) {
 
         ZOMBIES.pauseDiv = document.getElementById('pause');
@@ -189,6 +190,7 @@ var ZOMBIES = {
         ZOMBIES.refreshWeaponsList();
     }
     ,
+    // Function that Resets the gameplay
     restart: function(){
       if(ZOMBIES.hero){
         ZOMBIES.hero.remove() ;
@@ -206,6 +208,7 @@ var ZOMBIES = {
 
     }
     ,
+    // The main loop function for running the game
     loop: function () {
 
 
@@ -579,10 +582,12 @@ var ZOMBIES = {
         // element.style.visibility = 'visible';
     }
     ,
+    // Function that tests intersection between two objects either true or
     intersects: function (a, b) {
         return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
     }
     ,
+    // Funtion that handles level transition
     checkScore: function (score) {
         if (score % 3000 == 0 && score != 0) {
             ZOMBIES.addMonster();
@@ -591,14 +596,17 @@ var ZOMBIES = {
             ZOMBIES.addToTerminal('sudo apt-get update level');
         }
     },
+    // Helpers functions to reduce redundency
     helpers: {
         getRandom: function (maxSize) {
             return parseInt(Math.random() * maxSize);
         }
     },
+    // Getting the index of the current used weapon
     getCurrentWeaponIndex: function () {
         return ZOMBIES.MY_WEAPONS.indexOf(ZOMBIES.CURRENT_WEAPON);
     },
+    // Function handles inserting masseges in the terminal part
     addToTerminal: function (cmd, colorClass) {
         var pElement = document.createElement('p');
         pElement.innerHTML = '<strong>root@linux:~$</strong> ' + '<span class="' + colorClass + '">' + cmd.toLowerCase() + '</span>';
@@ -710,4 +718,4 @@ var ZOMBIES = {
         }
     },
 };
-ZOMBIES.init();
+//ZOMBIES.init();
