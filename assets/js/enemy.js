@@ -1,4 +1,4 @@
-var Enemy = function(img, height, width, monster, xAxis, yAxis=100, direction) {
+var Enemy = function(img, height, width, monster, xAxis, yAxis=100, direction = null) {
     var BLINDSIDE = 60 ;
 
     var x = BLINDSIDE + ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE);
@@ -7,7 +7,7 @@ var Enemy = function(img, height, width, monster, xAxis, yAxis=100, direction) {
     this.monster = false;
     if (xAxis) {
         x= xAxis;
-        y=yAxis; 
+        y=yAxis;
     }
     if (monster) {
         this.monster = true;
@@ -26,12 +26,6 @@ var Enemy = function(img, height, width, monster, xAxis, yAxis=100, direction) {
         },
         set: function (xinput) {
             x = xinput;
-            if (x < this.w) {
-                this.isGotOut = true;
-            }
-            if (x + this.w > GAME_WIDTH) {
-                this.isGotOut = true;
-            }
             this.element.style.left = x + 'px';
         }
     });

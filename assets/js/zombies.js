@@ -89,7 +89,6 @@ var ZOMBIES = {
             HEIGHT : 100,
             HEALTH : 3,
             ROCKETS : 4,
-            DIRECTION : null,
         }
     },
     EXIRS_MAP: {
@@ -214,40 +213,44 @@ var ZOMBIES = {
                 ZOMBIES.enemies.splice(i, 1);
             } else if(!ZOMBIES.enemies[i].monster) {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
-
+                if(ZOMBIES.enemies[i].x < GAME_WIDTH / 10 ){
+                  ZOMBIES.enemies[i].direction = "right";
+                  console.log("Direction changed to right ") ;
+                }else if (ZOMBIES.enemies[i].x > GAME_WIDTH - (GAME_WIDTH / 10)){
+                  ZOMBIES.enemies[i].direction = "left";
+                  //console.log("Direction changed to left ") ;
+                }
                 if (ZOMBIES.enemies[i].direction == 'left') {
                     ZOMBIES.enemies[i].x -= ZOMBIES.helpers.getRandom(10);
                 }
                 if (ZOMBIES.enemies[i].direction == 'right') {
                     ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10);
                 }
+
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
-            }else if (ZOMBIES.enemies[i].monster){
-              var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
-              var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-              if(monsterConfig.DIRECTION == null ){
+            }else{
+              if(ZOMBIES.enemies[i].direction == null ){
                 if(ZOMBIES.helpers.getRandom(2) == 1){
-                  monsterConfig.DIRECTION = "left";
+                  ZOMBIES.enemies[i].direction = "left";
                 }else{
-                  monsterConfig.DIRECTION = "right";
+                  ZOMBIES.enemies[i].direction= "right";
                 }
                 //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION)
               }else{
                 if(ZOMBIES.enemies[i].x < 20){
-                  monsterConfig.DIRECTION = "right";
+                  ZOMBIES.enemies[i].direction = "right";
                   console.log("Direction changed to right ") ;
                 }else if (ZOMBIES.enemies[i].x > 680){
-                  monsterConfig.DIRECTION = "left";
+                  ZOMBIES.enemies[i].direction = "left";
                   //console.log("Direction changed to left ") ;
                 }
               }
-              if(monsterConfig.DIRECTION == "right"){
+              if(ZOMBIES.enemies[i].direction == "right"){
                 ZOMBIES.enemies[i].x += 2;
               }
-              if(monsterConfig.DIRECTION == "left"){
+              if(ZOMBIES.enemies[i].direction == "left"){
                 ZOMBIES.enemies[i].x -= 2 ;
               }
-              ZOMBIES.MONSTERS_MAP[monsterKey] = monsterConfig;
               //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION );
               //console.log(ZOMBIES.enemies[i].x);
             }
@@ -431,8 +434,8 @@ var ZOMBIES = {
                     })();
                 }else{
 
-                   monsterConfig.HEALTH--; 
-                }                
+                   monsterConfig.HEALTH--;
+                }
 
             }
         }
@@ -602,7 +605,7 @@ var ZOMBIES = {
                 ZOMBIES.enemies.push(monsterRockets);
             }
 
-        }        
+        }
 
 
     },
