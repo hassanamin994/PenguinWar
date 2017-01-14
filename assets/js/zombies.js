@@ -237,10 +237,10 @@ var ZOMBIES = {
                 }
               }else{
 
-                if(ZOMBIES.enemies[i].x < 20){
+                if(ZOMBIES.enemies[i].x < GAME_WIDTH / 10 ){
                   ZOMBIES.enemies[i].direction = "right";
                   console.log("Direction changed to right ") ;
-                }else if (ZOMBIES.enemies[i].x > 680){
+                }else if (ZOMBIES.enemies[i].x > GAME_WIDTH - (GAME_WIDTH / 10)){
                   ZOMBIES.enemies[i].direction = "left";
                   //console.log("Direction changed to left ") ;
                 }
