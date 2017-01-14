@@ -7,7 +7,7 @@ var ZOMBIES = {
     timeInit: 0,
     HEROWIDTH: 80,
     HEROHEIGHT: 80,
-    
+
     iterations: 0,
 
     LEFT_KEY: 65,
@@ -18,7 +18,7 @@ var ZOMBIES = {
     NEXT_WEAPON: 69,
     PREV_WEAPON: 81,
     ESC: 27,
-    
+
     FINISH: false,
     //to stop generate enemy when become false in add monster function
     monster: false,
@@ -29,7 +29,7 @@ var ZOMBIES = {
     exirArray: [],
     enemies: [],
 
-    pause: false, // to handel pause 
+    pause: false, // to handel pause
 
     stopEnemyAdd: false,
 
@@ -146,6 +146,8 @@ var ZOMBIES = {
         ZOMBIES.heartsDiv = document.getElementById('hearts');
 
         ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
+        // Setting the number of lives manually every init for the restart functionality
+        ZOMBIES.hero.live = 3 ;
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
 
@@ -153,7 +155,8 @@ var ZOMBIES = {
             ZOMBIES.hero.removeClass('animated');
             ZOMBIES.hero.removeClass('fadeInUp');
         }, 800);
-
+        // Resetting the number of Hearts every init call
+        ZOMBIES.heartsDiv.innerHTML = " " ;
         for (var i = 1; i <= ZOMBIES.hero.live; i++) {
             var heart = document.createElement('span');
             heart.classList.add("heart");
@@ -184,6 +187,19 @@ var ZOMBIES = {
 
         ZOMBIES.loop();
         ZOMBIES.refreshWeaponsList();
+    }
+    ,
+    restart: function(){
+      if(ZOMBIES.hero){
+        ZOMBIES.hero.remove() ;
+        ZOMBIES.hero = null ;
+      }
+      ZOMBIES.SCORE = 0 ;
+      ZOMBIES.scoreDiv.textContent = 0 ;
+      ZOMBIES.MY_WEAPONS = ['OS'] ;
+      ZOMBIES.refreshWeaponsList();
+      ZOMBIES.init() ;
+
     }
     ,
     loop: function () {
@@ -415,6 +431,7 @@ var ZOMBIES = {
                 laser.y = -laser.h;
                 ZOMBIES.SCORE += 100;
                 ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
+                console.log(ZOMBIES.SCORE);
             } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable) {
 
                 if (ZOMBIES.hero.live > 1) {
@@ -515,7 +532,7 @@ var ZOMBIES = {
         // ZOMBIES.pause = true ;
 
         // setTimeout(function() {
-        //    ZOMBIES.pause = false ; 
+        //    ZOMBIES.pause = false ;
         // }, 2000);
     }
     ,
@@ -556,7 +573,6 @@ var ZOMBIES = {
     }
     ,
     checkScore: function (score) {
-        console.log(score);
         if (score % 3000 == 0 && score != 0) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
