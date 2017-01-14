@@ -62,12 +62,16 @@ form.addEventListener('submit',function(e){
   }else{
     // Hiding the menu if the form is valid
     // and Initializing the game
+      e.preventDefault() ;
     document.getElementById('menu-div').style.zindex = "-9999" ;
     document.getElementById('menu-div').style.visibility = 'hidden' ;
+
     document.getElementById('menu-div').style.left= "-999px" ;
+
     ZOMBIES.init() ;
     console.log('game init ') ;
-    e.preventDefault() ;
+        setTimeout(document.getElementById('hero').focus() , 2000 )  ;
+
 
   }
 
