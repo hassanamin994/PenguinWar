@@ -67,7 +67,7 @@ form.addEventListener('submit',function(e){
     document.getElementById('menu-div').style.visibility = 'hidden' ;
 
     document.getElementById('menu-div').style.left= "-999px" ;
-
+    document.getElementById('go').blur() ;
     ZOMBIES.init() ;
     console.log('game init ') ;
         setTimeout(document.getElementById('hero').focus() , 2000 )  ;
