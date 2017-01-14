@@ -184,7 +184,7 @@ var ZOMBIES = {
 
             ZOMBIES.toggleKey(evt.keyCode, false);
         };
-
+        ZOMBIES.FINISH = false ;
         ZOMBIES.loop();
         ZOMBIES.refreshWeaponsList();
     }
@@ -197,8 +197,12 @@ var ZOMBIES = {
       ZOMBIES.SCORE = 0 ;
       ZOMBIES.scoreDiv.textContent = 0 ;
       ZOMBIES.MY_WEAPONS = ['OS'] ;
-      ZOMBIES.refreshWeaponsList();
+      // killing all existing enemies before restarting
+      for( var i = 0 ; i < ZOMBIES.enemies.length ; i++ ){
+        ZOMBIES.enemies[i].y = 1000 ;
+      }
       ZOMBIES.init() ;
+
 
     }
     ,
@@ -538,30 +542,36 @@ var ZOMBIES = {
     ,
     gameOver: function () {
 
-        ZOMBIES.heartsDiv.removeChild(document.getElementById("heart" + ZOMBIES.hero.live));
-        ZOMBIES.hero.live--;
-        var element = document.getElementById(hero.id);
-        element.style.visibility = 'hidden';
+        if (ZOMBIES.hero.live >= 1) {
+            ZOMBIES.heartsDiv.removeChild(document.getElementById("heart" + ZOMBIES.hero.live));
+            ZOMBIES.hero.live--;
+            // if the new number of lifes is zero, remove the hero and finish the game
+            // else , perform normal behavior of gameover function
+            if(ZOMBIES.hero.live == 0 ){
+              ZOMBIES.hero.remove() ;
+              ZOMBIES.FINISH = true ;
+              console.log('died');
+            }else{
+              var element = document.getElementById(hero.id);
+              element.style.visibility = 'hidden';
 
-        ZOMBIES.hero.dieable = false;
-        setTimeout(function () {
-            ZOMBIES.hero.dieable = true;
-        }, 7000);
+              ZOMBIES.hero.dieable = false;
+              setTimeout(function () {
+                  ZOMBIES.hero.dieable = true;
+              }, 7000);
+              setTimeout(function () {
+                  var element = document.getElementById(hero.id);
+                  element.style.visibility = 'visible';
+                  ZOMBIES.hero.x = window.innerWidth / 2 - 25;
+                  ZOMBIES.hero.y = window.innerHeight - 150;
+                  ZOMBIES.addToTerminal('sudo resurrect hero','green');
+                  ZOMBIES.addToTerminal('you are protected for 5 second','green');
+                  ZOMBIES.loop();
+              }, 2000);
+            }
 
-        if (ZOMBIES.hero.live > 0) {
-            setTimeout(function () {
-                var element = document.getElementById(hero.id);
-                element.style.visibility = 'visible';
-                ZOMBIES.hero.x = window.innerWidth / 2 - 25;
-                ZOMBIES.hero.y = window.innerHeight - 150;
-                ZOMBIES.addToTerminal('sudo resurrect hero','green');
-                ZOMBIES.addToTerminal('you are protected for 5 second','green');
-                ZOMBIES.loop();
-            }, 2000);
         }
-        else {
-
-        }
+        else {}
 
         //element.parentElement
         // element = document.getElementById('gameover');
