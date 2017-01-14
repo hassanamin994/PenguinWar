@@ -12,25 +12,29 @@
     <link rel="stylesheet" href="assets/css/backgounds.css">
 </head>
 <body>
+<div id="pause">
+    <div class="pausetext animated tada">
+        <h1>Why did you stop killing?</h1>
+        <h1>Press Esc To Resume</h1>
+    </div>
+</div>
+<div id="levelinfo"></div>
 <div id="game">
-    <h1 id="score" style="color: lemonchiffon"></h1>
-
+    <div id="score">0</div>
+    <div id="hearts"></div>
     <div id="weapons_list">
         <ul></ul>
     </div>
-
     <div class="terminal">
         <div id="cmds">
-            <p><strong>root@Zombies:~$</strong> Open Source is ready to kill</p>
+            <p><strong>root@linux:~$</strong> Open Source is ready to kill</p>
         </div>
     </div>
-
     <div class="fullscreen-bg">
         <video loop muted autoplay class="fullscreen-bg__video">
             <source src="assets/videos/clouds.mp4" type="video/mp4">
         </video>
     </div>
-
 </div>
 
 <script src="assets/js/components.js"></script>
