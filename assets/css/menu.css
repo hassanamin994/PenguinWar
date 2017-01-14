@@ -32,13 +32,13 @@ html , body{
   -o-background-size: cover;
 
 }
-#menu ul {
+.menu ul {
     position:absolute;
     right:10%;
     text-align: center;
 }
 
-#menu li {
+.menu li {
     list-style: none;
     position: relative;
     margin-top:20px;
@@ -66,7 +66,7 @@ html , body{
     100% {transform: rotate(-360deg);}
 }
 
-#menu .round {
+.menu .round {
     display: block;
     position: absolute;
     left: 0;
@@ -91,7 +91,7 @@ html , body{
     border-style: solid;
 }
 
-#menu .round:hover {
+.menu .round:hover {
     width: 130%;
     height: 130%;
     left: -15%;
@@ -110,37 +110,37 @@ html , body{
     transform: rotate(-360deg);
 }
 
-#menu a.red {
+.menu a.red {
     background-color: rgba(239,57,50,1);
     color: rgba(133,32,28,1);
     border-color: rgba(133,32,28,.2);
 }
 
-#menu a.red:hover {
+.menu a.red:hover {
     color: rgba(239,57,50,1);
 }
 
-#menu a.green {
+.menu a.green {
     background-color: rgba(1,151,171,1);
     color: rgba(0,63,71,1);
     border-color: rgba(0,63,71,.2);
 }
 
-#menu a.green:hover {
+.menu a.green:hover {
     color: rgba(1,151,171,1);
 }
 
-#menu a.yellow {
+.menu a.yellow {
     background-color: rgba(252,227,1,1);
     color: rgba(153,38,0,1);
     border-color: rgba(153,38,0,.2);
 }
 
-#menu a.yellow:hover {
+.menu a.yellow:hover {
     color: rgba(252,227,1,1);
 }
 
-#menu .round span.round {
+.menu .round span.round {
     display: block;
     opacity: 0;
     -webkit-transition: all .5s ease-in-out;
@@ -153,7 +153,7 @@ html , body{
     color: #fff;
 }
 
-#menu .round span:hover {
+.menu .round span:hover {
     opacity: .85;
     font-size: 16px;
     -webkit-text-shadow: 0 1px 1px rgba(0,0,0,.5);
@@ -162,15 +162,15 @@ html , body{
     text-shadow: 0 1px 1px rgba(0,0,0,.5);
 }
 
-#menu .green span {
+.menu .green span {
     background: rgba(0,63,71,.7);
 }
 
-#menu .red span {
+.menu .red span {
     background: rgba(133,32,28,.7);
 }
 
-#menu .yellow span {
+.menu .yellow span {
     background: rgba(161,145,0,.7);
 
 }
