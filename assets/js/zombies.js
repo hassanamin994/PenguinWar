@@ -556,7 +556,8 @@ var ZOMBIES = {
     }
     ,
     checkScore: function (score) {
-        if (score % 3000 == 0) {
+        console.log(score);
+        if (score % 3000 == 0 && score != 0) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
