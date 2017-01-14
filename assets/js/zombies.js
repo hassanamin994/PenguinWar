@@ -208,17 +208,14 @@ var ZOMBIES = {
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
 
             if (ZOMBIES.enemies[i].isGotOut && !ZOMBIES.enemies[i].monster) {
-                 //console.log(ZOMBIES.enemies[i].monster);
                 ZOMBIES.enemies[i].remove();
                 ZOMBIES.enemies.splice(i, 1);
-            } else if(!ZOMBIES.enemies[i].monster) {
+            } else if(!ZOMBIES.enemies[i].monster && (ZOMBIES.enemies[i].direction == null )) {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
                 if(ZOMBIES.enemies[i].x < GAME_WIDTH / 10 ){
                   ZOMBIES.enemies[i].direction = "right";
-                  console.log("Direction changed to right ") ;
                 }else if (ZOMBIES.enemies[i].x > GAME_WIDTH - (GAME_WIDTH / 10)){
                   ZOMBIES.enemies[i].direction = "left";
-                  //console.log("Direction changed to left ") ;
                 }
                 if (ZOMBIES.enemies[i].direction == 'left') {
                     ZOMBIES.enemies[i].x -= ZOMBIES.helpers.getRandom(10);
@@ -229,14 +226,17 @@ var ZOMBIES = {
 
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
             }else{
+                    if(!ZOMBIES.enemies[i].monster)
+                    ZOMBIES.enemies[i].y += 20;
+
               if(ZOMBIES.enemies[i].direction == null ){
                 if(ZOMBIES.helpers.getRandom(2) == 1){
                   ZOMBIES.enemies[i].direction = "left";
                 }else{
                   ZOMBIES.enemies[i].direction= "right";
                 }
-                //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION)
               }else{
+
                 if(ZOMBIES.enemies[i].x < 20){
                   ZOMBIES.enemies[i].direction = "right";
                   console.log("Direction changed to right ") ;
@@ -246,10 +246,11 @@ var ZOMBIES = {
                 }
               }
               if(ZOMBIES.enemies[i].direction == "right"){
-                ZOMBIES.enemies[i].x += 2;
+                ZOMBIES.enemies[i].x += 10;
+
               }
               if(ZOMBIES.enemies[i].direction == "left"){
-                ZOMBIES.enemies[i].x -= 2 ;
+                ZOMBIES.enemies[i].x -= 10;
               }
               //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION );
               //console.log(ZOMBIES.enemies[i].x);
@@ -559,21 +560,25 @@ var ZOMBIES = {
         ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
         ZOMBIES.monsterAction();
-        //console.log(ZOMBIES.enemies);
 
     },
+    /*
+      add animation to monster
+    */
     monsterAction: function(){
-       // console.log(ZOMBIES.enemies);
-        if(ZOMBIES.monsterObj != null)
+        if(ZOMBIES.monsterObj != null && !ZOMBIES.FINISH)
         {
              ZOMBIES.monsterObj.toggleClass('monster-rotate');
-             setTimeout('ZOMBIES.monsterAction();ZOMBIES.monsterAttak();', 5000);
+             setTimeout('ZOMBIES.monsterAction(); ZOMBIES.monsterAttak();', 5000);
         }
 
     },
+    /*
+    function to add rockets to monster
+    the same logic of multiple laser rocket
+    */
     monsterAttak: function(){
-        console.log('attack');
-        if(ZOMBIES.monsterObj != null) {
+        if(ZOMBIES.monsterObj != null && !ZOMBIES.FINISH) {
             var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
             var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
             // to make the monster shoot more than one rocket
@@ -604,12 +609,7 @@ var ZOMBIES = {
                 }
                 ZOMBIES.enemies.push(monsterRockets);
             }
-
         }
-
-
     },
-
-
 };
 ZOMBIES.init();
