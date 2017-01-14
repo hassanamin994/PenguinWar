@@ -334,8 +334,8 @@ var ZOMBIES = {
                 ZOMBIES.CURRENT_WEAPON = ZOMBIES.MY_WEAPONS[current_weapon_index];
                 ZOMBIES.refreshWeaponsList();
             }
-        }
-        if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed) {
+        }                                                                   // Prevent hero from firing when is died
+        if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -565,7 +565,8 @@ var ZOMBIES = {
                   ZOMBIES.hero.x = window.innerWidth / 2 - 25;
                   ZOMBIES.hero.y = window.innerHeight - 150;
                   ZOMBIES.addToTerminal('sudo resurrect hero','green');
-                  ZOMBIES.addToTerminal('you are protected for 5 second','green');
+                  ZOMBIES.addToTerminal('you are protected','green');
+                  ZOMBIES.addToTerminal('protection and fire will be unlocked after 5 second ','green');
                   ZOMBIES.loop();
               }, 2000);
             }
