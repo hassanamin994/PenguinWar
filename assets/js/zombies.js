@@ -21,6 +21,7 @@ var ZOMBIES = {
     SPACE_KEY: 32,
     NEXT_WEAPON: 69,
     PREV_WEAPON: 81,
+    ESC: 27,
 
 
     LAZER_SPEED: 25,
@@ -37,6 +38,12 @@ var ZOMBIES = {
     enemies: [],
 
 
+    pause: false, // to handel pause 
+    pause_Img_Src: 'assets/images/backgrounds/pause.jpg',
+    pause_Img_Id:'pauseId',
+    pause_Img:{},
+    stop_Add_Enemy_Wh_Move_To_Next_Level:false,
+
     LEVEL: 1,
 
     //current level
@@ -47,7 +54,7 @@ var ZOMBIES = {
     MY_WEAPONS: ['OS'],
 
     WEAPONS_LIMITS: {
-        'OS' : 0
+        'OS': 0
     },
 
     WEAPONS_MAP: {
@@ -74,21 +81,29 @@ var ZOMBIES = {
         }
     },
     ENEMIES_MAP: {
-        DUKE : {
+        DUKE: {
             IMAGE: ['duke2.png', 'duke.png'],
-            ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
-            WIDTH : 60,
-            HEIGHT : 60,
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 60,
+            HEIGHT: 60,
+        },        
+        DUKE2: {
+            IMAGE: ['duke2.png', 'duke.png'],
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 30,
+            HEIGHT: 30,
         }
+
+
     },
     MONSTERS_MAP: {
         ORACLE: {
             IMAGE: 'oracle_1.png',
-            ANIMATE: ['bounce','pulse','rubberBand','shake','headShake','swing','tada'],
-            WIDTH : 150,
-            HEIGHT : 100,
-            HEALTH : 3,
-            ROCKETS : 4,
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 150,
+            HEIGHT: 100,
+            HEALTH: 3,
+            ROCKETS: 4,
         }
     },
     EXIRS_MAP: {
@@ -110,7 +125,7 @@ var ZOMBIES = {
         1: {
             NAME: 'Kill Dukes',
             ENEMY_SPEED: 5,
-            EXIRS: ['RUBY','PYTHON'],
+            EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE']
 
@@ -118,15 +133,15 @@ var ZOMBIES = {
         2: {
             NAME: 'Kill Microsoft',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY','PYTHON'],
-            ENEMIES: ['DUKE'],
+            EXIRS: ['RUBY', 'PYTHON'],
+            ENEMIES: ['DUKE2'],
             MONSTER: ['ORACLE']
 
         },
         3: {
             NAME: 'Kill Microsoft',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY','PYTHON'],
+            EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE']
         }
@@ -141,20 +156,24 @@ var ZOMBIES = {
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
 
-        for (var i = 1 ; i <= ZOMBIES.hero.live ; i++){
+        for (var i = 1; i <= ZOMBIES.hero.live; i++) {
             var lives = document.createElement('div');
             lives.classList.add("heart");
             lives.classList.add("pulse2");
-            lives.style.right = (i*3) + '%';
-            lives.innerText='♥';
-            lives.id="lives"+i;
+            lives.style.right = (i * 3) + '%';
+            lives.innerText = '♥';
+            lives.id = "lives" + i;
             document.body.appendChild(lives);
         }
+
+        ZOMBIES.pause_Img = document.createElement('img');
+        ZOMBIES.pause_Img.src = ZOMBIES.pause_Img_Src;
+        ZOMBIES.pause_Img.id = ZOMBIES.pause_Img_Id;
 
         setTimeout(function () {
             ZOMBIES.hero.removeClass('animated');
             ZOMBIES.hero.removeClass('fadeInUp');
-        },800);
+        }, 800);
 
         ZOMBIES.scoreDiv = document.getElementById('score');
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
@@ -163,7 +182,20 @@ var ZOMBIES = {
             ZOMBIES.toggleKey(evt.keyCode, true);
         };
 
+
         document.onkeyup = function (evt) {
+            if (evt.keyCode == ZOMBIES.ESC || (evt.keyCode == ZOMBIES.SPACE_KEY && ZOMBIES.pause)) {
+
+                if(!ZOMBIES.pause){
+                    document.body.appendChild(ZOMBIES.pause_Img);
+                }else
+                {
+                    document.body.removeChild(ZOMBIES.pause_Img);
+
+                }
+                ZOMBIES.pause = ! ZOMBIES.pause;
+            }
+
             ZOMBIES.toggleKey(evt.keyCode, false);
         };
 
@@ -172,22 +204,28 @@ var ZOMBIES = {
     }
     ,
     loop: function () {
-        if (new Date().getTime() - ZOMBIES.lastLoopRun > 40) {
-            ZOMBIES.updatePositions();
-            ZOMBIES.hero.handelControllers();
-            ZOMBIES.checkCollisions();
 
-           // if(!ZOMBIES.monster)
-            ZOMBIES.addEnemy();
 
-            // ZOMBIES.showSprites();
+        if (! ZOMBIES.pause) {
 
-            ZOMBIES.lastLoopRun = new Date().getTime();
-            ZOMBIES.iterations++;
+            if (new Date().getTime() - ZOMBIES.lastLoopRun > 40) {
+                ZOMBIES.updatePositions();
+                ZOMBIES.hero.handelControllers();
+                ZOMBIES.checkCollisions();
+
+                // if(!ZOMBIES.monster)
+                if (!ZOMBIES.stop_Add_Enemy_Wh_Move_To_Next_Level)
+                ZOMBIES.addEnemy();
+
+                // ZOMBIES.showSprites();
+
+                ZOMBIES.lastLoopRun = new Date().getTime();
+                ZOMBIES.iterations++;
+            }
         }
-
         if (!ZOMBIES.FINISH)
             setTimeout('ZOMBIES.loop();', 41);
+
     }
     ,
     updatePositions: function () {
@@ -210,12 +248,12 @@ var ZOMBIES = {
             if (ZOMBIES.enemies[i].isGotOut && !ZOMBIES.enemies[i].monster) {
                 ZOMBIES.enemies[i].remove();
                 ZOMBIES.enemies.splice(i, 1);
-            } else if(!ZOMBIES.enemies[i].monster && (ZOMBIES.enemies[i].direction == null )) {
+            } else if (!ZOMBIES.enemies[i].monster && (ZOMBIES.enemies[i].direction == null)) {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
-                if(ZOMBIES.enemies[i].x < GAME_WIDTH / 10 ){
-                  ZOMBIES.enemies[i].direction = "right";
-                }else if (ZOMBIES.enemies[i].x > GAME_WIDTH - (GAME_WIDTH / 10)){
-                  ZOMBIES.enemies[i].direction = "left";
+                if (ZOMBIES.enemies[i].x < GAME_WIDTH / 10) {
+                    ZOMBIES.enemies[i].direction = "right";
+                } else if (ZOMBIES.enemies[i].x > GAME_WIDTH - (GAME_WIDTH / 10)) {
+                    ZOMBIES.enemies[i].direction = "left";
                 }
                 if (ZOMBIES.enemies[i].direction == 'left') {
                     ZOMBIES.enemies[i].x -= ZOMBIES.helpers.getRandom(10);
@@ -225,41 +263,43 @@ var ZOMBIES = {
                 }
 
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
-            }else{
-                    if(!ZOMBIES.enemies[i].monster)
+            } else {
+                if (!ZOMBIES.enemies[i].monster)
                     ZOMBIES.enemies[i].y += 20;
 
-              if(ZOMBIES.enemies[i].direction == null ){
-                if(ZOMBIES.helpers.getRandom(2) == 1){
-                  ZOMBIES.enemies[i].direction = "left";
-                }else{
-                  ZOMBIES.enemies[i].direction= "right";
-                }
-              }else{
+                if (ZOMBIES.enemies[i].direction == null) {
+                    if (ZOMBIES.helpers.getRandom(2) == 1) {
+                        ZOMBIES.enemies[i].direction = "left";
+                    } else {
+                        ZOMBIES.enemies[i].direction = "right";
+                    }
+                } else {
 
-                if(ZOMBIES.enemies[i].x < GAME_WIDTH / 10 ){
-                  ZOMBIES.enemies[i].direction = "right";
-                  console.log("Direction changed to right ") ;
-                }else if (ZOMBIES.enemies[i].x > GAME_WIDTH - (GAME_WIDTH / 10)){
-                  ZOMBIES.enemies[i].direction = "left";
-                  //console.log("Direction changed to left ") ;
+                    if (ZOMBIES.enemies[i].x < GAME_WIDTH / 10) {
+                        ZOMBIES.enemies[i].direction = "right";
+                    } else if (ZOMBIES.enemies[i].x > GAME_WIDTH - (GAME_WIDTH / 10)) {
+                        ZOMBIES.enemies[i].direction = "left";
+                        //console.log("Direction changed to left ") ;
+                    }
                 }
-              }
-              if(ZOMBIES.enemies[i].direction == "right"){
-                ZOMBIES.enemies[i].x += 10;
+                if (ZOMBIES.enemies[i].direction == "right") {
+                    ZOMBIES.enemies[i].x += 10;
 
-              }
-              if(ZOMBIES.enemies[i].direction == "left"){
-                ZOMBIES.enemies[i].x -= 10;
-              }
-              //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION );
-              //console.log(ZOMBIES.enemies[i].x);
+                }
+                if (ZOMBIES.enemies[i].direction == "left") {
+                    ZOMBIES.enemies[i].x -= 10;
+                }
+                //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION );
+                //console.log(ZOMBIES.enemies[i].x);
             }
 
         }
 
     },
     toggleKey: function (keyCode, isPressed) {
+
+        if (ZOMBIES.pause)
+            return;
         if (keyCode == ZOMBIES.LEFT_KEY) {
             ZOMBIES.hero.moveLeft(isPressed);
         }
@@ -273,7 +313,7 @@ var ZOMBIES = {
             ZOMBIES.hero.moveDown(isPressed);
         }
 
-        if (ZOMBIES.MY_WEAPONS.length > 1 && !ZOMBIES.FINISH ) {
+        if (ZOMBIES.MY_WEAPONS.length > 1 && !ZOMBIES.FINISH) {
             var current_weapon_index = ZOMBIES.getCurrentWeaponIndex();
             if (keyCode == ZOMBIES.NEXT_WEAPON && !isPressed) {
                 current_weapon_index++;
@@ -283,7 +323,7 @@ var ZOMBIES = {
                 ZOMBIES.CURRENT_WEAPON = ZOMBIES.MY_WEAPONS[current_weapon_index];
                 ZOMBIES.refreshWeaponsList();
             }
-            if (keyCode == ZOMBIES.PREV_WEAPON  && !isPressed ) {
+            if (keyCode == ZOMBIES.PREV_WEAPON && !isPressed) {
                 current_weapon_index--;
                 if (current_weapon_index < 0) {
                     current_weapon_index = ZOMBIES.MY_WEAPONS.length - 1;
@@ -304,14 +344,14 @@ var ZOMBIES = {
                     //if weapon has the Multiple option
                     if (laserMultiple > 1) {
                         //if i less than the middle to left
-                        if (i < Math.ceil(laserMultiple/2)) {
+                        if (i < Math.ceil(laserMultiple / 2)) {
                             laserDirection = 'left';
-                        }else if (i > Math.ceil(laserMultiple/2)) {
+                        } else if (i > Math.ceil(laserMultiple / 2)) {
                             laserDirection = 'right';
                         }
                     }
 
-                    var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y,laserDirection);
+                    var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y, laserDirection);
 
                     //if the current weapon has animation effect
                     if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
@@ -325,9 +365,9 @@ var ZOMBIES = {
                 //if the weapon is limited
                 if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].LIMIT > 0) {
                     // if the limit not set yet
-                    if(typeof ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] == 'undefined'){
+                    if (typeof ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] == 'undefined') {
                         ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].LIMIT;
-                    }else{
+                    } else {
                         //decrement
                         ZOMBIES.WEAPONS_LIMITS[ZOMBIES.CURRENT_WEAPON] -= 1;
                     }
@@ -392,12 +432,12 @@ var ZOMBIES = {
                 laser.y = -laser.h;
                 ZOMBIES.SCORE += 100;
                 ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
-            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i])) {
+            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable) {
 
-                if(ZOMBIES.hero.live > 1 ){
-                  ZOMBIES.addToTerminal('<span style="color:red;">Fetal Error, entering rescue mode... </span>');
-                }else{
-                  ZOMBIES.addToTerminal('<span style="color:red;">KERNEL ERROR! System require Manual reset</span>');
+                if (ZOMBIES.hero.live > 1) {
+                    ZOMBIES.addToTerminal('<span style="color:red;">Fetal Error, entering rescue mode... </span>');
+                } else {
+                    ZOMBIES.addToTerminal('<span style="color:red;">KERNEL ERROR! System require Manual reset</span>');
                 }
                 ZOMBIES.enemies[i].onDie();
                 (function () {
@@ -411,11 +451,11 @@ var ZOMBIES = {
 
                         temp.remove();
                     }, 500);
-                    })();
+                })();
 
                 ZOMBIES.gameOver();
-            }else if (laser && ZOMBIES.enemies[i].monster) {
-                var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER ;
+            } else if (laser && ZOMBIES.enemies[i].monster) {
+                var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
                 var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
                 laser.remove();
                 ZOMBIES.laserArray.splice(ZOMBIES.laserArray.indexOf(laser), 1);
@@ -423,19 +463,22 @@ var ZOMBIES = {
                     (function () {
                         var i2 = i;
                         // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
+
+
                         ZOMBIES.enemies[i2].onDie();
                         ZOMBIES.monsterObj = null;
-                        console.log(ZOMBIES.monsterObj);
                         var temp = ZOMBIES.enemies[i2];
                         ZOMBIES.enemies.splice(i2, 1);
                         setTimeout(function () {
 
                             temp.remove();
                         }, 500);
-                    })();
-                }else{
 
-                   monsterConfig.HEALTH--;
+                        ZOMBIES.moveToNextLevel();
+                    })();
+                } else {
+
+                    monsterConfig.HEALTH--;
                 }
 
             }
@@ -451,27 +494,75 @@ var ZOMBIES = {
             }
         }
         return result;
+    },
+    moveToNextLevel:function (){
+        ZOMBIES.CURRENT_LEVEL ++ ;
+            for (var i = 0; i < ZOMBIES.enemies.length; i++) {
+                (function () {
+                    var i2 = i;
+                    // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
+                    ZOMBIES.enemies[i2].onDie();
+                    var temp = ZOMBIES.enemies[i2];
+                    ZOMBIES.enemies.splice(i2, 1);
+                    setTimeout(function () {
+                        temp.remove();
+                    }, 500);
+                })();
+            }
+        ZOMBIES.stop_Add_Enemy_Wh_Move_To_Next_Level=true;    
+        ZOMBIES.hero.dieable = false;
+        ZOMBIES.addToTerminal("<span style='color:green;'>move to next Level </span>")
+
+        var nextLevel = document.createElement('marquee');
+        nextLevel.scrollamount = "100";        
+        nextLevel.id = "MoveToNext" ;
+
+
+        var h1 = document.createElement('h1');
+        h1.innerText = 'Move to level '+ZOMBIES.CURRENT_LEVEL;
+        nextLevel.appendChild(h1);
+        document.body.appendChild(nextLevel);
+        console.log(nextLevel);
+
+        setTimeout(function () {
+        ZOMBIES.stop_Add_Enemy_Wh_Move_To_Next_Level=false;    
+        ZOMBIES.hero.dieable = true;                    
+        document.body.removeChild(document.getElementById("MoveToNext"));
+
+        },7000);
+
+        // ZOMBIES.pause = true ;
+
+        // setTimeout(function() {
+        //    ZOMBIES.pause = false ; 
+        // }, 2000);
     }
     ,
     gameOver: function () {
 
-        document.body.removeChild(document.getElementById("lives"+ZOMBIES.hero.live));
-        ZOMBIES.hero.live-- ;
-        ZOMBIES.FINISH = true;
+        document.body.removeChild(document.getElementById("lives" + ZOMBIES.hero.live));
+        ZOMBIES.hero.live--;
         var element = document.getElementById(hero.id);
         element.style.visibility = 'hidden';
-        if(ZOMBIES.hero.live > 0){
+        
+        ZOMBIES.hero.dieable = false;
         setTimeout(function () {
-            ZOMBIES.FINISH = false;
-            var element = document.getElementById(hero.id);
-            element.style.visibility = 'visible';
-            ZOMBIES.hero.x = window.innerWidth / 2 - 25;
-            ZOMBIES.hero.y = window.innerHeight - 150;
-            ZOMBIES.addToTerminal("<span style='color:green;'>sudo resurrect hero </span>")
-            ZOMBIES.loop();
-        },3000);
+        ZOMBIES.hero.dieable = true;                    
+        },7000);
+
+        if (ZOMBIES.hero.live > 0) {
+
+            setTimeout(function () {
+                var element = document.getElementById(hero.id);
+                element.style.visibility = 'visible';
+                ZOMBIES.hero.x = window.innerWidth / 2 - 25;
+                ZOMBIES.hero.y = window.innerHeight - 150;
+                ZOMBIES.addToTerminal("<span style='color:green;'>sudo resurrect hero </span>")
+                ZOMBIES.addToTerminal("<span style='color:green;'>you are protected for 5 second </span>")
+                ZOMBIES.loop();
+            }, 2000);
         }
-        else{
+        else {
 
         }
 
@@ -498,7 +589,7 @@ var ZOMBIES = {
         }
     },
     getCurrentWeaponIndex: function () {
-      return ZOMBIES.MY_WEAPONS.indexOf(ZOMBIES.CURRENT_WEAPON);
+        return ZOMBIES.MY_WEAPONS.indexOf(ZOMBIES.CURRENT_WEAPON);
     },
     addToTerminal: function (cmd) {
         var cmdElement = document.createElement('p');
@@ -511,9 +602,9 @@ var ZOMBIES = {
         for (var i = 0; i < ZOMBIES.MY_WEAPONS.length; i++) {
             var weapon = ZOMBIES.MY_WEAPONS[i];
             var item = document.createElement('li');
-                var itemImg = document.createElement('img');
-                itemImg.src = 'assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[weapon].IMAGE;
-                item.appendChild(itemImg);
+            var itemImg = document.createElement('img');
+            itemImg.src = 'assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[weapon].IMAGE;
+            item.appendChild(itemImg);
             item.innerHTML += (ZOMBIES.WEAPONS_LIMITS[weapon] > 0) ? ZOMBIES.WEAPONS_LIMITS[weapon] : '&#x221e;';
             if (i == ZOMBIES.getCurrentWeaponIndex()) {
                 item.classList.toggle('current')
@@ -523,12 +614,12 @@ var ZOMBIES = {
         }
 
     },
-    addWeapon : function (weapon) {
+    addWeapon: function (weapon) {
         //if i do not have this weapon, add it to the list
         if (ZOMBIES.MY_WEAPONS.indexOf(weapon) == -1) {
             ZOMBIES.MY_WEAPONS.push(weapon);
             ZOMBIES.WEAPONS_LIMITS[weapon] = ZOMBIES.WEAPONS_MAP[weapon].LIMIT
-        }else{
+        } else {
             //if i have the weapon increase the list by the weapon limit
             ZOMBIES.WEAPONS_LIMITS[weapon] += ZOMBIES.WEAPONS_MAP[weapon].LIMIT
         }
@@ -556,7 +647,7 @@ var ZOMBIES = {
         ZOMBIES.monster = false;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH,true, GAME_WIDTH/2);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2);
         ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
         ZOMBIES.monsterAction();
@@ -565,11 +656,10 @@ var ZOMBIES = {
     /*
       add animation to monster
     */
-    monsterAction: function(){
-        if(ZOMBIES.monsterObj != null && !ZOMBIES.FINISH)
-        {
-             ZOMBIES.monsterObj.toggleClass('monster-rotate');
-             setTimeout('ZOMBIES.monsterAction(); ZOMBIES.monsterAttak();', 5000);
+    monsterAction: function () {
+        if (ZOMBIES.monsterObj != null && !ZOMBIES.FINISH) {
+            ZOMBIES.monsterObj.toggleClass('monster-rotate');
+            setTimeout('ZOMBIES.monsterAction(); ZOMBIES.monsterAttak();', 5000);
         }
 
     },
@@ -577,8 +667,8 @@ var ZOMBIES = {
     function to add rockets to monster
     the same logic of multiple laser rocket
     */
-    monsterAttak: function(){
-        if(ZOMBIES.monsterObj != null && !ZOMBIES.FINISH) {
+    monsterAttak: function () {
+        if (ZOMBIES.monsterObj != null && !ZOMBIES.FINISH) {
             var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
             var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
             // to make the monster shoot more than one rocket
@@ -589,9 +679,9 @@ var ZOMBIES = {
                 //if monster has the Multiple option
                 if (monsterConfig.ROCKETS > 1) {
                     //if i less than the middle to left
-                    if (i < Math.ceil(monsterConfig.ROCKETS/2)) {
+                    if (i < Math.ceil(monsterConfig.ROCKETS / 2)) {
                         enemyDirection = 'left';
-                    }else if (i > Math.ceil(monsterConfig.ROCKETS/2)) {
+                    } else if (i > Math.ceil(monsterConfig.ROCKETS / 2)) {
                         enemyDirection = 'right';
                     }
                 }
@@ -600,7 +690,7 @@ var ZOMBIES = {
                 var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
 
 
-                var monsterRockets =  new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false,  ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y,enemyDirection);
+                var monsterRockets = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y, enemyDirection);
 
                 if (enemyConfig.ANIMATE) {
                     monsterRockets.addClass('animated');
