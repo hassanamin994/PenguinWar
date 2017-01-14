@@ -1,12 +1,15 @@
-var Enemy = function(img, height, width, xAxis) {
+var Enemy = function(img, height, width, monster, xAxis, yAxis=100, direction) {
     var BLINDSIDE = 60 ;
 
     var x = BLINDSIDE + ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE);
     var y = 60;
+    this.direction = direction;
     this.monster = false;
     if (xAxis) {
         x= xAxis;
-        y=100;
+        y=yAxis; 
+    }
+    if (monster) {
         this.monster = true;
     }
     Component.call(this, img, x, y, height, width, 'enemy' + ZOMBIES.helpers.getRandom(1000000), 'enemy');

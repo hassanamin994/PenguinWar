@@ -88,6 +88,7 @@ var ZOMBIES = {
             WIDTH : 150,
             HEIGHT : 100,
             HEALTH : 3,
+            ROCKETS : 4,
         }
     },
     EXIRS_MAP: {
@@ -171,7 +172,6 @@ var ZOMBIES = {
     }
     ,
     loop: function () {
-        console.log('sddd ');
         if (new Date().getTime() - ZOMBIES.lastLoopRun > 40) {
             ZOMBIES.updatePositions();
             ZOMBIES.hero.handelControllers();
@@ -207,12 +207,16 @@ var ZOMBIES = {
         }
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
             if (ZOMBIES.enemies[i].isGotOut) {
-                 console.log(ZOMBIES.enemies[i].monster);
                 ZOMBIES.enemies[i].remove();
                 ZOMBIES.enemies.splice(i, 1);
             } else if(!ZOMBIES.enemies[i].monster) {
                 ZOMBIES.enemies[i].y += ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMY_SPEED;
-                //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
+                if (ZOMBIES.enemies[i].direction == 'left') {
+                    ZOMBIES.enemies[i].x -= ZOMBIES.helpers.getRandom(10);
+                }
+                if (ZOMBIES.enemies[i].direction == 'right') {
+                    ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10);
+                }
             }
 
         }
@@ -378,6 +382,8 @@ var ZOMBIES = {
                         var i2 = i;
                         // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
                         ZOMBIES.enemies[i2].onDie();
+                        ZOMBIES.monsterObj = null;
+                        console.log(ZOMBIES.monsterObj);
                         var temp = ZOMBIES.enemies[i2];
                         ZOMBIES.enemies.splice(i2, 1);
                         setTimeout(function () {
@@ -387,9 +393,7 @@ var ZOMBIES = {
                     })();
                 }else{
                    monsterConfig.HEALTH--; 
-                }
-                
-                console.log(monsterConfig.HEALTH);
+                }                
             }
         }
     },
@@ -409,7 +413,6 @@ var ZOMBIES = {
 
         document.body.removeChild(document.getElementById("lives"+ZOMBIES.hero.live));
         ZOMBIES.hero.live-- ;
-        console.log( ZOMBIES.hero.live)
         ZOMBIES.FINISH = true;
         var element = document.getElementById(hero.id);
         element.style.visibility = 'hidden';
@@ -507,21 +510,62 @@ var ZOMBIES = {
     addMonster: function () {
         ZOMBIES.monster = false;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
-        console.log(monsterKey);
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, GAME_WIDTH/2);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH,true, GAME_WIDTH/2);
         ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
-        ZOMBIES.monsterAnimate();
+        ZOMBIES.monsterAction();
         //console.log(ZOMBIES.enemies);
 
     },
-    monsterAnimate: function(){
+    monsterAction: function(){
        // console.log(ZOMBIES.enemies);
-        ZOMBIES.monsterObj.toggleClass('monster-rotate');
-        setTimeout('ZOMBIES.monsterAnimate();', 5000);
+        if(ZOMBIES.monsterObj != null)
+        {
+             ZOMBIES.monsterObj.toggleClass('monster-rotate');
+             setTimeout('ZOMBIES.monsterAction();ZOMBIES.monsterAttak();', 5000);
+        }
 
     },
+    monsterAttak: function(){
+        console.log('attack');
+        if(ZOMBIES.monsterObj != null) {
+            var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
+            var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
+            // to make the monster shoot more than one rocket
+            for (var i = 1; i <= monsterConfig.ROCKETS; i++) {
+                //if we he 3 rockets 1 = left , 2 = center, 3 = right and so on
+                var enemyDirection = 'straight';
+
+                //if monster has the Multiple option
+                if (monsterConfig.ROCKETS > 1) {
+                    //if i less than the middle to left
+                    if (i < Math.ceil(monsterConfig.ROCKETS/2)) {
+                        enemyDirection = 'left';
+                    }else if (i > Math.ceil(monsterConfig.ROCKETS/2)) {
+                        enemyDirection = 'right';
+                    }
+                }
+
+                var enemyKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMIES.random();
+                var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
+
+
+                var monsterRockets =  new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false,  ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y,enemyDirection);
+
+                if (enemyConfig.ANIMATE) {
+                    monsterRockets.addClass('animated');
+                    monsterRockets.addClass('infinite');
+                    monsterRockets.addClass(enemyConfig.ANIMATE.random());
+                }
+                ZOMBIES.enemies.push(monsterRockets);
+            }
+
+        }        
+
+
+    },
+
 
 };
 ZOMBIES.init();
