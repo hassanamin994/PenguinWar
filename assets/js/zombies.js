@@ -24,6 +24,7 @@ var ZOMBIES = {
     monster: false,
     SCORE: 0,
     interval: 50,
+    MONSTERAPPEARED : false,
 
     laserArray: [],
     exirArray: [],
@@ -436,9 +437,11 @@ var ZOMBIES = {
                 }
                 i--;
                 laser.y = -laser.h;
-                ZOMBIES.SCORE += 100;
-                ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
-                console.log(ZOMBIES.SCORE);
+                if(!ZOMBIES.MOSTERAPPEARED){
+                  ZOMBIES.SCORE += 100;
+                  ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
+                  console.log(ZOMBIES.SCORE);
+                }
             } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable) {
 
                 if (ZOMBIES.hero.live > 1) {
@@ -480,7 +483,7 @@ var ZOMBIES = {
 
                             temp.remove();
                         }, 500);
-
+                        ZOMBIES.MONSTERAPPEARED = false ;
                         ZOMBIES.moveToNextLevel();
                     })();
                 } else {
@@ -589,7 +592,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 3000 == 0 && score != 0) {
+        if (score % 300 == 0 && score != 0) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
@@ -661,6 +664,7 @@ var ZOMBIES = {
     },
     addMonster: function () {
         ZOMBIES.monster = false;
+        ZOMBIES.MONSTERAPPEARED = true ;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
         ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2);
