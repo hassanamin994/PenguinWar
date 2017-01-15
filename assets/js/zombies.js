@@ -18,7 +18,9 @@ var ZOMBIES = {
     NEXT_WEAPON: 69,
     PREV_WEAPON: 81,
     ESC: 27,
-
+    // Player info
+    PLAYERS: [],
+    CURRENT_PLAYER : {},
     FINISH: false,
     //to stop generate enemy when become false in add monster function
     monster: false,
@@ -31,6 +33,7 @@ var ZOMBIES = {
     enemies: [],
 
     pause: false, // to handel pause
+    started:false,
 
     stopEnemyAdd: false,
 
@@ -92,6 +95,22 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 3,
             ROCKETS: 4,
+        },
+        ORACLE2: {
+            IMAGE: 'oracle_1.png',
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 150,
+            HEIGHT: 100,
+            HEALTH: 10,
+            ROCKETS: 7,
+        },
+        ORACLE3: {
+            IMAGE: 'oracle_1.png',
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 150,
+            HEIGHT: 100,
+            HEALTH: 15,
+            ROCKETS: 9,
         }
     },
     EXIRS_MAP: {
@@ -123,7 +142,7 @@ var ZOMBIES = {
             ENEMY_SPEED: 10,
             EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE2'],
-            MONSTER: ['ORACLE']
+            MONSTER: ['ORACLE2']
 
         },
         3: {
@@ -131,7 +150,7 @@ var ZOMBIES = {
             ENEMY_SPEED: 10,
             EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE']
+            MONSTER: ['ORACLE3']
         }
 
     },
@@ -140,7 +159,6 @@ var ZOMBIES = {
     // Initialization function
     // GAME ENTRY POINT HERE
     init: function (options) {
-
         ZOMBIES.pauseDiv = document.getElementById('pause');
         ZOMBIES.levelInfoDiv = document.getElementById('levelinfo');
         ZOMBIES.scoreDiv = document.getElementById('score');
@@ -148,8 +166,15 @@ var ZOMBIES = {
         ZOMBIES.heartsDiv = document.getElementById('hearts');
 
         ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
-        // Setting the number of lives manually every init for the restart functionality
+        ///////////////////////////////////////////////////
+        // INITIAL SETTINGS, DO NOT CHANGE !!!
+        ///////////////////////////////////////////////////
         ZOMBIES.hero.live = 3 ;
+        ZOMBIES.CURRENT_LEVEL = 1;
+        ZOMBIES.pause = false ;
+        ZOMBIES.started = true ;
+        ZOMBIES.iterations =0 ;
+        ////////////////////////////////////////
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
 
@@ -178,8 +203,29 @@ var ZOMBIES = {
             if (evt.keyCode == ZOMBIES.ESC || (evt.keyCode == ZOMBIES.SPACE_KEY && ZOMBIES.pause)) {
                 if (!ZOMBIES.pause) {
                     ZOMBIES.pauseDiv.style.display = 'block';
+                    document.getElementById('menu-div').style.visibility = 'visible' ;
+                    document.getElementById('menu-div').style.left = '5%' ;
+                    document.getElementById('menu-div').style.background = ' rgba(255,255,255,0)' ;
+                    if(newgameDiv.style.visibility == "visible"){
+                      newgameDiv.style.visibility = "hidden" ;
+                      newgameDiv.style.left = "-50%";
+                    }
+                    if(highscoresDiv.style.visibility == "visible"){
+                      highscoresDiv.style.visibility = "hidden" ;
+                      highscoresDiv.style.left = "-50%";
+                    }
                 } else {
                     ZOMBIES.pauseDiv.style.display = 'none';
+                    document.getElementById('menu-div').style.visibility = 'hidden' ;
+                    document.getElementById('menu-div').style.left = '-9999999px' ;
+                    if(newgameDiv.style.visibility == "visible"){
+                      newgameDiv.style.visibility = "hidden" ;
+                      newgameDiv.style.left = "-50%";
+                    }
+                    if(highscoresDiv.style.visibility == "visible"){
+                      highscoresDiv.style.visibility = "hidden" ;
+                      highscoresDiv.style.left = "-50%";
+                    }
                 }
                 ZOMBIES.pause = !ZOMBIES.pause;
             }
@@ -201,9 +247,10 @@ var ZOMBIES = {
       ZOMBIES.scoreDiv.textContent = 0 ;
       ZOMBIES.MY_WEAPONS = ['OS'] ;
       // killing all existing enemies before restarting
-      for( var i = 0 ; i < ZOMBIES.enemies.length ; i++ ){
-        ZOMBIES.enemies[i].y = 1000 ;
-      }
+
+      ZOMBIES.clearEnemies();
+      ZOMBIES.clearExirs() ;
+      ZOMBIES.CURRENT_WEAPON = "OS" ;
       ZOMBIES.init() ;
 
 
@@ -509,20 +556,31 @@ var ZOMBIES = {
         }
         return result;
     },
+    clearExirs:function(){
+      for( i = 0 ; i < ZOMBIES.exirArray.length ; i++ ){
+        ZOMBIES.exirArray[i].remove();
+        ZOMBIES.exirArray.splice(i, 1);
+      }
+    }
+    ,
+    clearEnemies:function(){
+      for (var i = 0; i < ZOMBIES.enemies.length; i++) {
+          (function () {
+              var i2 = i;
+              // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
+              ZOMBIES.enemies[i2].onDie();
+              var temp = ZOMBIES.enemies[i2];
+              ZOMBIES.enemies.splice(i2, 1);
+              setTimeout(function () {
+                  temp.remove();
+              }, 500);
+          })();
+      }
+    },
     moveToNextLevel: function () {
         ZOMBIES.CURRENT_LEVEL++;
-        for (var i = 0; i < ZOMBIES.enemies.length; i++) {
-            (function () {
-                var i2 = i;
-                // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
-                ZOMBIES.enemies[i2].onDie();
-                var temp = ZOMBIES.enemies[i2];
-                ZOMBIES.enemies.splice(i2, 1);
-                setTimeout(function () {
-                    temp.remove();
-                }, 500);
-            })();
-        }
+        // moved into separate function because it's needed in restart method
+        ZOMBIES.clearEnemies() ;
         ZOMBIES.stopEnemyAdd = true;
         ZOMBIES.hero.dieable = false;
         ZOMBIES.addToTerminal('move to next Level', 'green');
@@ -550,7 +608,29 @@ var ZOMBIES = {
         // }, 2000);
     }
     ,
-    gameOver: function () {
+    updateHighscores:function(){
+      for( i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
+        if(ZOMBIES.PLAYERS[i].name == ZOMBIES.CURRENT_PLAYER.name ){
+          // if player achieved a new highscore , update it
+          if(ZOMBIES.PLAYERS[i].highscore < ZOMBIES.scoreDiv.textContent)
+            {
+              ZOMBIES.PLAYERS[i].highscore = ZOMBIES.scoreDiv.textContent ;
+              // need to add flag later to notify that he achived highscore
+            }
+            break ;
+        }
+      }
+      // sorting the highscores
+      ZOMBIES.PLAYERS.sort(ZOMBIES.helpers.sortbyScore) ;
+      // pushing into the DOM
+      var highscoretemplate = '<tr><th>Name</th><th>Score</th></tr>' ;
+      for(i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
+        highscoretemplate += '<tr>' + '<td>' + ZOMBIES.PLAYERS[i].name +'</td>' +'<td>' + ZOMBIES.PLAYERS[i].highscore +'</td>' + '</tr>'
+      }
+      document.getElementById('high-scores-table').innerHTML = highscoretemplate ;
+    }
+    ,
+    gameOver: function (player) {
 
         if (ZOMBIES.hero.live >= 1) {
             ZOMBIES.heartsDiv.removeChild(document.getElementById("heart" + ZOMBIES.hero.live));
@@ -560,6 +640,7 @@ var ZOMBIES = {
             if(ZOMBIES.hero.live == 0 ){
               ZOMBIES.hero.remove() ;
               ZOMBIES.FINISH = true ;
+              ZOMBIES.updateHighscores() ;
               console.log('died');
             }else{
               var element = document.getElementById(hero.id);
@@ -568,6 +649,8 @@ var ZOMBIES = {
               ZOMBIES.hero.dieable = false;
               setTimeout(function () {
                   ZOMBIES.hero.dieable = true;
+                  ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ','red');
+                  ZOMBIES.addToTerminal('GO!','green');
               }, 7000);
               setTimeout(function () {
                   var element = document.getElementById(hero.id);
@@ -607,7 +690,15 @@ var ZOMBIES = {
     helpers: {
         getRandom: function (maxSize) {
             return parseInt(Math.random() * maxSize);
+        },
+        sortbyScore:function (a,b) {
+          if (a.highscore > b.highscore)
+            return -1;
+          if (a.highscore < b.highscore)
+            return 1;
+          return 0;
         }
+
     },
     // Getting the index of the current used weapon
     getCurrentWeaponIndex: function () {

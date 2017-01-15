@@ -60,17 +60,28 @@ form.addEventListener('submit',function(e){
   if(!validform){
         e.preventDefault() ;
   }else{
+    e.preventDefault() ;
     // Hiding the menu if the form is valid
     // and Initializing the game
-      e.preventDefault() ;
+    username.value = "" ;
     document.getElementById('menu-div').style.zindex = "-9999" ;
     document.getElementById('menu-div').style.visibility = 'hidden' ;
-
     document.getElementById('menu-div').style.left= "-9999px" ;
     document.getElementById('go').blur() ;
-    ZOMBIES.init() ;
-    console.log('game init ') ;
-        setTimeout(document.getElementById('hero').focus() , 2000 )  ;
+    if(!ZOMBIES.started)
+      ZOMBIES.init() ;
+      else
+      {
+        ZOMBIES.restart() ;
+        // hiding the pause screen when user press new game from pause screen
+        ZOMBIES.pauseDiv.style.display = 'none';
+      }
+    // calling restart to reset any previous values so user can start new game when die from the menu
+
+    ZOMBIES.PLAYERS.push({name:username.value,highscore:0});
+    ZOMBIES.CURRENT_PLAYER = {name:username.value,highscore:0} ;
+
+    setTimeout(document.getElementById('hero').focus() , 2000 )  ;
 
 
   }
