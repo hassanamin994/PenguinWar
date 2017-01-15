@@ -437,7 +437,7 @@ var ZOMBIES = {
                 }
                 i--;
                 laser.y = -laser.h;
-                if(!ZOMBIES.MOSTERAPPEARED){
+                if(!ZOMBIES.MONSTERAPPEARED){
                   ZOMBIES.SCORE += 100;
                   ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
                   console.log(ZOMBIES.SCORE);
@@ -484,7 +484,11 @@ var ZOMBIES = {
                             temp.remove();
                         }, 500);
                         ZOMBIES.MONSTERAPPEARED = false ;
+                        // Added to prevent monster from appearing after it die because score is still %3000
+                        ZOMBIES.SCORE += 100 ;
+                        ////////////////////
                         ZOMBIES.moveToNextLevel();
+                        ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER] == 4 ;
                     })();
                 } else {
 
@@ -592,7 +596,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 300 == 0 && score != 0) {
+        if (score % 300 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
