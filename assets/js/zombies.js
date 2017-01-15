@@ -134,7 +134,8 @@ var ZOMBIES = {
             ENEMY_SPEED: 5,
             EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE']
+            MONSTER: ['ORACLE'],
+            BACKGROUND:'clouds'
 
         },
         2: {
@@ -142,7 +143,8 @@ var ZOMBIES = {
             ENEMY_SPEED: 10,
             EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE2'],
-            MONSTER: ['ORACLE2']
+            MONSTER: ['ORACLE2'],
+            BACKGROUND:'sky'
 
         },
         3: {
@@ -150,7 +152,8 @@ var ZOMBIES = {
             ENEMY_SPEED: 10,
             EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE3']
+            MONSTER: ['ORACLE3'],
+            BACKGROUND:'clouds'
         }
 
     },
@@ -579,6 +582,9 @@ var ZOMBIES = {
     },
     moveToNextLevel: function () {
         ZOMBIES.CURRENT_LEVEL++;
+
+        var newBG ='<video id="background-video" loop muted autoplay class="fullscreen-bg__video"><source src="assets/videos/' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].BACKGROUND + '.mp4" type="video/mp4"></video>'
+        document.getElementsByClassName('fullscreen-bg')[0].innerHTML = newBG ;
         // moved into separate function because it's needed in restart method
         ZOMBIES.clearEnemies() ;
         ZOMBIES.stopEnemyAdd = true;
