@@ -470,6 +470,7 @@ var ZOMBIES = {
         }
     }
     ,
+    //handel collision Between hero and EXIRS
     checkCollisions: function () {
         for (var i = 0; i < ZOMBIES.exirArray.length; i++) {
             if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.exirArray[i])) {
@@ -491,7 +492,7 @@ var ZOMBIES = {
                 ZOMBIES.exirArray.splice(i, 1);
             }
         }
-
+        //handel collision Between enemies and laser
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
 
             var laser = ZOMBIES.getIntersectingLaser(ZOMBIES.enemies[i]);
@@ -522,8 +523,8 @@ var ZOMBIES = {
                   ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
                   console.log(ZOMBIES.SCORE);
                 }
-            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable) {
-
+            //handel collision hero and enemies
+            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && !ZOMBIES.enemies[i].monster) {
                 if (ZOMBIES.hero.live > 1) {
                     ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
                 } else {
@@ -544,7 +545,20 @@ var ZOMBIES = {
                 })();
 
                 ZOMBIES.gameOver();
-            } else if (laser && ZOMBIES.enemies[i].monster) {
+            }
+            //handel collision between hero and monster
+            else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && ZOMBIES.enemies[i].monster){
+
+                if (ZOMBIES.hero.live > 1) {
+                    ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
+                } else {
+                    ZOMBIES.addToTerminal('KERNEL ERROR! System require Manual reset', 'red');
+                }
+
+                ZOMBIES.gameOver();
+
+                //handel collision between laser and monster
+            }else if (laser && ZOMBIES.enemies[i].monster) {
                 var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
                 var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
                 laser.remove();
@@ -698,6 +712,7 @@ var ZOMBIES = {
                   ZOMBIES.addToTerminal('GO!','green');
               }, 7000);
               setTimeout(function () {
+                  ZOMBIES.hero.removeDieStyle();
                   var element = document.getElementById(hero.id);
                   element.style.visibility = 'visible';
                   ZOMBIES.hero.x = window.innerWidth / 2 - 25;
@@ -724,7 +739,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 300 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
+        if (score % 100 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
