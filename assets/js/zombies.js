@@ -49,6 +49,12 @@ var ZOMBIES = {
     WEAPONS_LIMITS: {
         'OS': 0
     },
+    MONSTER_HEALTH:{
+      1:4,
+      2:10,
+      3:15
+    }
+    ,
 
     WEAPONS_MAP: {
         OS: {
@@ -93,7 +99,7 @@ var ZOMBIES = {
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 150,
             HEIGHT: 100,
-            HEALTH: 3,
+            HEALTH: 5,
             ROCKETS: 4,
         },
         ORACLE2: {
@@ -541,8 +547,10 @@ var ZOMBIES = {
                         // Added to prevent monster from appearing after it die because score is still %3000
                         ZOMBIES.SCORE += 100 ;
                         ////////////////////
+                        // reset the value monster lives for the initial value 
+                        ////////////
+                        ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].HEALTH = ZOMBIES.MONSTER_HEALTH[ZOMBIES.CURRENT_LEVEL] ;
                         ZOMBIES.moveToNextLevel();
-                        ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER] = 4 ;
                     })();
                 } else {
 
@@ -598,16 +606,17 @@ var ZOMBIES = {
         ZOMBIES.hero.dieable = false;
         ZOMBIES.addToTerminal('move to next Level', 'green');
 
-        ZOMBIES.levelInfoDiv.style.display = 'block';
-        ZOMBIES.levelInfoDiv.innerHTML =
-            '<div class="leveltext animated rubberBand">' +
-            '<h1>AWESOME! You Did It Again</h1>' +
-            '<h1>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h1>' +
-            '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
-            '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
-            '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
-            '</div>';
-
+        setTimeout(function(){
+          ZOMBIES.levelInfoDiv.style.display = 'block';
+          ZOMBIES.levelInfoDiv.innerHTML =
+              '<div class="leveltext animated rubberBand">' +
+              '<h1>AWESOME! You Did It Again</h1>' +
+              '<h1>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h1>' +
+              '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
+              '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
+              '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
+              '</div>';
+        },2000);
         setTimeout(function () {
             ZOMBIES.stopEnemyAdd = false;
             ZOMBIES.hero.dieable = true;
