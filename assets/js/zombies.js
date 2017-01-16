@@ -861,7 +861,7 @@ var ZOMBIES = {
         ZOMBIES.MONSTERAPPEARED = true ;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,null,null,monsterConfig.DEATHTYPE);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,50,null,monsterConfig.DEATHTYPE);
         //ZOMBIES.monsterObj.addClass('animated');
         //ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
@@ -937,6 +937,7 @@ var ZOMBIES = {
                     monsterRockets.addClass(enemyConfig.ANIMATE.random());
                 }
                 ZOMBIES.enemies.push(monsterRockets);
+                console.log(monsterRockets);
             }
         }
     },
