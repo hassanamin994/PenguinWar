@@ -74,7 +74,8 @@ var ZOMBIES = {
             LIMIT: 10,
             ANIMATE: 'wobble',
             MULTIPLE: 3,
-            SOUND: 'assets/sounds/'
+            SOUND:'assets/sounds/hit.wav'
+
         },
         PYTHON: {
             IMAGE: 'python.png',
@@ -214,10 +215,21 @@ var ZOMBIES = {
             EXIRS: ['RUBY', 'PYTHON', 'LIVE', 'UBUNTU', 'CENTOS', 'FEDORA'],
             ENEMIES: ['CYBER'],
             MONSTER: ['CYBER'],
-            BACKGROUND: 'clouds',
-            SOUND: 'assets/sounds/',
-            BADGE: 'final-badge.png',
-            SLOAGAN: 'OPEN SOURCE MASTER !'
+            BACKGROUND:'clouds',
+            SOUND:'assets/sounds/background/level1_map.ogg',
+            BADGE:'final-badge.png',
+            SLOAGAN:'OPEN SOURCE MASTER !',
+        },
+        4: {
+            NAME: 'Soon',
+            ENEMY_SPEED: 10,
+            EXIRS: ['RUBY'],
+            ENEMIES: ['CYBER'],
+            MONSTER: ['CYBER'],
+            BACKGROUND:'clouds',
+            SOUND:'assets/sounds/background/level1_map.ogg',
+            BADGE:'final-badge.png',
+            SLOAGAN:'Soon !',
         }
 
     },
@@ -648,11 +660,13 @@ var ZOMBIES = {
                         ////////////////////
                         // reset the value monster lives for the initial value
                         ////////////
+
                         ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].HEALTH = ZOMBIES.MONSTER_HEALTH[ZOMBIES.CURRENT_LEVEL];
 
                         ZOMBIES.CURRENT_LEVEL++;
 
                         if (ZOMBIES.CURRENT_LEVEL >= 4) {
+                            ZOMBIES.pause = true;
                             ZOMBIES.levelInfoDiv.style.display = 'block';
                             ZOMBIES.levelInfoDiv.innerHTML =
                                 '<div class="leveltext animated rubberBand">' +
@@ -714,6 +728,7 @@ var ZOMBIES = {
     moveToNextLevel: function () {
 
         ZOMBIES.stopBackgroundMusic();
+
         // changing background music
         ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND;
 
@@ -813,6 +828,7 @@ var ZOMBIES = {
 
                     ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ', 'red');
                     ZOMBIES.addToTerminal('GO!', 'green');
+
                 }, 7000);
                 setTimeout(function () {
                     ZOMBIES.hero.removeDieStyle();
@@ -841,7 +857,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 100 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
+        if (score % 300 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
