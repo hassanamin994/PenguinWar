@@ -174,9 +174,11 @@ var ZOMBIES = {
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
             BACKGROUND:'clouds',
-            SOUND:'assets/sounds/',
             BADGE:'duke-badge.png',
-            SLOAGAN:'JAVA ASSASIN!'
+            SLOAGAN:'JAVA ASSASIN!',
+
+            SOUND:'assets/sounds/background/level1_map'
+
 
         },
         2: {
@@ -186,10 +188,9 @@ var ZOMBIES = {
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
-            SOUND:'assets/sounds/',
+            SOUND:'assets/sounds/background/level2_map',
             BADGE:`microsoft-badge.png`,
             SLOAGAN:'MICROSOFT ASSASIN!'
-
         },
         3: {
             NAME: 'Kill Microsoft',
@@ -218,7 +219,7 @@ var ZOMBIES = {
         /////////////////////////////////////
         // Sounds Section
         ////////////////////////////////////
-        ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/hit.wav'
+        ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/level1_map.ogg'
         ZOMBIES.playBackgroundMusic();
 
 
@@ -445,8 +446,8 @@ var ZOMBIES = {
         }                                                                   // Prevent hero from firing when is died
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
 
-            ZOMBIES.playSound(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
-          //  attackSound.play() ;
+            var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
+
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -466,7 +467,7 @@ var ZOMBIES = {
                     }
 
                     var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y, laserDirection);
-
+                    attackSound.play() ;
                     //if the current weapon has animation effect
                     if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
                         lasser.addClass('animated');
@@ -691,7 +692,7 @@ var ZOMBIES = {
         ZOMBIES.levelInfoDiv.innerHTML =
             '<div class="leveltext animated rubberBand">' +
             '<h2>' +'You\'ve Earned a new Badge !<h2>' +
-            '<h1 style="color:green;">' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SLOAGAN + '</h1>'+
+            '<h1 style="color:green;">' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].SLOAGAN + '</h1>'+
             '<h2>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h2>' +
             '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
             '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
