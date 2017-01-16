@@ -57,11 +57,20 @@ Enemy.prototype.onDie = function () {
         this.addClass('explode');
         this.addClass('explode_ignite');
     }else if (this.deathType == 'explode_404') {
-        this.addClass('explode_404');
-        this.addClass('explode_404_ignite');
+        this.addClass('explode_xpiece');
+        this.x = this.x - 150
+        this.y = this.y - 150
+        for (var i = 0; i < 10; i++) {
+            var e404 = document.createElement('div');
+            e404.classList.add('xpiece');
+            e404.textContent = '404';
+            this.element.appendChild(e404);
+        }
     }
 
     this.element.style.width = null;
     this.element.style.height = null;
-    this.element.children[0].style.display = 'none';
+
+    this.element.removeChild(this.element.children[0]);
+    //this.element.children[0].style.display = 'none';
 }
