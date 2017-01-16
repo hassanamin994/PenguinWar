@@ -86,38 +86,30 @@ var ZOMBIES = {
             WIDTH: 60,
             HEIGHT: 60,
         },
-        DUKE2: {
-            IMAGE: ['duke2.png', 'duke.png'],
+        EXPLORER: {
+            IMAGE: ['explorer.png'],
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
-            WIDTH: 30,
-            HEIGHT: 30,
+            WIDTH: 60,
+            HEIGHT: 60,
         }
     },
     MONSTERS_MAP: {
-        ORACLE: {
-            IMAGE: 'oracle_1.png',
-            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+        DUKE: {
+            IMAGE: 'duke2.png',
+            ANIMATE: [],
             WIDTH: 150,
             HEIGHT: 100,
             HEALTH: 5,
             ROCKETS: 4,
         },
-        ORACLE2: {
-            IMAGE: 'oracle_1.png',
-            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+        EXPLORER: {
+            IMAGE: 'explorer.png',
+            ANIMATE: [],
             WIDTH: 150,
             HEIGHT: 100,
             HEALTH: 10,
-            ROCKETS: 7,
+            ROCKETS: 4,
         },
-        ORACLE3: {
-            IMAGE: 'oracle_1.png',
-            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
-            WIDTH: 150,
-            HEIGHT: 100,
-            HEALTH: 15,
-            ROCKETS: 9,
-        }
     },
     EXIRS_MAP: {
         RUBY: {
@@ -131,26 +123,47 @@ var ZOMBIES = {
             IMAGE: 'python.png',
             ACTION: 'CHANGE_WEAPON',
             VALUE: 'PYTHON'
-        }
+        },
+        UBUNTU: {
+            NAME: 'UBUNTU',
+            IMAGE: 'ubuntu.png',
+            ACTION: 'CHANGE_HERO',
+            VALUE: 'ubuntu.png',
+            HERO_MOVEMENT : 30
+        },
+        FEDORA: {
+            NAME: 'FEDORA',
+            IMAGE: 'fedora.png',
+            ACTION: 'CHANGE_HERO',
+            VALUE: 'fedora.png',
+            HERO_MOVEMENT : 40
+        },
+        CENTOS: {
+            NAME: 'CENTOS',
+            IMAGE: 'centos.png',
+            ACTION: 'CHANGE_HERO',
+            VALUE: 'centos.png',
+            HERO_MOVEMENT : 50
+        },
     },
 
     GAME_MAP: {
         1: {
-            NAME: 'Kill Dukes',
+            NAME: 'Kill Duke',
             ENEMY_SPEED: 5,
-            EXIRS: ['RUBY', 'PYTHON'],
-            ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE'],
+            EXIRS: ['RUBY', 'PYTHON','FEDORA'],
+            ENEMIES: ['EXPLORER'],
+            MONSTER: ['EXPLORER'],
             BACKGROUND:'clouds'
 
         },
         2: {
-            NAME: 'Kill Microsoft',
+            NAME: 'Kill Internet Explorer',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON'],
-            ENEMIES: ['DUKE2'],
-            MONSTER: ['ORACLE2'],
-            BACKGROUND:'sky'
+            EXIRS: ['RUBY', 'PYTHON','UBUNTU','CENTOS'],
+            ENEMIES: ['EXPLORER'],
+            MONSTER: ['EXPLORER'],
+            BACKGROUND: 'sky'
 
         },
         3: {
@@ -167,7 +180,7 @@ var ZOMBIES = {
     terminalElement: document.getElementById('cmds'),
     // Initialization function
     // GAME ENTRY POINT HERE
-    init: function (options) {
+    init: function (playername) {
         ZOMBIES.pauseDiv = document.getElementById('pause');
         ZOMBIES.levelInfoDiv = document.getElementById('levelinfo');
         ZOMBIES.scoreDiv = document.getElementById('score');
@@ -175,7 +188,7 @@ var ZOMBIES = {
         ZOMBIES.heartsDiv = document.getElementById('hearts');
         ZOMBIES.playernameDiv = document.getElementById('player-name') ;
 
-        ZOMBIES.hero = new Hero('assets/images/heros/' + options + '.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
+        ZOMBIES.hero = new Hero('assets/images/heros/' + playername + '.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ///////////////////////////////////////////////////
         // INITIAL SETTINGS, DO NOT CHANGE !!!
         ///////////////////////////////////////////////////
@@ -251,7 +264,7 @@ var ZOMBIES = {
     }
     ,
     // Function that Resets the gameplay
-    restart: function(options){
+    restart: function(playername){
       if(ZOMBIES.hero){
         ZOMBIES.hero.remove() ;
         ZOMBIES.hero = null ;
@@ -264,7 +277,7 @@ var ZOMBIES = {
       ZOMBIES.clearEnemies();
       ZOMBIES.clearExirs() ;
       ZOMBIES.CURRENT_WEAPON = "OS" ;
-      ZOMBIES.init(options) ;
+      ZOMBIES.init(playername) ;
 
 
     }
@@ -323,10 +336,10 @@ var ZOMBIES = {
                     ZOMBIES.enemies[i].direction = "left";
                 }
                 if (ZOMBIES.enemies[i].direction == 'left') {
-                    ZOMBIES.enemies[i].x -= ZOMBIES.helpers.getRandom(10);
+                    ZOMBIES.enemies[i].x -= ZOMBIES.helpers.getRandom(20);
                 }
                 if (ZOMBIES.enemies[i].direction == 'right') {
-                    ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10);
+                    ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(20);
                 }
 
                 //ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10) - 5;
@@ -350,11 +363,11 @@ var ZOMBIES = {
                     }
                 }
                 if (ZOMBIES.enemies[i].direction == "right") {
-                    ZOMBIES.enemies[i].x += 10;
+                    ZOMBIES.enemies[i].x += ZOMBIES.helpers.getRandom(10);
 
                 }
                 if (ZOMBIES.enemies[i].direction == "left") {
-                    ZOMBIES.enemies[i].x -= 10;
+                    ZOMBIES.enemies[i].x -= ZOMBIES.helpers.getRandom(10);
                 }
                 //console.log(ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].DIRECTION );
                 //console.log(ZOMBIES.enemies[i].x);
@@ -466,6 +479,10 @@ var ZOMBIES = {
                     ZOMBIES.addToTerminal('sudo apt-get install ' + ZOMBIES.exirArray[i].config.VALUE, 'white');
                     // to add the weapon to the list to toggle between them
                     ZOMBIES.addWeapon(ZOMBIES.exirArray[i].config.VALUE);
+                }
+                if (ZOMBIES.exirArray[i].config.ACTION == 'CHANGE_HERO'){
+                    ZOMBIES.hero.element.children[0].src = 'assets/images/heros/' + ZOMBIES.exirArray[i].config.VALUE;
+                    ZOMBIES.hero.HERO_MOVEMENT = ZOMBIES.exirArray[i].config.HERO_MOVEMENT;
                 }
                 ZOMBIES.exirArray[i].remove();
                 ZOMBIES.exirArray.splice(i, 1);
@@ -608,15 +625,17 @@ var ZOMBIES = {
 
         setTimeout(function(){
           ZOMBIES.levelInfoDiv.style.display = 'block';
-          ZOMBIES.levelInfoDiv.innerHTML =
-              '<div class="leveltext animated rubberBand">' +
-              '<h1>AWESOME! You Did It Again</h1>' +
-              '<h1>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h1>' +
-              '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
-              '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
-              '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
-              '</div>';
         },2000);
+
+        ZOMBIES.levelInfoDiv.innerHTML =
+            '<div class="leveltext animated rubberBand">' +
+            '<h1>AWESOME! You Did It Again</h1>' +
+            '<h1>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h1>' +
+            '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
+            '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
+            '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
+            '</div>';
+
         setTimeout(function () {
             ZOMBIES.stopEnemyAdd = false;
             ZOMBIES.hero.dieable = true;
@@ -785,7 +804,8 @@ var ZOMBIES = {
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
         ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2);
-        ZOMBIES.monsterObj.addClass('fadeInDown');
+        //ZOMBIES.monsterObj.addClass('animated');
+        //ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
         ZOMBIES.monsterAction();
 
