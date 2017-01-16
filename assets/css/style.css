@@ -283,38 +283,13 @@ img {
     position: absolute;
     width: 300px;
     height: 300px;
-    color: #ff0000;
+    color: #fff;
 }
 
 div.xpiece {
     position: absolute;
 }
 
-@keyframes animi-1 {
-    0% {
-        top: 50%;
-        left: 50%;
-    }
-    10% {
-        opacity: 1;
-    }
-    35% {
-        top: 247px;
-        left: 9px;
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-div.xpiece:nth-child(1) {
-    left: 10px;
-    animation-duration: 1.8s;
-    animation-name: animi-1;
-    animation-iteration-count: infinite;
-    animation-direction: normal;
-    animation-timing-function: ease-in-out;
-}
 
 @keyframes animi-2 {
     0% {
