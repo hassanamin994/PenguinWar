@@ -43,6 +43,8 @@ var ZOMBIES = {
     CURRENT_LEVEL: 1,
     // the current weapon that shoot now
     CURRENT_WEAPON: 'OS',
+    // current background music
+    CURRENT_MUSIC: '' ,
     // all weapons player take to toggle between them
     MY_WEAPONS: ['OS'],
 
@@ -201,7 +203,15 @@ var ZOMBIES = {
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
         ZOMBIES.heartsDiv = document.getElementById('hearts');
         ZOMBIES.playernameDiv = document.getElementById('player-name') ;
+        /////////////////////////////////////
+        // Sounds Section
+        ////////////////////////////////////
+        ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/hit.wav'
+        ZOMBIES.playBackgroundMusic();
 
+
+        ///////////////////////////////////////
+        ///////////////////////////////////////
         ZOMBIES.hero = new Hero('assets/images/heros/' + playername + '.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ///////////////////////////////////////////////////
         // INITIAL SETTINGS, DO NOT CHANGE !!!
@@ -429,6 +439,8 @@ var ZOMBIES = {
             }
         }                                                                   // Prevent hero from firing when is died
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
+            var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
+            attackSound.play() ;
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -632,7 +644,10 @@ var ZOMBIES = {
     }
     ,
     moveToNextLevel: function () {
+        ZOMBIES.stopBackgroundMusic() ;
         ZOMBIES.CURRENT_LEVEL++;
+        // changing background music
+        ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND ;
 
         // moved into separate function because it's needed in restart method
         ZOMBIES.clearEnemies() ;
@@ -643,6 +658,7 @@ var ZOMBIES = {
         setTimeout(function(){
           ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
           ZOMBIES.levelInfoDiv.style.display = 'block';
+          ZOMBIES.playBackgroundMusic() ;
         },2000);
 
         ZOMBIES.levelInfoDiv.innerHTML =
@@ -837,6 +853,14 @@ var ZOMBIES = {
             setTimeout('ZOMBIES.monsterAction(); ZOMBIES.monsterAttak();', 5000);
         }
 
+    },
+    stopBackgroundMusic:function(){
+        var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
+        music.pause();
+    },
+    playBackgroundMusic:function(){
+      var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
+      music.play() ;
     },
     /*
      function to add rockets to monster
