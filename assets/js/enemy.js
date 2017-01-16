@@ -1,6 +1,7 @@
-var Enemy = function(img, height, width, monster, xAxis, yAxis=100, direction = null) {
-    var BLINDSIDE = 60 ;
+var Enemy = function(img, height, width, monster, xAxis, yAxis, direction,deathType) {
+    this.deathType = deathType;
 
+    var BLINDSIDE = 60 ;
     var x = BLINDSIDE + ZOMBIES.helpers.getRandom(GAME_WIDTH - BLINDSIDE);
     var y = 60;
     this.direction = direction;
@@ -51,8 +52,15 @@ Enemy.prototype.constructor = Enemy;
 
 Enemy.prototype.onDie = function () {
     this.removeClass('infinite');
-    this.addClass('explode');
-    this.addClass('explode_ignite');
+
+    if (this.deathType == 'explode') {
+        this.addClass('explode');
+        this.addClass('explode_ignite');
+    }else if (this.deathType == 'explode_404') {
+        this.addClass('explode_404');
+        this.addClass('explode_404_ignite');
+    }
+
     this.element.style.width = null;
     this.element.style.height = null;
     this.element.children[0].style.display = 'none';

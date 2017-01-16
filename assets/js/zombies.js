@@ -62,21 +62,24 @@ var ZOMBIES = {
             SPEED: 20,
             LIMIT: 0,
             ANIMATE: 'flip',
-            MULTIPLE: 1
+            MULTIPLE: 1,
+            SOUND:'assets/sounds/hit.wav'
         },
         RUBY: {
             IMAGE: 'ruby.png',
             SPEED: 30,
             LIMIT: 10,
             ANIMATE: 'wobble',
-            MULTIPLE: 3
+            MULTIPLE: 3,
+            SOUND:'assets/sounds/'
         },
         PYTHON: {
             IMAGE: 'python.png',
             SPEED: 40,
             LIMIT: 5,
             ANIMATE: 'wobble',
-            MULTIPLE: 5
+            MULTIPLE: 5,
+            SOUND:'assets/sounds/python.ogg'
         }
     },
     ENEMIES_MAP: {
@@ -85,12 +88,16 @@ var ZOMBIES = {
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
+            SOUND:'assets/sounds/duke-die.ogg',
+            DEATHTYPE : 'explode_404'
         },
         EXPLORER: {
             IMAGE: ['explorer.png'],
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
+            SOUND:'assets/sounds/explorer-die.ogg',
+            DEATHTYPE : 'explode_404'
         }
     },
     MONSTERS_MAP: {
@@ -101,6 +108,8 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 5,
             ROCKETS: 4,
+            SOUND:'assets/sounds/monster-appear.ogg',
+            DEATHTYPE : 'explode'
         },
         EXPLORER: {
             IMAGE: 'explorer.png',
@@ -109,6 +118,8 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 10,
             ROCKETS: 4,
+            SOUND:'assets/sounds/monster-appear.ogg',
+            DEATHTYPE : 'explode'
         },
     },
     EXIRS_MAP: {
@@ -160,7 +171,8 @@ var ZOMBIES = {
             EXIRS: ['LIVE','RUBY','PYTHON','FEDORA'],
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
-            BACKGROUND:'clouds'
+            BACKGROUND:'clouds',
+            SOUND:'assets/sounds/'
 
         },
         2: {
@@ -169,7 +181,8 @@ var ZOMBIES = {
             EXIRS: ['RUBY','LIVE', 'PYTHON','UBUNTU','CENTOS'],
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
-            BACKGROUND: 'sky'
+            BACKGROUND: 'sky',
+            SOUND:'assets/sounds/'
 
         },
         3: {
@@ -178,7 +191,8 @@ var ZOMBIES = {
             EXIRS: ['RUBY', 'PYTHON','LIVE'],
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE3'],
-            BACKGROUND:'clouds'
+            BACKGROUND:'clouds',
+            SOUND:'assets/sounds/'
         }
 
     },
@@ -469,6 +483,7 @@ var ZOMBIES = {
         }
     }
     ,
+    //handel collision Between hero and EXIRS
     checkCollisions: function () {
         for (var i = 0; i < ZOMBIES.exirArray.length; i++) {
             if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.exirArray[i])) {
@@ -495,7 +510,7 @@ var ZOMBIES = {
                 ZOMBIES.exirArray.splice(i, 1);
             }
         }
-
+        //handel collision Between enemies and laser
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
 
             var laser = ZOMBIES.getIntersectingLaser(ZOMBIES.enemies[i]);
@@ -526,8 +541,8 @@ var ZOMBIES = {
                   ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
                   console.log(ZOMBIES.SCORE);
                 }
-            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable) {
-
+            //handel collision hero and enemies
+            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && !ZOMBIES.enemies[i].monster) {
                 if (ZOMBIES.hero.live > 1) {
                     ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
                 } else {
@@ -548,7 +563,20 @@ var ZOMBIES = {
                 })();
 
                 ZOMBIES.gameOver();
-            } else if (laser && ZOMBIES.enemies[i].monster) {
+            }
+            //handel collision between hero and monster
+            else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && ZOMBIES.enemies[i].monster){
+
+                if (ZOMBIES.hero.live > 1) {
+                    ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
+                } else {
+                    ZOMBIES.addToTerminal('KERNEL ERROR! System require Manual reset', 'red');
+                }
+
+                ZOMBIES.gameOver();
+
+                //handel collision between laser and monster
+            }else if (laser && ZOMBIES.enemies[i].monster) {
                 var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
                 var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
                 laser.remove();
@@ -702,6 +730,7 @@ var ZOMBIES = {
                   ZOMBIES.addToTerminal('GO!','green');
               }, 7000);
               setTimeout(function () {
+                  ZOMBIES.hero.removeDieStyle();
                   var element = document.getElementById(hero.id);
                   element.style.visibility = 'visible';
                   ZOMBIES.hero.x = window.innerWidth / 2 - 25;
@@ -728,7 +757,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 300 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
+        if (score % 100 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
@@ -795,7 +824,7 @@ var ZOMBIES = {
             var enemyKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMIES.random();
             var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
 
-            var enemyObj = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH);
+            var enemyObj = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH,false,null,null,null,enemyConfig.DEATHTYPE);
 
             if (enemyConfig.ANIMATE) {
                 enemyObj.addClass('animated');
@@ -811,7 +840,7 @@ var ZOMBIES = {
         ZOMBIES.MONSTERAPPEARED = true ;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,null,null,monsterConfig.DEATHTYPE);
         //ZOMBIES.monsterObj.addClass('animated');
         //ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
@@ -866,7 +895,7 @@ var ZOMBIES = {
                 var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
 
 
-                var monsterRockets = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y, enemyDirection);
+                var monsterRockets = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y, enemyDirection,enemyConfig.DEATHTYPE);
 
                 if (enemyConfig.ANIMATE) {
                     monsterRockets.addClass('animated');

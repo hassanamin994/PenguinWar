@@ -89,3 +89,19 @@ Hero.prototype.handelControllers = function () {
     }
 
 };
+
+Hero.prototype.onDieStyle = function () {
+    this.addClass('explode');
+    this.addClass('explode_ignite');
+    this.element.style.width = null;
+    this.element.style.height = null;
+    this.element.children[0].style.display = 'none';
+}
+Hero.prototype.removeDieStyle = function () {
+    this.removeClass('explode');
+    this.removeClass('explode_ignite');
+    this.element.style.width = 80;
+    this.element.style.height = 80;
+    this.element.children[0].style.display = 'block';
+}
+
