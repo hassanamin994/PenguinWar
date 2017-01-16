@@ -698,10 +698,8 @@ var ZOMBIES = {
     }
     ,
     moveToNextLevel: function () {
-
+      
         ZOMBIES.CURRENT_LEVEL++;
-        if(ZOMBIES.CURRENT_LEVEL != 4 )
-        {
         ZOMBIES.stopBackgroundMusic() ;
         // changing background music
         ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND ;
@@ -728,7 +726,8 @@ var ZOMBIES = {
             '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
             '</div>';
             document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/'+ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].BADGE +'") no-repeat center 10px'
-
+          if(ZOMBIES.CURRENT_LEVEL != 4 )
+          {
           setTimeout(function () {
               ZOMBIES.stopEnemyAdd = false;
               ZOMBIES.hero.dieable = true;
