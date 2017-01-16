@@ -89,7 +89,7 @@ var ZOMBIES = {
             WIDTH: 60,
             HEIGHT: 60,
             SOUND:'assets/sounds/duke-die.ogg',
-            DEATHTYPE : 'explode_404'
+            DEATHTYPE : 'explode'
         },
         EXPLORER: {
             IMAGE: ['explorer.png'],
@@ -517,11 +517,12 @@ var ZOMBIES = {
                     // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
                     ZOMBIES.enemies[i2].onDie();
                     var temp = ZOMBIES.enemies[i2];
+
                     ZOMBIES.enemies.splice(i2, 1);
                     setTimeout(function () {
 
                         temp.remove();
-                    }, 500);
+                    }, 1000);
                 })();
 
                 if (ZOMBIES.helpers.getRandom(2) == 1) {
