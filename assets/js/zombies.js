@@ -74,7 +74,7 @@ var ZOMBIES = {
             LIMIT: 10,
             ANIMATE: 'wobble',
             MULTIPLE: 3,
-            SOUND:'assets/sounds/'
+            SOUND:'assets/sounds/hit.wav'
         },
         PYTHON: {
             IMAGE: 'python.png',
@@ -215,7 +215,7 @@ var ZOMBIES = {
             ENEMIES: ['CYBER'],
             MONSTER: ['CYBER'],
             BACKGROUND:'clouds',
-            SOUND:'assets/sounds/',
+            SOUND:'assets/sounds/background/level1_map.ogg',
             BADGE:'final-badge.png',
             SLOAGAN:'OPEN SOURCE MASTER !'
         }
@@ -827,7 +827,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 100 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
+        if (score % 300 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
