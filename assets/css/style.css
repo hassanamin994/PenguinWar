@@ -272,3 +272,30 @@ img {
         background-position: -1600px 0;
     }
 }
+
+.explode_404 {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin-top: -32px;
+    margin-left: -32px;
+    background-image: url(../images/effects/404.png);
+    background-repeat: no-repeat;
+    background-position: 64px 0;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+}
+
+.explode_404_ignite {
+    animation: ignite_404 2s steps(25) 0s 1 normal forwards running;
+    animation-iteration-count: infinite;
+}
+
+@keyframes ignite_404 {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -320px 0;
+    }
+}
