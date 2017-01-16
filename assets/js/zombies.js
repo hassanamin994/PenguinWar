@@ -174,7 +174,7 @@ var ZOMBIES = {
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
             BACKGROUND:'clouds',
-            SOUND:'assets/sounds/'
+            SOUND:'assets/sounds/background/level1_map'
 
         },
         2: {
@@ -184,7 +184,7 @@ var ZOMBIES = {
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
-            SOUND:'assets/sounds/'
+            SOUND:'assets/sounds/background/level2_map'
 
         },
         3: {
@@ -212,7 +212,7 @@ var ZOMBIES = {
         /////////////////////////////////////
         // Sounds Section
         ////////////////////////////////////
-        ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/hit.wav'
+        ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/level1_map.ogg'
         ZOMBIES.playBackgroundMusic();
 
 
