@@ -38,6 +38,7 @@ var ZOMBIES = {
     stopEnemyAdd: false,
 
     LEVEL: 1,
+    MUSIC:[],
 
     //current level
     CURRENT_LEVEL: 1,
@@ -177,7 +178,7 @@ var ZOMBIES = {
             BADGE:'duke-badge.png',
             SLOAGAN:'JAVA ASSASIN!',
 
-            SOUND:'assets/sounds/background/level1_map'
+            SOUND:'assets/sounds/background/level1_map.ogg'
 
 
         },
@@ -188,7 +189,7 @@ var ZOMBIES = {
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
-            SOUND:'assets/sounds/background/level2_map',
+            SOUND:'assets/sounds/background/level2_map.ogg',
             BADGE:`microsoft-badge.png`,
             SLOAGAN:'MICROSOFT ASSASIN!'
         },
@@ -216,9 +217,13 @@ var ZOMBIES = {
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
         ZOMBIES.heartsDiv = document.getElementById('hearts');
         ZOMBIES.playernameDiv = document.getElementById('player-name') ;
+        for( var i = 1 ; i <= 3 ; i++ ){
+          ZOMBIES.MUSIC[i]=new Audio(ZOMBIES.GAME_MAP[i].SOUND) ;
+        }
         /////////////////////////////////////
         // Sounds Section
         ////////////////////////////////////
+        ZOMBIES.CURRENT_LEVEL = 1;
         ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/level1_map.ogg'
         ZOMBIES.playBackgroundMusic();
 
@@ -230,7 +235,6 @@ var ZOMBIES = {
         // INITIAL SETTINGS, DO NOT CHANGE !!!
         ///////////////////////////////////////////////////
         ZOMBIES.hero.live = 3 ;
-        ZOMBIES.CURRENT_LEVEL = 1;
         ZOMBIES.pause = false ;
         ZOMBIES.started = true ;
         ZOMBIES.iterations =0 ;
@@ -672,8 +676,9 @@ var ZOMBIES = {
     }
     ,
     moveToNextLevel: function () {
-        ZOMBIES.stopBackgroundMusic() ;
+
         ZOMBIES.CURRENT_LEVEL++;
+        ZOMBIES.stopBackgroundMusic() ;
         // changing background music
         ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND ;
 
@@ -699,6 +704,7 @@ var ZOMBIES = {
             '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
             '</div>';
             document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/'+ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].BADGE +'") no-repeat center 10px'
+        if(ZOMBIES.CURRENT_LEVEL != 4 )
         setTimeout(function () {
             ZOMBIES.stopEnemyAdd = false;
             ZOMBIES.hero.dieable = true;
@@ -903,12 +909,10 @@ var ZOMBIES = {
     }
     ,
     stopBackgroundMusic:function(){
-        var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
-        music.pause();
+        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL -1 ].pause() ;
     },
     playBackgroundMusic:function(){
-        var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
-        music.play() ;
+        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play() ;
     },
     /*
      function to add rockets to monster
