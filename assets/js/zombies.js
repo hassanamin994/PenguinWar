@@ -88,22 +88,16 @@ var ZOMBIES = {
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
-<<<<<<< HEAD
-            SOUND:'assets/sounds/duke-die.ogg'
-=======
+            SOUND:'assets/sounds/duke-die.ogg',
             DEATHTYPE : 'explode_404'
->>>>>>> d62257dc495ec74c8ad7f95261927025f63e6836
         },
         EXPLORER: {
             IMAGE: ['explorer.png'],
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
-<<<<<<< HEAD
-            SOUND:'assets/sounds/explorer-die.ogg'
-=======
+            SOUND:'assets/sounds/explorer-die.ogg',
             DEATHTYPE : 'explode_404'
->>>>>>> d62257dc495ec74c8ad7f95261927025f63e6836
         }
     },
     MONSTERS_MAP: {
@@ -114,11 +108,8 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 5,
             ROCKETS: 4,
-<<<<<<< HEAD
-            SOUND:'assets/sounds/monster-appear.ogg'
-=======
+            SOUND:'assets/sounds/monster-appear.ogg',
             DEATHTYPE : 'explode'
->>>>>>> d62257dc495ec74c8ad7f95261927025f63e6836
         },
         EXPLORER: {
             IMAGE: 'explorer.png',
@@ -127,11 +118,8 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 10,
             ROCKETS: 4,
-<<<<<<< HEAD
-            SOUND:'assets/sounds/monster-appear.ogg'
-=======
+            SOUND:'assets/sounds/monster-appear.ogg',
             DEATHTYPE : 'explode'
->>>>>>> d62257dc495ec74c8ad7f95261927025f63e6836
         },
     },
     EXIRS_MAP: {
