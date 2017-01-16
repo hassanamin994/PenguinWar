@@ -118,6 +118,12 @@ var ZOMBIES = {
             ACTION: 'CHANGE_WEAPON',
             VALUE: 'RUBY'
         },
+        LIVE: {
+            NAME: 'LIVE',
+            IMAGE: 'heart.jpg',
+            ACTION: 'LIVE',
+            VALUE: 'LIVE'            
+        },
         PYTHON: {
             NAME: 'PYTHON',
             IMAGE: 'python.png',
@@ -151,7 +157,7 @@ var ZOMBIES = {
         1: {
             NAME: 'Kill Duke',
             ENEMY_SPEED: 5,
-            EXIRS: ['RUBY', 'PYTHON','FEDORA'],
+            EXIRS: ['LIVE','RUBY','PYTHON','FEDORA'],
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
             BACKGROUND:'clouds'
@@ -160,7 +166,7 @@ var ZOMBIES = {
         2: {
             NAME: 'Kill Internet Explorer',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON','UBUNTU','CENTOS'],
+            EXIRS: ['RUBY','LIVE', 'PYTHON','UBUNTU','CENTOS'],
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky'
@@ -169,7 +175,7 @@ var ZOMBIES = {
         3: {
             NAME: 'Kill Microsoft',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON'],
+            EXIRS: ['RUBY', 'PYTHON','LIVE'],
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE3'],
             BACKGROUND:'clouds'
@@ -211,14 +217,7 @@ var ZOMBIES = {
         // Resetting the number of Hearts every init call
         ZOMBIES.heartsDiv.innerHTML = " " ;
         for (var i = 1; i <= ZOMBIES.hero.live; i++) {
-            var heart = document.createElement('span');
-            heart.classList.add("heart");
-            heart.classList.add("animated");
-            heart.classList.add("infinite");
-            heart.classList.add("pulse");
-            heart.innerText = '♥';
-            heart.id = "heart" + i;
-            ZOMBIES.heartsDiv.appendChild(heart);
+            ZOMBIES.addHeart(i);
         }
 
         document.onkeydown = function (evt) {
@@ -486,6 +485,11 @@ var ZOMBIES = {
                     ZOMBIES.hero.element.children[0].src = 'assets/images/heros/' + ZOMBIES.exirArray[i].config.VALUE;
                     ZOMBIES.hero.HERO_MOVEMENT = ZOMBIES.exirArray[i].config.HERO_MOVEMENT;
                     ZOMBIES.addToTerminal('sudo switch to ' + ZOMBIES.exirArray[i].config.NAME, 'green');
+                }
+                if (ZOMBIES.exirArray[i].config.ACTION == 'LIVE'){
+                    ZOMBIES.hero.live++;
+                    ZOMBIES.addHeart(ZOMBIES.hero.live);
+                    ZOMBIES.addToTerminal('sudo apt-git upgrade ' );
                 }
                 ZOMBIES.exirArray[i].remove();
                 ZOMBIES.exirArray.splice(i, 1);
@@ -814,6 +818,17 @@ var ZOMBIES = {
         ZOMBIES.monsterAction();
 
     },
+    addHeart:function(i){
+            var heart = document.createElement('span');
+            heart.classList.add("heart");
+            heart.classList.add("animated");
+            heart.classList.add("infinite");
+            heart.classList.add("pulse");
+            heart.innerText = '♥';
+            heart.id = "heart" + i;
+            ZOMBIES.heartsDiv.appendChild(heart);
+    }
+    ,
     /*
      add animation to monster
      */
@@ -862,5 +877,8 @@ var ZOMBIES = {
             }
         }
     },
+
+
+
 };
 //ZOMBIES.init();
