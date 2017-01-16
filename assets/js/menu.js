@@ -87,6 +87,7 @@ form.addEventListener('submit',function(e){
 
     ZOMBIES.PLAYERS.push({name:username.value,highscore:0});
     ZOMBIES.CURRENT_PLAYER = {name:username.value,highscore:0} ;
+    // setting current player in html
     ZOMBIES.playernameDiv.innerHTML = ZOMBIES.CURRENT_PLAYER.name ;
     setTimeout(document.getElementById('hero').focus() , 2000 )  ;
     // reset the username
