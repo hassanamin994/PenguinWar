@@ -168,7 +168,7 @@ var ZOMBIES = {
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
         ZOMBIES.heartsDiv = document.getElementById('hearts');
 
-        ZOMBIES.hero = new Hero('assets/images/heros/male-hero.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
+        ZOMBIES.hero = new Hero('assets/images/heros/' + options + '.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ///////////////////////////////////////////////////
         // INITIAL SETTINGS, DO NOT CHANGE !!!
         ///////////////////////////////////////////////////
@@ -177,6 +177,7 @@ var ZOMBIES = {
         ZOMBIES.pause = false ;
         ZOMBIES.started = true ;
         ZOMBIES.iterations =0 ;
+        ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
         ////////////////////////////////////////
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
@@ -241,7 +242,7 @@ var ZOMBIES = {
     }
     ,
     // Function that Resets the gameplay
-    restart: function(){
+    restart: function(options){
       if(ZOMBIES.hero){
         ZOMBIES.hero.remove() ;
         ZOMBIES.hero = null ;
@@ -254,7 +255,7 @@ var ZOMBIES = {
       ZOMBIES.clearEnemies();
       ZOMBIES.clearExirs() ;
       ZOMBIES.CURRENT_WEAPON = "OS" ;
-      ZOMBIES.init() ;
+      ZOMBIES.init(options) ;
 
 
     }
@@ -580,11 +581,14 @@ var ZOMBIES = {
           })();
       }
     },
+    setLevelBackground:function(level){
+      var newBG ='<video id="background-video" loop muted autoplay class="fullscreen-bg__video"><source src="assets/videos/' + ZOMBIES.GAME_MAP[level].BACKGROUND + '.mp4" type="video/mp4"></video>'
+      document.getElementsByClassName('fullscreen-bg')[0].innerHTML = newBG ;
+    }
+    ,
     moveToNextLevel: function () {
         ZOMBIES.CURRENT_LEVEL++;
-
-        var newBG ='<video id="background-video" loop muted autoplay class="fullscreen-bg__video"><source src="assets/videos/' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].BACKGROUND + '.mp4" type="video/mp4"></video>'
-        document.getElementsByClassName('fullscreen-bg')[0].innerHTML = newBG ;
+        ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
         // moved into separate function because it's needed in restart method
         ZOMBIES.clearEnemies() ;
         ZOMBIES.stopEnemyAdd = true;

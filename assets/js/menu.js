@@ -68,15 +68,23 @@ form.addEventListener('submit',function(e){
     document.getElementById('menu-div').style.visibility = 'hidden' ;
     document.getElementById('menu-div').style.left= "-9999px" ;
     document.getElementById('go').blur() ;
+    var gender ;
+    for (var i = 0; i < charactersInput.length; i++) {
+        if (charactersInput[i].checked) {
+            gender = charactersInput[i].value;
+            break;
+        }
+    }
+
     if(!ZOMBIES.started)
-      ZOMBIES.init() ;
+      ZOMBIES.init(gender) ;
       else
       {
-        ZOMBIES.restart() ;
+        // calling restart to reset any previous values so user can start new game when die from the menu
+        ZOMBIES.restart(gender) ;
         // hiding the pause screen when user press new game from pause screen
         ZOMBIES.pauseDiv.style.display = 'none';
       }
-    // calling restart to reset any previous values so user can start new game when die from the menu
 
     ZOMBIES.PLAYERS.push({name:username.value,highscore:0});
     ZOMBIES.CURRENT_PLAYER = {name:username.value,highscore:0} ;
