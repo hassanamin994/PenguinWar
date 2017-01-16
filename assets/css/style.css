@@ -167,6 +167,8 @@ img {
     bottom: 60px;
     opacity: 0.9;
 }
+.protected {    
+}
 
 .laser, .exir, .enemy {
     position: absolute;

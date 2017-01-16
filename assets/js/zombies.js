@@ -43,6 +43,8 @@ var ZOMBIES = {
     CURRENT_LEVEL: 1,
     // the current weapon that shoot now
     CURRENT_WEAPON: 'OS',
+    // current background music
+    CURRENT_MUSIC: '' ,
     // all weapons player take to toggle between them
     MY_WEAPONS: ['OS'],
 
@@ -129,6 +131,12 @@ var ZOMBIES = {
             ACTION: 'CHANGE_WEAPON',
             VALUE: 'RUBY'
         },
+        LIVE: {
+            NAME: 'LIVE',
+            IMAGE: 'heart.jpg',
+            ACTION: 'LIVE',
+            VALUE: 'LIVE'            
+        },
         PYTHON: {
             NAME: 'PYTHON',
             IMAGE: 'python.png',
@@ -162,7 +170,7 @@ var ZOMBIES = {
         1: {
             NAME: 'Kill Duke',
             ENEMY_SPEED: 5,
-            EXIRS: ['RUBY', 'PYTHON','FEDORA'],
+            EXIRS: ['LIVE','RUBY','PYTHON','FEDORA'],
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
             BACKGROUND:'clouds',
@@ -172,7 +180,7 @@ var ZOMBIES = {
         2: {
             NAME: 'Kill Internet Explorer',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON','UBUNTU','CENTOS'],
+            EXIRS: ['RUBY','LIVE', 'PYTHON','UBUNTU','CENTOS'],
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
@@ -182,7 +190,7 @@ var ZOMBIES = {
         3: {
             NAME: 'Kill Microsoft',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON'],
+            EXIRS: ['RUBY', 'PYTHON','LIVE'],
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE3'],
             BACKGROUND:'clouds',
@@ -201,7 +209,15 @@ var ZOMBIES = {
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
         ZOMBIES.heartsDiv = document.getElementById('hearts');
         ZOMBIES.playernameDiv = document.getElementById('player-name') ;
+        /////////////////////////////////////
+        // Sounds Section
+        ////////////////////////////////////
+        ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/hit.wav'
+        ZOMBIES.playBackgroundMusic();
 
+
+        ///////////////////////////////////////
+        ///////////////////////////////////////
         ZOMBIES.hero = new Hero('assets/images/heros/' + playername + '.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ///////////////////////////////////////////////////
         // INITIAL SETTINGS, DO NOT CHANGE !!!
@@ -225,14 +241,7 @@ var ZOMBIES = {
         // Resetting the number of Hearts every init call
         ZOMBIES.heartsDiv.innerHTML = " " ;
         for (var i = 1; i <= ZOMBIES.hero.live; i++) {
-            var heart = document.createElement('span');
-            heart.classList.add("heart");
-            heart.classList.add("animated");
-            heart.classList.add("infinite");
-            heart.classList.add("pulse");
-            heart.innerText = '♥';
-            heart.id = "heart" + i;
-            ZOMBIES.heartsDiv.appendChild(heart);
+            ZOMBIES.addHeart(i);
         }
 
         document.onkeydown = function (evt) {
@@ -429,6 +438,8 @@ var ZOMBIES = {
             }
         }                                                                   // Prevent hero from firing when is died
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
+            var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
+            attackSound.play() ;
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -484,6 +495,7 @@ var ZOMBIES = {
         }
     }
     ,
+    //handel collision Between hero and EXIRS
     checkCollisions: function () {
         for (var i = 0; i < ZOMBIES.exirArray.length; i++) {
             if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.exirArray[i])) {
@@ -501,11 +513,16 @@ var ZOMBIES = {
                     ZOMBIES.hero.HERO_MOVEMENT = ZOMBIES.exirArray[i].config.HERO_MOVEMENT;
                     ZOMBIES.addToTerminal('sudo switch to ' + ZOMBIES.exirArray[i].config.NAME, 'green');
                 }
+                if (ZOMBIES.exirArray[i].config.ACTION == 'LIVE'){
+                    ZOMBIES.hero.live++;
+                    ZOMBIES.addHeart(ZOMBIES.hero.live);
+                    ZOMBIES.addToTerminal('sudo apt-git upgrade ' );
+                }
                 ZOMBIES.exirArray[i].remove();
                 ZOMBIES.exirArray.splice(i, 1);
             }
         }
-
+        //handel collision Between enemies and laser
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
 
             var laser = ZOMBIES.getIntersectingLaser(ZOMBIES.enemies[i]);
@@ -537,8 +554,8 @@ var ZOMBIES = {
                   ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
                   console.log(ZOMBIES.SCORE);
                 }
-            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable) {
-
+            //handel collision hero and enemies
+            } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && !ZOMBIES.enemies[i].monster) {
                 if (ZOMBIES.hero.live > 1) {
                     ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
                 } else {
@@ -559,7 +576,20 @@ var ZOMBIES = {
                 })();
 
                 ZOMBIES.gameOver();
-            } else if (laser && ZOMBIES.enemies[i].monster) {
+            }
+            //handel collision between hero and monster
+            else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && ZOMBIES.enemies[i].monster){
+
+                if (ZOMBIES.hero.live > 1) {
+                    ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
+                } else {
+                    ZOMBIES.addToTerminal('KERNEL ERROR! System require Manual reset', 'red');
+                }
+
+                ZOMBIES.gameOver();
+
+                //handel collision between laser and monster
+            }else if (laser && ZOMBIES.enemies[i].monster) {
                 var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
                 var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
                 laser.remove();
@@ -633,7 +663,10 @@ var ZOMBIES = {
     }
     ,
     moveToNextLevel: function () {
+        ZOMBIES.stopBackgroundMusic() ;
         ZOMBIES.CURRENT_LEVEL++;
+        // changing background music
+        ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND ;
 
         // moved into separate function because it's needed in restart method
         ZOMBIES.clearEnemies() ;
@@ -644,6 +677,7 @@ var ZOMBIES = {
         setTimeout(function(){
           ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
           ZOMBIES.levelInfoDiv.style.display = 'block';
+          ZOMBIES.playBackgroundMusic() ;
         },2000);
 
         ZOMBIES.levelInfoDiv.innerHTML =
@@ -709,12 +743,15 @@ var ZOMBIES = {
               ZOMBIES.hero.dieable = false;
               setTimeout(function () {
                   ZOMBIES.hero.dieable = true;
+                  ZOMBIES.hero.removeClass("protected");                 
                   ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ','red');
                   ZOMBIES.addToTerminal('GO!','green');
               }, 7000);
               setTimeout(function () {
+                  ZOMBIES.hero.removeDieStyle();
                   var element = document.getElementById(hero.id);
                   element.style.visibility = 'visible';
+                  ZOMBIES.hero.addClass("protected");                 
                   ZOMBIES.hero.x = window.innerWidth / 2 - 25;
                   ZOMBIES.hero.y = window.innerHeight - 150;
                   ZOMBIES.addToTerminal('sudo resurrect hero','green');
@@ -739,7 +776,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 300 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
+        if (score % 100 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
@@ -829,6 +866,17 @@ var ZOMBIES = {
         ZOMBIES.monsterAction();
 
     },
+    addHeart:function(i){
+            var heart = document.createElement('span');
+            heart.classList.add("heart");
+            heart.classList.add("animated");
+            heart.classList.add("infinite");
+            heart.classList.add("pulse");
+            heart.innerText = '♥';
+            heart.id = "heart" + i;
+            ZOMBIES.heartsDiv.appendChild(heart);
+    }
+    ,
     /*
      add animation to monster
      */
@@ -838,6 +886,14 @@ var ZOMBIES = {
             setTimeout('ZOMBIES.monsterAction(); ZOMBIES.monsterAttak();', 5000);
         }
 
+    },
+    stopBackgroundMusic:function(){
+        var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
+        music.pause();
+    },
+    playBackgroundMusic:function(){
+      var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
+      music.play() ;
     },
     /*
      function to add rockets to monster
@@ -877,5 +933,8 @@ var ZOMBIES = {
             }
         }
     },
+
+
+
 };
 //ZOMBIES.init();

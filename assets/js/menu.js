@@ -8,7 +8,6 @@ var newgameButton = document.getElementsByClassName('new-game-button') ;
 var highscoresDiv = document.getElementById('high-scores');
 var highscoresButton = document.getElementsByClassName('high-scores-button') ;
 
-
 // setting animation for the new game menu
 for( i = 0 ; i < newgameButton.length ; i++ ){
   newgameButton[i].addEventListener('click',function(e){
