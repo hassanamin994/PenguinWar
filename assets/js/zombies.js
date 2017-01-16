@@ -560,7 +560,7 @@ var ZOMBIES = {
                 } else {
                     ZOMBIES.addToTerminal('KERNEL ERROR! System require Manual reset', 'red');
                 }
-                ZOMBIES.enemies[i].onDie();
+                //ZOMBIES.enemies[i].onDie();
                 (function () {
                     var i2 = i;
                     // kazafy >> copy hassan code to remove enemy when intersect whith hero
@@ -571,7 +571,7 @@ var ZOMBIES = {
                     setTimeout(function () {
 
                         temp.remove();
-                    }, 500);
+                    }, 1000);
                 })();
 
                 ZOMBIES.gameOver();

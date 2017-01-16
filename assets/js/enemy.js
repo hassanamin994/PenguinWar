@@ -56,11 +56,11 @@ Enemy.prototype.onDie = function () {
     if (this.deathType == 'explode') {
         this.addClass('explode');
         this.addClass('explode_ignite');
-    }else if (this.deathType == 'explode_404') {
+    }else if (this.deathType == 'explode_xpiece') {
         this.addClass('explode_xpiece');
-        this.x = this.x - 150
-        this.y = this.y - 150
-        for (var i = 0; i < 10; i++) {
+        this.x = this.x - 150;
+        this.y = this.y - 150;
+        for (var i = 0; i < 9; i++) {
             var e404 = document.createElement('div');
             e404.classList.add('xpiece');
             e404.textContent = '404';
@@ -71,6 +71,5 @@ Enemy.prototype.onDie = function () {
     this.element.style.width = null;
     this.element.style.height = null;
 
-    this.element.removeChild(this.element.children[0]);
-    //this.element.children[0].style.display = 'none';
+    this.element.children[0].style.display = 'none';
 }
