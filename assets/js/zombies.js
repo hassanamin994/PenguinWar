@@ -38,6 +38,7 @@ var ZOMBIES = {
     stopEnemyAdd: false,
 
     LEVEL: 1,
+    MUSIC:[],
 
     //current level
     CURRENT_LEVEL: 1,
@@ -100,7 +101,15 @@ var ZOMBIES = {
             HEIGHT: 60,
             SOUND:'assets/sounds/explorer-die.ogg',
             DEATHTYPE : 'explode_xpiece'
-        }
+        },
+        CYBER: {
+            IMAGE: ['cyber.png'],
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 60,
+            HEIGHT: 60,
+            SOUND:'assets/sounds/explorer-die.ogg',
+            DEATHTYPE : 'explode'
+        },
     },
     MONSTERS_MAP: {
         DUKE: {
@@ -123,6 +132,16 @@ var ZOMBIES = {
             SOUND:'assets/sounds/monster-appear.ogg',
             DEATHTYPE : 'explode_xpiece'
         },
+        CYBER: {
+            IMAGE: 'cyber.png',
+            ANIMATE: [],
+            WIDTH: 150,
+            HEIGHT: 100,
+            HEALTH: 10,
+            ROCKETS: 4,
+            SOUND:'assets/sounds/monster-appear.ogg',
+            DEATHTYPE : 'explode'
+        },
     },
     EXIRS_MAP: {
         RUBY: {
@@ -133,7 +152,7 @@ var ZOMBIES = {
         },
         LIVE: {
             NAME: 'LIVE',
-            IMAGE: 'heart.jpg',
+            IMAGE: 'heart.png',
             ACTION: 'LIVE',
             VALUE: 'LIVE'
         },
@@ -174,8 +193,9 @@ var ZOMBIES = {
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
             BACKGROUND:'clouds',
-            SOUND:'assets/sounds/background/level1_map'
-
+            BADGE:'duke-badge.png',
+            SLOAGAN:'JAVA ASSASIN!',
+            SOUND:'assets/sounds/background/level1_map.ogg'
         },
         2: {
             NAME: 'Kill Internet Explorer',
@@ -184,17 +204,20 @@ var ZOMBIES = {
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
-            SOUND:'assets/sounds/background/level2_map'
-
+            SOUND:'assets/sounds/background/level2_map.ogg',
+            BADGE:`microsoft-badge.png`,
+            SLOAGAN:'MICROSOFT ASSASIN!'
         },
         3: {
-            NAME: 'Kill Microsoft',
+            NAME: 'Kill Cyber Security',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON','LIVE'],
-            ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE3'],
+            EXIRS: ['RUBY', 'PYTHON','LIVE','UBUNTU','CENTOS','FEDORA'],
+            ENEMIES: ['CYBER'],
+            MONSTER: ['CYBER'],
             BACKGROUND:'clouds',
-            SOUND:'assets/sounds/'
+            SOUND:'assets/sounds/',
+            BADGE:'final-badge.png',
+            SLOAGAN:'OPEN SOURCE MASTER !'
         }
 
     },
@@ -210,9 +233,13 @@ var ZOMBIES = {
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
         ZOMBIES.heartsDiv = document.getElementById('hearts');
         ZOMBIES.playernameDiv = document.getElementById('player-name') ;
+        for( var i = 1 ; i <= 3 ; i++ ){
+          ZOMBIES.MUSIC[i]=new Audio(ZOMBIES.GAME_MAP[i].SOUND) ;
+        }
         /////////////////////////////////////
         // Sounds Section
         ////////////////////////////////////
+        ZOMBIES.CURRENT_LEVEL = 1;
         ZOMBIES.CURRENT_MUSIC = 'assets/sounds/background/level1_map.ogg'
         ZOMBIES.playBackgroundMusic();
 
@@ -224,7 +251,6 @@ var ZOMBIES = {
         // INITIAL SETTINGS, DO NOT CHANGE !!!
         ///////////////////////////////////////////////////
         ZOMBIES.hero.live = 3 ;
-        ZOMBIES.CURRENT_LEVEL = 1;
         ZOMBIES.pause = false ;
         ZOMBIES.started = true ;
         ZOMBIES.iterations =0 ;
@@ -671,8 +697,9 @@ var ZOMBIES = {
     }
     ,
     moveToNextLevel: function () {
-        ZOMBIES.stopBackgroundMusic() ;
+
         ZOMBIES.CURRENT_LEVEL++;
+        ZOMBIES.stopBackgroundMusic() ;
         // changing background music
         ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND ;
 
@@ -690,13 +717,15 @@ var ZOMBIES = {
 
         ZOMBIES.levelInfoDiv.innerHTML =
             '<div class="leveltext animated rubberBand">' +
-            '<h1>AWESOME! You Did It Again</h1>' +
-            '<h1>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h1>' +
+            '<h2>' +'You\'ve Earned a new Badge !<h2>' +
+            '<h1 style="color:green;">' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].SLOAGAN + '</h1>'+
+            '<h2>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h2>' +
             '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
             '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
             '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
             '</div>';
-
+            document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/'+ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].BADGE +'") no-repeat center 10px'
+        if(ZOMBIES.CURRENT_LEVEL != 4 )
         setTimeout(function () {
             ZOMBIES.stopEnemyAdd = false;
             ZOMBIES.hero.dieable = true;
@@ -878,7 +907,7 @@ var ZOMBIES = {
         ZOMBIES.MONSTERAPPEARED = true ;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,null,null,monsterConfig.DEATHTYPE);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,50,null,monsterConfig.DEATHTYPE);
         //ZOMBIES.monsterObj.addClass('animated');
         //ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
@@ -912,12 +941,10 @@ var ZOMBIES = {
     }
     ,
     stopBackgroundMusic:function(){
-        var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
-        music.pause();
+        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL -1 ].pause() ;
     },
     playBackgroundMusic:function(){
-        var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
-        music.play() ;
+        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play() ;
     },
     /*
      function to add rockets to monster
@@ -954,6 +981,7 @@ var ZOMBIES = {
                     monsterRockets.addClass(enemyConfig.ANIMATE.random());
                 }
                 ZOMBIES.enemies.push(monsterRockets);
+                console.log(monsterRockets);
             }
         }
     },
