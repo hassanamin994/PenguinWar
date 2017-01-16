@@ -204,6 +204,7 @@ var ZOMBIES = {
     // GAME ENTRY POINT HERE
     init: function (playername) {
         ZOMBIES.pauseDiv = document.getElementById('pause');
+        ZOMBIES.gameOverDiv = document.getElementById('gameover');
         ZOMBIES.levelInfoDiv = document.getElementById('levelinfo');
         ZOMBIES.scoreDiv = document.getElementById('score');
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
@@ -249,6 +250,11 @@ var ZOMBIES = {
         };
 
         document.onkeyup = function (evt) {
+            // dont make any action whene game finish
+            if(ZOMBIES.FINISH){
+                return;
+            }
+
             if (evt.keyCode == ZOMBIES.ESC || (evt.keyCode == ZOMBIES.SPACE_KEY && ZOMBIES.pause)) {
                 if (!ZOMBIES.pause) {
                     ZOMBIES.pauseDiv.style.display = 'block';
@@ -737,7 +743,23 @@ var ZOMBIES = {
                 ZOMBIES.hero.remove() ;
                 ZOMBIES.FINISH = true ;
                 ZOMBIES.updateHighscores() ;
-                console.log('died');
+
+                ZOMBIES.gameOverDiv.style.display = 'block';
+                document.getElementById('menu-div').style.visibility = 'visible' ;
+                document.getElementById('menu-div').style.left = '5%' ;
+                document.getElementById('menu-div').style.background = ' rgba(255,255,255,0)' ;
+                if(newgameDiv.style.visibility == "visible"){
+                    newgameDiv.style.visibility = "hidden" ;
+                    newgameDiv.style.left = "-50%";
+                }
+                if(highscoresDiv.style.visibility == "visible"){
+                    highscoresDiv.style.visibility = "hidden" ;
+                    highscoresDiv.style.left = "-50%";
+                }
+
+
+
+
             }else{
                 var element = document.getElementById(hero.id);
                 element.style.visibility = 'hidden';
@@ -764,11 +786,6 @@ var ZOMBIES = {
             }
 
         }
-        else {}
-
-        //element.parentElement
-        // element = document.getElementById('gameover');
-        // element.style.visibility = 'visible';
     }
     ,
     // Function that tests intersection between two objects either true or

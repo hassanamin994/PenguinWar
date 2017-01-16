@@ -107,7 +107,7 @@ img {
     margin-right: 5px;
 }
 
-#pause {
+#pause ,#gameover {
     display: none;
 
     position: fixed;
@@ -123,7 +123,7 @@ img {
     color: #fff;
 }
 
-#pause .pausetext {
+.pausetext,.gameovertext {
     position: absolute;
     bottom: 50px;
     width: 100%;
