@@ -52,9 +52,9 @@ var ZOMBIES = {
         'OS': 0
     },
     MONSTER_HEALTH:{
-      1:4,
-      2:10,
-      3:15
+        1:4,
+        2:10,
+        3:15
     }
     ,
 
@@ -99,7 +99,7 @@ var ZOMBIES = {
             WIDTH: 60,
             HEIGHT: 60,
             SOUND:'assets/sounds/explorer-die.ogg',
-            DEATHTYPE : 'explode_404'
+            DEATHTYPE : 'explode_xpiece'
         }
     },
     MONSTERS_MAP: {
@@ -121,7 +121,7 @@ var ZOMBIES = {
             HEALTH: 10,
             ROCKETS: 4,
             SOUND:'assets/sounds/monster-appear.ogg',
-            DEATHTYPE : 'explode'
+            DEATHTYPE : 'explode_xpiece'
         },
     },
     EXIRS_MAP: {
@@ -135,7 +135,7 @@ var ZOMBIES = {
             NAME: 'LIVE',
             IMAGE: 'heart.jpg',
             ACTION: 'LIVE',
-            VALUE: 'LIVE'            
+            VALUE: 'LIVE'
         },
         PYTHON: {
             NAME: 'PYTHON',
@@ -256,24 +256,24 @@ var ZOMBIES = {
                     document.getElementById('menu-div').style.left = '5%' ;
                     document.getElementById('menu-div').style.background = ' rgba(255,255,255,0)' ;
                     if(newgameDiv.style.visibility == "visible"){
-                      newgameDiv.style.visibility = "hidden" ;
-                      newgameDiv.style.left = "-50%";
+                        newgameDiv.style.visibility = "hidden" ;
+                        newgameDiv.style.left = "-50%";
                     }
                     if(highscoresDiv.style.visibility == "visible"){
-                      highscoresDiv.style.visibility = "hidden" ;
-                      highscoresDiv.style.left = "-50%";
+                        highscoresDiv.style.visibility = "hidden" ;
+                        highscoresDiv.style.left = "-50%";
                     }
                 } else {
                     ZOMBIES.pauseDiv.style.display = 'none';
                     document.getElementById('menu-div').style.visibility = 'hidden' ;
                     document.getElementById('menu-div').style.left = '-9999999px' ;
                     if(newgameDiv.style.visibility == "visible"){
-                      newgameDiv.style.visibility = "hidden" ;
-                      newgameDiv.style.left = "-50%";
+                        newgameDiv.style.visibility = "hidden" ;
+                        newgameDiv.style.left = "-50%";
                     }
                     if(highscoresDiv.style.visibility == "visible"){
-                      highscoresDiv.style.visibility = "hidden" ;
-                      highscoresDiv.style.left = "-50%";
+                        highscoresDiv.style.visibility = "hidden" ;
+                        highscoresDiv.style.left = "-50%";
                     }
                 }
                 ZOMBIES.pause = !ZOMBIES.pause;
@@ -290,19 +290,19 @@ var ZOMBIES = {
     ,
     // Function that Resets the gameplay
     restart: function(playername){
-      if(ZOMBIES.hero){
-        ZOMBIES.hero.remove() ;
-        ZOMBIES.hero = null ;
-      }
-      ZOMBIES.SCORE = 0 ;
-      ZOMBIES.scoreDiv.textContent = 0 ;
-      ZOMBIES.MY_WEAPONS = ['OS'] ;
-      // killing all existing enemies before restarting
+        if(ZOMBIES.hero){
+            ZOMBIES.hero.remove() ;
+            ZOMBIES.hero = null ;
+        }
+        ZOMBIES.SCORE = 0 ;
+        ZOMBIES.scoreDiv.textContent = 0 ;
+        ZOMBIES.MY_WEAPONS = ['OS'] ;
+        // killing all existing enemies before restarting
 
-      ZOMBIES.clearEnemies();
-      ZOMBIES.clearExirs() ;
-      ZOMBIES.CURRENT_WEAPON = "OS" ;
-      ZOMBIES.init(playername) ;
+        ZOMBIES.clearEnemies();
+        ZOMBIES.clearExirs() ;
+        ZOMBIES.CURRENT_WEAPON = "OS" ;
+        ZOMBIES.init(playername) ;
 
 
     }
@@ -534,7 +534,6 @@ var ZOMBIES = {
                     // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
                     ZOMBIES.enemies[i2].onDie();
                     var temp = ZOMBIES.enemies[i2];
-
                     ZOMBIES.enemies.splice(i2, 1);
                     setTimeout(function () {
 
@@ -550,11 +549,11 @@ var ZOMBIES = {
                 i--;
                 laser.y = -laser.h;
                 if(!ZOMBIES.MONSTERAPPEARED){
-                  ZOMBIES.SCORE += 100;
-                  ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
-                  console.log(ZOMBIES.SCORE);
+                    ZOMBIES.SCORE += 100;
+                    ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
+                    console.log(ZOMBIES.SCORE);
                 }
-            //handel collision hero and enemies
+                //handel collision hero and enemies
             } else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && !ZOMBIES.enemies[i].monster) {
                 if (ZOMBIES.hero.live > 1) {
                     ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
@@ -607,7 +606,7 @@ var ZOMBIES = {
                         setTimeout(function () {
 
                             temp.remove();
-                        }, 500);
+                        }, 1000);
                         ZOMBIES.MONSTERAPPEARED = false ;
                         // Added to prevent monster from appearing after it die because score is still %3000
                         ZOMBIES.SCORE += 100 ;
@@ -637,29 +636,29 @@ var ZOMBIES = {
         return result;
     },
     clearExirs:function(){
-      for( i = 0 ; i < ZOMBIES.exirArray.length ; i++ ){
-        ZOMBIES.exirArray[i].remove();
-        ZOMBIES.exirArray.splice(i, 1);
-      }
+        for( i = 0 ; i < ZOMBIES.exirArray.length ; i++ ){
+            ZOMBIES.exirArray[i].remove();
+            ZOMBIES.exirArray.splice(i, 1);
+        }
     }
     ,
     clearEnemies:function(){
-      for (var i = 0; i < ZOMBIES.enemies.length; i++) {
-          (function () {
-              var i2 = i;
-              // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
-              ZOMBIES.enemies[i2].onDie();
-              var temp = ZOMBIES.enemies[i2];
-              ZOMBIES.enemies.splice(i2, 1);
-              setTimeout(function () {
-                  temp.remove();
-              }, 500);
-          })();
-      }
+        for (var i = 0; i < ZOMBIES.enemies.length; i++) {
+            (function () {
+                var i2 = i;
+                // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
+                ZOMBIES.enemies[i2].onDie();
+                var temp = ZOMBIES.enemies[i2];
+                ZOMBIES.enemies.splice(i2, 1);
+                setTimeout(function () {
+                    temp.remove();
+                }, 500);
+            })();
+        }
     },
     setLevelBackground:function(level){
-      var newBG ='<video id="background-video" loop muted autoplay class="fullscreen-bg__video"><source src="assets/videos/' + ZOMBIES.GAME_MAP[level].BACKGROUND + '.mp4" type="video/mp4"></video>'
-      document.getElementsByClassName('fullscreen-bg')[0].innerHTML = newBG ;
+        var newBG ='<video id="background-video" loop muted autoplay class="fullscreen-bg__video"><source src="assets/videos/' + ZOMBIES.GAME_MAP[level].BACKGROUND + '.mp4" type="video/mp4"></video>'
+        document.getElementsByClassName('fullscreen-bg')[0].innerHTML = newBG ;
     }
     ,
     moveToNextLevel: function () {
@@ -675,9 +674,9 @@ var ZOMBIES = {
         ZOMBIES.addToTerminal('move to next Level', 'green');
 
         setTimeout(function(){
-          ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
-          ZOMBIES.levelInfoDiv.style.display = 'block';
-          ZOMBIES.playBackgroundMusic() ;
+            ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
+            ZOMBIES.levelInfoDiv.style.display = 'block';
+            ZOMBIES.playBackgroundMusic() ;
         },2000);
 
         ZOMBIES.levelInfoDiv.innerHTML =
@@ -703,25 +702,25 @@ var ZOMBIES = {
     }
     ,
     updateHighscores:function(){
-      for( i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
-        if(ZOMBIES.PLAYERS[i].name == ZOMBIES.CURRENT_PLAYER.name ){
-          // if player achieved a new highscore , update it
-          if(ZOMBIES.PLAYERS[i].highscore < ZOMBIES.scoreDiv.textContent)
-            {
-              ZOMBIES.PLAYERS[i].highscore = ZOMBIES.scoreDiv.textContent ;
-              // need to add flag later to notify that he achived highscore
+        for( i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
+            if(ZOMBIES.PLAYERS[i].name == ZOMBIES.CURRENT_PLAYER.name ){
+                // if player achieved a new highscore , update it
+                if(ZOMBIES.PLAYERS[i].highscore < ZOMBIES.scoreDiv.textContent)
+                {
+                    ZOMBIES.PLAYERS[i].highscore = ZOMBIES.scoreDiv.textContent ;
+                    // need to add flag later to notify that he achived highscore
+                }
+                break ;
             }
-            break ;
         }
-      }
-      // sorting the highscores
-      ZOMBIES.PLAYERS.sort(ZOMBIES.helpers.sortbyScore) ;
-      // pushing into the DOM
-      var highscoretemplate = '<tr><th>Name</th><th>Score</th></tr>' ;
-      for(i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
-        highscoretemplate += '<tr>' + '<td>' + ZOMBIES.PLAYERS[i].name +'</td>' +'<td>' + ZOMBIES.PLAYERS[i].highscore +'</td>' + '</tr>'
-      }
-      document.getElementById('high-scores-table').innerHTML = highscoretemplate ;
+        // sorting the highscores
+        ZOMBIES.PLAYERS.sort(ZOMBIES.helpers.sortbyScore) ;
+        // pushing into the DOM
+        var highscoretemplate = '<tr><th>Name</th><th>Score</th></tr>' ;
+        for(i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
+            highscoretemplate += '<tr>' + '<td>' + ZOMBIES.PLAYERS[i].name +'</td>' +'<td>' + ZOMBIES.PLAYERS[i].highscore +'</td>' + '</tr>'
+        }
+        document.getElementById('high-scores-table').innerHTML = highscoretemplate ;
     }
     ,
     gameOver: function (player) {
@@ -732,33 +731,33 @@ var ZOMBIES = {
             // if the new number of lifes is zero, remove the hero and finish the game
             // else , perform normal behavior of gameover function
             if(ZOMBIES.hero.live == 0 ){
-              ZOMBIES.hero.remove() ;
-              ZOMBIES.FINISH = true ;
-              ZOMBIES.updateHighscores() ;
-              console.log('died');
+                ZOMBIES.hero.remove() ;
+                ZOMBIES.FINISH = true ;
+                ZOMBIES.updateHighscores() ;
+                console.log('died');
             }else{
-              var element = document.getElementById(hero.id);
-              element.style.visibility = 'hidden';
+                var element = document.getElementById(hero.id);
+                element.style.visibility = 'hidden';
 
-              ZOMBIES.hero.dieable = false;
-              setTimeout(function () {
-                  ZOMBIES.hero.dieable = true;
-                  ZOMBIES.hero.removeClass("protected");                 
-                  ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ','red');
-                  ZOMBIES.addToTerminal('GO!','green');
-              }, 7000);
-              setTimeout(function () {
-                  ZOMBIES.hero.removeDieStyle();
-                  var element = document.getElementById(hero.id);
-                  element.style.visibility = 'visible';
-                  ZOMBIES.hero.addClass("protected");                 
-                  ZOMBIES.hero.x = window.innerWidth / 2 - 25;
-                  ZOMBIES.hero.y = window.innerHeight - 150;
-                  ZOMBIES.addToTerminal('sudo resurrect hero','green');
-                  ZOMBIES.addToTerminal('you are protected','green');
-                  ZOMBIES.addToTerminal('protection and fire will be unlocked after 5 second ','green');
-                  ZOMBIES.loop();
-              }, 2000);
+                ZOMBIES.hero.dieable = false;
+                setTimeout(function () {
+                    ZOMBIES.hero.dieable = true;
+                    ZOMBIES.hero.removeClass("protected");
+                    ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ','red');
+                    ZOMBIES.addToTerminal('GO!','green');
+                }, 7000);
+                setTimeout(function () {
+                    ZOMBIES.hero.removeDieStyle();
+                    var element = document.getElementById(hero.id);
+                    element.style.visibility = 'visible';
+                    ZOMBIES.hero.addClass("protected");
+                    ZOMBIES.hero.x = window.innerWidth / 2 - 25;
+                    ZOMBIES.hero.y = window.innerHeight - 150;
+                    ZOMBIES.addToTerminal('sudo resurrect hero','green');
+                    ZOMBIES.addToTerminal('you are protected','green');
+                    ZOMBIES.addToTerminal('protection and fire will be unlocked after 5 second ','green');
+                    ZOMBIES.loop();
+                }, 2000);
             }
 
         }
@@ -789,11 +788,11 @@ var ZOMBIES = {
             return parseInt(Math.random() * maxSize);
         },
         sortbyScore:function (a,b) {
-          if (a.highscore > b.highscore)
-            return -1;
-          if (a.highscore < b.highscore)
-            return 1;
-          return 0;
+            if (a.highscore > b.highscore)
+                return -1;
+            if (a.highscore < b.highscore)
+                return 1;
+            return 0;
         }
 
     },
@@ -867,14 +866,14 @@ var ZOMBIES = {
 
     },
     addHeart:function(i){
-            var heart = document.createElement('span');
-            heart.classList.add("heart");
-            heart.classList.add("animated");
-            heart.classList.add("infinite");
-            heart.classList.add("pulse");
-            heart.innerText = '♥';
-            heart.id = "heart" + i;
-            ZOMBIES.heartsDiv.appendChild(heart);
+        var heart = document.createElement('span');
+        heart.classList.add("heart");
+        heart.classList.add("animated");
+        heart.classList.add("infinite");
+        heart.classList.add("pulse");
+        heart.innerText = '♥';
+        heart.id = "heart" + i;
+        ZOMBIES.heartsDiv.appendChild(heart);
     }
     ,
     /*
@@ -892,8 +891,8 @@ var ZOMBIES = {
         music.pause();
     },
     playBackgroundMusic:function(){
-      var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
-      music.play() ;
+        var music = new Audio(ZOMBIES.CURRENT_MUSIC) ;
+        music.play() ;
     },
     /*
      function to add rockets to monster
