@@ -143,7 +143,7 @@ img {
     overflow: hidden;
     z-index: 999999;
 
-    background: #1b181a url("../images/backgrounds/happy-penguin.png") no-repeat center 100px;
+  
     color: #fff;
 }
 
@@ -167,7 +167,7 @@ img {
     bottom: 60px;
     opacity: 0.9;
 }
-.protected {    
+.protected {
 }
 
 .laser, .exir, .enemy {

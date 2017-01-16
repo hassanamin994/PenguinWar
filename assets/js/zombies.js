@@ -174,7 +174,9 @@ var ZOMBIES = {
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
             BACKGROUND:'clouds',
-            SOUND:'assets/sounds/'
+            SOUND:'assets/sounds/',
+            BADGE:'duke-badge.png',
+            SLOAGAN:'JAVA ASSASIN!'
 
         },
         2: {
@@ -184,7 +186,9 @@ var ZOMBIES = {
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
-            SOUND:'assets/sounds/'
+            SOUND:'assets/sounds/',
+            BADGE:`microsoft-badge.png`,
+            SLOAGAN:'MICROSOFT ASSASIN!'
 
         },
         3: {
@@ -194,7 +198,9 @@ var ZOMBIES = {
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE3'],
             BACKGROUND:'clouds',
-            SOUND:'assets/sounds/'
+            SOUND:'assets/sounds/',
+            BADGE:'final-badge.png',
+            SLOAGAN:'OPEN SOURCE MASTER !'
         }
 
     },
@@ -684,13 +690,14 @@ var ZOMBIES = {
 
         ZOMBIES.levelInfoDiv.innerHTML =
             '<div class="leveltext animated rubberBand">' +
-            '<h1>AWESOME! You Did It Again</h1>' +
-            '<h1>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h1>' +
+            '<h2>' +'You\'ve Earned a new Badge !<h2>' +
+            '<h1 style="color:green;">' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SLOAGAN + '</h1>'+
+            '<h2>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h2>' +
             '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
             '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
             '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
             '</div>';
-
+            document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/'+ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].BADGE +'") no-repeat center 10px'
         setTimeout(function () {
             ZOMBIES.stopEnemyAdd = false;
             ZOMBIES.hero.dieable = true;
