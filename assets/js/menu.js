@@ -63,7 +63,6 @@ form.addEventListener('submit',function(e){
     e.preventDefault() ;
     // Hiding the menu if the form is valid
     // and Initializing the game
-    username.value = "" ;
     document.getElementById('menu-div').style.zindex = "-9999" ;
     document.getElementById('menu-div').style.visibility = 'hidden' ;
     document.getElementById('menu-div').style.left= "-9999px" ;
@@ -90,6 +89,8 @@ form.addEventListener('submit',function(e){
     ZOMBIES.CURRENT_PLAYER = {name:username.value,highscore:0} ;
 
     setTimeout(document.getElementById('hero').focus() , 2000 )  ;
+    // reset the username
+        username.value = "" ;
 
 
   }

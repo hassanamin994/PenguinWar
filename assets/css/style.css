@@ -8,11 +8,19 @@ img {
 
 #score {
     position: absolute;
-    left: 30px;
+    left: 60px;
     top: 30px;
     color: #fff;
     font-size: 30px;
     font-weight: bold;
+}
+#player-name{
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 #hearts {
@@ -264,6 +272,3 @@ img {
         background-position: -1600px 0;
     }
 }
-
-
-

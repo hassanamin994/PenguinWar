@@ -167,6 +167,7 @@ var ZOMBIES = {
         ZOMBIES.scoreDiv = document.getElementById('score');
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
         ZOMBIES.heartsDiv = document.getElementById('hearts');
+        ZOMBIES.playernameDiv = document.getElementById('player-name') ;
 
         ZOMBIES.hero = new Hero('assets/images/heros/' + options + '.png', ZOMBIES.HEROHEIGHT, ZOMBIES.HEROWIDTH);
         ///////////////////////////////////////////////////
@@ -178,6 +179,8 @@ var ZOMBIES = {
         ZOMBIES.started = true ;
         ZOMBIES.iterations =0 ;
         ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
+        /// gives underfind , check back later
+        //  ZOMBIES.playernameDiv.innerHTML = ZOMBIES.CURRENT_PLAYER.name ;
         ////////////////////////////////////////
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
@@ -539,7 +542,7 @@ var ZOMBIES = {
                         ZOMBIES.SCORE += 100 ;
                         ////////////////////
                         ZOMBIES.moveToNextLevel();
-                        ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER] == 4 ;
+                        ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER] = 4 ;
                     })();
                 } else {
 
