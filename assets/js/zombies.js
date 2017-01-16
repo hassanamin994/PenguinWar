@@ -20,42 +20,42 @@ var ZOMBIES = {
     ESC: 27,
     // Player info
     PLAYERS: [],
-    CURRENT_PLAYER : {},
+    CURRENT_PLAYER: {},
     FINISH: false,
     //to stop generate enemy when become false in add monster function
     monster: false,
     SCORE: 0,
     interval: 50,
-    MONSTERAPPEARED : false,
+    MONSTERAPPEARED: false,
 
     laserArray: [],
     exirArray: [],
     enemies: [],
 
     pause: false, // to handel pause
-    started:false,
+    started: false,
 
     stopEnemyAdd: false,
 
     LEVEL: 1,
-    MUSIC:[],
+    MUSIC: [],
 
     //current level
     CURRENT_LEVEL: 1,
     // the current weapon that shoot now
     CURRENT_WEAPON: 'OS',
     // current background music
-    CURRENT_MUSIC: '' ,
+    CURRENT_MUSIC: '',
     // all weapons player take to toggle between them
     MY_WEAPONS: ['OS'],
 
     WEAPONS_LIMITS: {
         'OS': 0
     },
-    MONSTER_HEALTH:{
-        1:4,
-        2:10,
-        3:15
+    MONSTER_HEALTH: {
+        1: 4,
+        2: 10,
+        3: 15
     }
     ,
 
@@ -66,7 +66,7 @@ var ZOMBIES = {
             LIMIT: 0,
             ANIMATE: 'flip',
             MULTIPLE: 1,
-            SOUND:'assets/sounds/hit.wav'
+            SOUND: 'assets/sounds/hit.wav'
         },
         RUBY: {
             IMAGE: 'ruby.png',
@@ -74,7 +74,7 @@ var ZOMBIES = {
             LIMIT: 10,
             ANIMATE: 'wobble',
             MULTIPLE: 3,
-            SOUND:'assets/sounds/'
+            SOUND: 'assets/sounds/'
         },
         PYTHON: {
             IMAGE: 'python.png',
@@ -82,7 +82,7 @@ var ZOMBIES = {
             LIMIT: 5,
             ANIMATE: 'wobble',
             MULTIPLE: 5,
-            SOUND:'assets/sounds/python.ogg'
+            SOUND: 'assets/sounds/python.ogg'
         }
     },
     ENEMIES_MAP: {
@@ -91,24 +91,24 @@ var ZOMBIES = {
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
-            SOUND:'assets/sounds/duke-die.ogg',
-            DEATHTYPE : 'explode'
+            SOUND: 'assets/sounds/duke-die.ogg',
+            DEATHTYPE: 'explode'
         },
         EXPLORER: {
             IMAGE: ['explorer.png'],
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
-            SOUND:'assets/sounds/explorer-die.ogg',
-            DEATHTYPE : 'explode_xpiece'
+            SOUND: 'assets/sounds/explorer-die.ogg',
+            DEATHTYPE: 'explode_xpiece'
         },
         CYBER: {
             IMAGE: ['cyber.png'],
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
-            SOUND:'assets/sounds/explorer-die.ogg',
-            DEATHTYPE : 'explode'
+            SOUND: 'assets/sounds/explorer-die.ogg',
+            DEATHTYPE: 'explode'
         },
     },
     MONSTERS_MAP: {
@@ -119,8 +119,8 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 5,
             ROCKETS: 4,
-            SOUND:'assets/sounds/monster-appear.ogg',
-            DEATHTYPE : 'explode'
+            SOUND: 'assets/sounds/monster-appear.ogg',
+            DEATHTYPE: 'explode'
         },
         EXPLORER: {
             IMAGE: 'explorer.png',
@@ -129,8 +129,8 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 10,
             ROCKETS: 4,
-            SOUND:'assets/sounds/monster-appear.ogg',
-            DEATHTYPE : 'explode_xpiece'
+            SOUND: 'assets/sounds/monster-appear.ogg',
+            DEATHTYPE: 'explode_xpiece'
         },
         CYBER: {
             IMAGE: 'cyber.png',
@@ -139,8 +139,8 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 10,
             ROCKETS: 4,
-            SOUND:'assets/sounds/monster-appear.ogg',
-            DEATHTYPE : 'explode'
+            SOUND: 'assets/sounds/monster-appear.ogg',
+            DEATHTYPE: 'explode'
         },
     },
     EXIRS_MAP: {
@@ -167,21 +167,21 @@ var ZOMBIES = {
             IMAGE: 'ubuntu.png',
             ACTION: 'CHANGE_HERO',
             VALUE: 'ubuntu.png',
-            HERO_MOVEMENT : 30
+            HERO_MOVEMENT: 30
         },
         FEDORA: {
             NAME: 'FEDORA',
             IMAGE: 'fedora.png',
             ACTION: 'CHANGE_HERO',
             VALUE: 'fedora.png',
-            HERO_MOVEMENT : 40
+            HERO_MOVEMENT: 40
         },
         CENTOS: {
             NAME: 'CENTOS',
             IMAGE: 'centos.png',
             ACTION: 'CHANGE_HERO',
             VALUE: 'centos.png',
-            HERO_MOVEMENT : 50
+            HERO_MOVEMENT: 50
         },
     },
 
@@ -189,35 +189,35 @@ var ZOMBIES = {
         1: {
             NAME: 'Kill Duke',
             ENEMY_SPEED: 5,
-            EXIRS: ['LIVE','RUBY','PYTHON','FEDORA'],
+            EXIRS: ['LIVE', 'RUBY', 'PYTHON', 'FEDORA'],
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
-            BACKGROUND:'clouds',
-            BADGE:'duke-badge.png',
-            SLOAGAN:'JAVA ASSASIN!',
-            SOUND:'assets/sounds/background/level1_map.ogg'
+            BACKGROUND: 'clouds',
+            BADGE: 'duke-badge.png',
+            SLOAGAN: 'JAVA ASSASIN!',
+            SOUND: 'assets/sounds/background/level1_map.ogg'
         },
         2: {
             NAME: 'Kill Internet Explorer',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY','LIVE', 'PYTHON','UBUNTU','CENTOS'],
+            EXIRS: ['RUBY', 'LIVE', 'PYTHON', 'UBUNTU', 'CENTOS'],
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
-            SOUND:'assets/sounds/background/level2_map.ogg',
-            BADGE:`microsoft-badge.png`,
-            SLOAGAN:'MICROSOFT ASSASIN!'
+            SOUND: 'assets/sounds/background/level2_map.ogg',
+            BADGE: 'microsoft-badge.png',
+            SLOAGAN: 'MICROSOFT ASSASIN!'
         },
         3: {
             NAME: 'Kill Cyber Security',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON','LIVE','UBUNTU','CENTOS','FEDORA'],
+            EXIRS: ['RUBY', 'PYTHON', 'LIVE', 'UBUNTU', 'CENTOS', 'FEDORA'],
             ENEMIES: ['CYBER'],
             MONSTER: ['CYBER'],
-            BACKGROUND:'clouds',
-            SOUND:'assets/sounds/',
-            BADGE:'final-badge.png',
-            SLOAGAN:'OPEN SOURCE MASTER !'
+            BACKGROUND: 'clouds',
+            SOUND: 'assets/sounds/',
+            BADGE: 'final-badge.png',
+            SLOAGAN: 'OPEN SOURCE MASTER !'
         }
 
     },
@@ -232,9 +232,9 @@ var ZOMBIES = {
         ZOMBIES.scoreDiv = document.getElementById('score');
         ZOMBIES.weaponsListDiv = document.getElementById('weapons_list');
         ZOMBIES.heartsDiv = document.getElementById('hearts');
-        ZOMBIES.playernameDiv = document.getElementById('player-name') ;
-        for( var i = 1 ; i <= 3 ; i++ ){
-          ZOMBIES.MUSIC[i]=new Audio(ZOMBIES.GAME_MAP[i].SOUND) ;
+        ZOMBIES.playernameDiv = document.getElementById('player-name');
+        for (var i = 1; i <= 3; i++) {
+            ZOMBIES.MUSIC[i] = new Audio(ZOMBIES.GAME_MAP[i].SOUND);
         }
         /////////////////////////////////////
         // Sounds Section
@@ -250,11 +250,11 @@ var ZOMBIES = {
         ///////////////////////////////////////////////////
         // INITIAL SETTINGS, DO NOT CHANGE !!!
         ///////////////////////////////////////////////////
-        ZOMBIES.hero.live = 3 ;
-        ZOMBIES.pause = false ;
-        ZOMBIES.started = true ;
-        ZOMBIES.iterations =0 ;
-        ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
+        ZOMBIES.hero.live = 3;
+        ZOMBIES.pause = false;
+        ZOMBIES.started = true;
+        ZOMBIES.iterations = 0;
+        ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL);
         /// gives underfind , check back later
 
         ////////////////////////////////////////
@@ -266,7 +266,7 @@ var ZOMBIES = {
             ZOMBIES.hero.removeClass('fadeInUp');
         }, 800);
         // Resetting the number of Hearts every init call
-        ZOMBIES.heartsDiv.innerHTML = " " ;
+        ZOMBIES.heartsDiv.innerHTML = " ";
         for (var i = 1; i <= ZOMBIES.hero.live; i++) {
             ZOMBIES.addHeart(i);
         }
@@ -277,34 +277,34 @@ var ZOMBIES = {
 
         document.onkeyup = function (evt) {
             // dont make any action whene game finish
-            if(ZOMBIES.FINISH){
+            if (ZOMBIES.FINISH) {
                 return;
             }
 
             if (evt.keyCode == ZOMBIES.ESC || (evt.keyCode == ZOMBIES.SPACE_KEY && ZOMBIES.pause)) {
                 if (!ZOMBIES.pause) {
                     ZOMBIES.pauseDiv.style.display = 'block';
-                    document.getElementById('menu-div').style.visibility = 'visible' ;
-                    document.getElementById('menu-div').style.left = '5%' ;
-                    document.getElementById('menu-div').style.background = ' rgba(255,255,255,0)' ;
-                    if(newgameDiv.style.visibility == "visible"){
-                        newgameDiv.style.visibility = "hidden" ;
+                    document.getElementById('menu-div').style.visibility = 'visible';
+                    document.getElementById('menu-div').style.left = '5%';
+                    document.getElementById('menu-div').style.background = ' rgba(255,255,255,0)';
+                    if (newgameDiv.style.visibility == "visible") {
+                        newgameDiv.style.visibility = "hidden";
                         newgameDiv.style.left = "-50%";
                     }
-                    if(highscoresDiv.style.visibility == "visible"){
-                        highscoresDiv.style.visibility = "hidden" ;
+                    if (highscoresDiv.style.visibility == "visible") {
+                        highscoresDiv.style.visibility = "hidden";
                         highscoresDiv.style.left = "-50%";
                     }
                 } else {
                     ZOMBIES.pauseDiv.style.display = 'none';
-                    document.getElementById('menu-div').style.visibility = 'hidden' ;
-                    document.getElementById('menu-div').style.left = '-9999999px' ;
-                    if(newgameDiv.style.visibility == "visible"){
-                        newgameDiv.style.visibility = "hidden" ;
+                    document.getElementById('menu-div').style.visibility = 'hidden';
+                    document.getElementById('menu-div').style.left = '-9999999px';
+                    if (newgameDiv.style.visibility == "visible") {
+                        newgameDiv.style.visibility = "hidden";
                         newgameDiv.style.left = "-50%";
                     }
-                    if(highscoresDiv.style.visibility == "visible"){
-                        highscoresDiv.style.visibility = "hidden" ;
+                    if (highscoresDiv.style.visibility == "visible") {
+                        highscoresDiv.style.visibility = "hidden";
                         highscoresDiv.style.left = "-50%";
                     }
                 }
@@ -313,7 +313,7 @@ var ZOMBIES = {
 
             ZOMBIES.toggleKey(evt.keyCode, false);
         };
-        ZOMBIES.FINISH = false ;
+        ZOMBIES.FINISH = false;
         ZOMBIES.loop();
         ZOMBIES.refreshWeaponsList();
 
@@ -321,20 +321,20 @@ var ZOMBIES = {
     }
     ,
     // Function that Resets the gameplay
-    restart: function(playername){
-        if(ZOMBIES.hero){
-            ZOMBIES.hero.remove() ;
-            ZOMBIES.hero = null ;
+    restart: function (playername) {
+        if (ZOMBIES.hero) {
+            ZOMBIES.hero.remove();
+            ZOMBIES.hero = null;
         }
-        ZOMBIES.SCORE = 0 ;
-        ZOMBIES.scoreDiv.textContent = 0 ;
-        ZOMBIES.MY_WEAPONS = ['OS'] ;
+        ZOMBIES.SCORE = 0;
+        ZOMBIES.scoreDiv.textContent = 0;
+        ZOMBIES.MY_WEAPONS = ['OS'];
         // killing all existing enemies before restarting
 
         ZOMBIES.clearEnemies();
-        ZOMBIES.clearExirs() ;
-        ZOMBIES.CURRENT_WEAPON = "OS" ;
-        ZOMBIES.init(playername) ;
+        ZOMBIES.clearExirs();
+        ZOMBIES.CURRENT_WEAPON = "OS";
+        ZOMBIES.init(playername);
 
 
     }
@@ -471,7 +471,7 @@ var ZOMBIES = {
         }                                                                   // Prevent hero from firing when is died
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
 
-            var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
+            var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND);
 
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
@@ -492,7 +492,7 @@ var ZOMBIES = {
                     }
 
                     var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y, laserDirection);
-                    attackSound.play() ;
+                    attackSound.play();
                     //if the current weapon has animation effect
                     if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
                         lasser.addClass('animated');
@@ -541,15 +541,15 @@ var ZOMBIES = {
                     // to add the weapon to the list to toggle between them
                     ZOMBIES.addWeapon(ZOMBIES.exirArray[i].config.VALUE);
                 }
-                if (ZOMBIES.exirArray[i].config.ACTION == 'CHANGE_HERO'){
+                if (ZOMBIES.exirArray[i].config.ACTION == 'CHANGE_HERO') {
                     ZOMBIES.hero.element.children[0].src = 'assets/images/heros/' + ZOMBIES.exirArray[i].config.VALUE;
                     ZOMBIES.hero.HERO_MOVEMENT = ZOMBIES.exirArray[i].config.HERO_MOVEMENT;
                     ZOMBIES.addToTerminal('sudo switch to ' + ZOMBIES.exirArray[i].config.NAME, 'green');
                 }
-                if (ZOMBIES.exirArray[i].config.ACTION == 'LIVE'){
+                if (ZOMBIES.exirArray[i].config.ACTION == 'LIVE') {
                     ZOMBIES.hero.live++;
                     ZOMBIES.addHeart(ZOMBIES.hero.live);
-                    ZOMBIES.addToTerminal('sudo apt-git upgrade ' );
+                    ZOMBIES.addToTerminal('sudo apt-git upgrade ');
                 }
                 ZOMBIES.exirArray[i].remove();
                 ZOMBIES.exirArray.splice(i, 1);
@@ -583,7 +583,7 @@ var ZOMBIES = {
                 }
                 i--;
                 laser.y = -laser.h;
-                if(!ZOMBIES.MONSTERAPPEARED){
+                if (!ZOMBIES.MONSTERAPPEARED) {
                     ZOMBIES.SCORE += 100;
                     ZOMBIES.scoreDiv.textContent = ZOMBIES.SCORE;
                     console.log(ZOMBIES.SCORE);
@@ -612,7 +612,7 @@ var ZOMBIES = {
                 ZOMBIES.gameOver();
             }
             //handel collision between hero and monster
-            else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && ZOMBIES.enemies[i].monster){
+            else if (ZOMBIES.intersects(ZOMBIES.hero, ZOMBIES.enemies[i]) && ZOMBIES.hero.dieable && ZOMBIES.enemies[i].monster) {
 
                 if (ZOMBIES.hero.live > 1) {
                     ZOMBIES.addToTerminal('Fetal Error, entering rescue mode...', 'red');
@@ -623,7 +623,7 @@ var ZOMBIES = {
                 ZOMBIES.gameOver();
 
                 //handel collision between laser and monster
-            }else if (laser && ZOMBIES.enemies[i].monster) {
+            } else if (laser && ZOMBIES.enemies[i].monster) {
                 var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
                 var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
                 laser.remove();
@@ -642,15 +642,29 @@ var ZOMBIES = {
 
                             temp.remove();
                         }, 1000);
-                        ZOMBIES.MONSTERAPPEARED = false ;
+                        ZOMBIES.MONSTERAPPEARED = false;
                         // Added to prevent monster from appearing after it die because score is still %3000
-                        ZOMBIES.SCORE += 100 ;
+                        ZOMBIES.SCORE += 100;
                         ////////////////////
                         // reset the value monster lives for the initial value
                         ////////////
-                        ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].HEALTH = ZOMBIES.MONSTER_HEALTH[ZOMBIES.CURRENT_LEVEL] ;
-                        if(ZOMBIES.CURRENT_LEVEL != 3 )
-                          ZOMBIES.moveToNextLevel();
+                        ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].HEALTH = ZOMBIES.MONSTER_HEALTH[ZOMBIES.CURRENT_LEVEL];
+
+                        ZOMBIES.CURRENT_LEVEL++;
+
+                        if (ZOMBIES.CURRENT_LEVEL >= 4) {
+                            ZOMBIES.levelInfoDiv.style.display = 'block';
+                            ZOMBIES.levelInfoDiv.innerHTML =
+                                '<div class="leveltext animated rubberBand">' +
+                                '<h2>' + 'You\'ve Earned a new Badge !<h2>' +
+                                '<h1 style="color:green;">' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL - 1].SLOAGAN + '</h1>' +
+                                '<h2>Wait For Level ' + ZOMBIES.CURRENT_LEVEL + ' In Version 2.0 ?</h2>' +
+                              '</div>';
+                            document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL - 1].BADGE + '") no-repeat center 10px'
+                        }else{
+                            ZOMBIES.moveToNextLevel();
+                        }
+
                     })();
                 } else {
 
@@ -671,14 +685,14 @@ var ZOMBIES = {
         }
         return result;
     },
-    clearExirs:function(){
-        for( i = 0 ; i < ZOMBIES.exirArray.length ; i++ ){
+    clearExirs: function () {
+        for (i = 0; i < ZOMBIES.exirArray.length; i++) {
             ZOMBIES.exirArray[i].remove();
             ZOMBIES.exirArray.splice(i, 1);
         }
     }
     ,
-    clearEnemies:function(){
+    clearEnemies: function () {
         for (var i = 0; i < ZOMBIES.enemies.length; i++) {
             (function () {
                 var i2 = i;
@@ -692,49 +706,46 @@ var ZOMBIES = {
             })();
         }
     },
-    setLevelBackground:function(level){
-        var newBG ='<video id="background-video" loop muted autoplay class="fullscreen-bg__video"><source src="assets/videos/' + ZOMBIES.GAME_MAP[level].BACKGROUND + '.mp4" type="video/mp4"></video>'
-        document.getElementsByClassName('fullscreen-bg')[0].innerHTML = newBG ;
+    setLevelBackground: function (level) {
+        var newBG = '<video id="background-video" loop muted autoplay class="fullscreen-bg__video"><source src="assets/videos/' + ZOMBIES.GAME_MAP[level].BACKGROUND + '.mp4" type="video/mp4"></video>'
+        document.getElementsByClassName('fullscreen-bg')[0].innerHTML = newBG;
     }
     ,
     moveToNextLevel: function () {
 
-        ZOMBIES.CURRENT_LEVEL++;
-        ZOMBIES.stopBackgroundMusic() ;
+        ZOMBIES.stopBackgroundMusic();
         // changing background music
-        ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND ;
+        ZOMBIES.CURRENT_MUSIC = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].SOUND;
 
         // moved into separate function because it's needed in restart method
-        ZOMBIES.clearEnemies() ;
+        ZOMBIES.clearEnemies();
         ZOMBIES.stopEnemyAdd = true;
         ZOMBIES.hero.dieable = false;
         ZOMBIES.addToTerminal('move to next Level', 'green');
 
-        setTimeout(function(){
-            ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
+        setTimeout(function () {
+            ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL);
             ZOMBIES.levelInfoDiv.style.display = 'block';
-            ZOMBIES.playBackgroundMusic() ;
-        },2000);
+            ZOMBIES.playBackgroundMusic();
+        }, 2000);
 
         ZOMBIES.levelInfoDiv.innerHTML =
             '<div class="leveltext animated rubberBand">' +
-            '<h2>' +'You\'ve Earned a new Badge !<h2>' +
-            '<h1 style="color:green;">' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].SLOAGAN + '</h1>'+
-            '<h2>Ready For Level '+ ZOMBIES.CURRENT_LEVEL + ' ?</h2>' +
-            '<h2>'+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
-            '<h4>Level Monster '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
-            '<h4>Tty to take '+ ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
+            '<h2>' + 'You\'ve Earned a new Badge !<h2>' +
+            '<h1 style="color:green;">' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL - 1].SLOAGAN + '</h1>' +
+            '<h2>Ready For Level ' + ZOMBIES.CURRENT_LEVEL + ' ?</h2>' +
+            '<h2>' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].NAME + '</h2>' +
+            '<h4>Level Monster ' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER.join(', ') + '</h4>' +
+            '<h4>Tty to take ' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].EXIRS.join(', ') + ' to maximum your strength</h4>' +
             '</div>';
-            document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/'+ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].BADGE +'") no-repeat center 10px'
-        if(ZOMBIES.CURRENT_LEVEL != 4 )
-        {
-          setTimeout(function () {
-              ZOMBIES.stopEnemyAdd = false;
-              ZOMBIES.hero.dieable = true;
-              ZOMBIES.levelInfoDiv.style.display = 'none';
-          }, 7000);
 
-        }
+        document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/' + ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL - 1].BADGE + '") no-repeat center 10px'
+
+        setTimeout(function () {
+            ZOMBIES.stopEnemyAdd = false;
+            ZOMBIES.hero.dieable = true;
+            ZOMBIES.levelInfoDiv.style.display = 'none';
+        }, 7000);
         // ZOMBIES.pause = true ;
 
         // setTimeout(function() {
@@ -742,26 +753,25 @@ var ZOMBIES = {
         // }, 2000);
     }
     ,
-    updateHighscores:function(){
-        for( i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
-            if(ZOMBIES.PLAYERS[i].name == ZOMBIES.CURRENT_PLAYER.name ){
+    updateHighscores: function () {
+        for (i = 0; i < ZOMBIES.PLAYERS.length; i++) {
+            if (ZOMBIES.PLAYERS[i].name == ZOMBIES.CURRENT_PLAYER.name) {
                 // if player achieved a new highscore , update it
-                if(ZOMBIES.PLAYERS[i].highscore < ZOMBIES.scoreDiv.textContent)
-                {
-                    ZOMBIES.PLAYERS[i].highscore = ZOMBIES.scoreDiv.textContent ;
+                if (ZOMBIES.PLAYERS[i].highscore < ZOMBIES.scoreDiv.textContent) {
+                    ZOMBIES.PLAYERS[i].highscore = ZOMBIES.scoreDiv.textContent;
                     // need to add flag later to notify that he achived highscore
                 }
-                break ;
+                break;
             }
         }
         // sorting the highscores
-        ZOMBIES.PLAYERS.sort(ZOMBIES.helpers.sortbyScore) ;
+        ZOMBIES.PLAYERS.sort(ZOMBIES.helpers.sortbyScore);
         // pushing into the DOM
-        var highscoretemplate = '<tr><th>Name</th><th>Score</th></tr>' ;
-        for(i = 0 ; i < ZOMBIES.PLAYERS.length ; i++ ){
-            highscoretemplate += '<tr>' + '<td>' + ZOMBIES.PLAYERS[i].name +'</td>' +'<td>' + ZOMBIES.PLAYERS[i].highscore +'</td>' + '</tr>'
+        var highscoretemplate = '<tr><th>Name</th><th>Score</th></tr>';
+        for (i = 0; i < ZOMBIES.PLAYERS.length; i++) {
+            highscoretemplate += '<tr>' + '<td>' + ZOMBIES.PLAYERS[i].name + '</td>' + '<td>' + ZOMBIES.PLAYERS[i].highscore + '</td>' + '</tr>'
         }
-        document.getElementById('high-scores-table').innerHTML = highscoretemplate ;
+        document.getElementById('high-scores-table').innerHTML = highscoretemplate;
     }
     ,
     gameOver: function (player) {
@@ -771,28 +781,26 @@ var ZOMBIES = {
             ZOMBIES.hero.live--;
             // if the new number of lifes is zero, remove the hero and finish the game
             // else , perform normal behavior of gameover function
-            if(ZOMBIES.hero.live == 0 ){
-                ZOMBIES.hero.remove() ;
-                ZOMBIES.FINISH = true ;
-                ZOMBIES.updateHighscores() ;
+            if (ZOMBIES.hero.live == 0) {
+                ZOMBIES.hero.remove();
+                ZOMBIES.FINISH = true;
+                ZOMBIES.updateHighscores();
 
                 ZOMBIES.gameOverDiv.style.display = 'block';
-                document.getElementById('menu-div').style.visibility = 'visible' ;
-                document.getElementById('menu-div').style.left = '5%' ;
-                document.getElementById('menu-div').style.background = ' rgba(255,255,255,0)' ;
-                if(newgameDiv.style.visibility == "visible"){
-                    newgameDiv.style.visibility = "hidden" ;
+                document.getElementById('menu-div').style.visibility = 'visible';
+                document.getElementById('menu-div').style.left = '5%';
+                document.getElementById('menu-div').style.background = ' rgba(255,255,255,0)';
+                if (newgameDiv.style.visibility == "visible") {
+                    newgameDiv.style.visibility = "hidden";
                     newgameDiv.style.left = "-50%";
                 }
-                if(highscoresDiv.style.visibility == "visible"){
-                    highscoresDiv.style.visibility = "hidden" ;
+                if (highscoresDiv.style.visibility == "visible") {
+                    highscoresDiv.style.visibility = "hidden";
                     highscoresDiv.style.left = "-50%";
                 }
 
 
-
-
-            }else{
+            } else {
                 var element = document.getElementById(hero.id);
                 element.style.visibility = 'hidden';
 
@@ -802,9 +810,9 @@ var ZOMBIES = {
                     ZOMBIES.hero.removeClass("animated");
                     ZOMBIES.hero.removeClass("flash");
                     ZOMBIES.hero.removeClass("infinite");
-                    
-                    ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ','red');
-                    ZOMBIES.addToTerminal('GO!','green');
+
+                    ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ', 'red');
+                    ZOMBIES.addToTerminal('GO!', 'green');
                 }, 7000);
                 setTimeout(function () {
                     ZOMBIES.hero.removeDieStyle();
@@ -816,9 +824,9 @@ var ZOMBIES = {
 
                     ZOMBIES.hero.x = window.innerWidth / 2 - 25;
                     ZOMBIES.hero.y = window.innerHeight - 150;
-                    ZOMBIES.addToTerminal('sudo resurrect hero','green');
-                    ZOMBIES.addToTerminal('you are protected','green');
-                    ZOMBIES.addToTerminal('protection and fire will be unlocked after 5 second ','green');
+                    ZOMBIES.addToTerminal('sudo resurrect hero', 'green');
+                    ZOMBIES.addToTerminal('you are protected', 'green');
+                    ZOMBIES.addToTerminal('protection and fire will be unlocked after 5 second ', 'green');
                     ZOMBIES.loop();
                 }, 2000);
             }
@@ -845,7 +853,7 @@ var ZOMBIES = {
         getRandom: function (maxSize) {
             return parseInt(Math.random() * maxSize);
         },
-        sortbyScore:function (a,b) {
+        sortbyScore: function (a, b) {
             if (a.highscore > b.highscore)
                 return -1;
             if (a.highscore < b.highscore)
@@ -900,7 +908,7 @@ var ZOMBIES = {
             var enemyKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMIES.random();
             var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
 
-            var enemyObj = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH,false,null,null,null,enemyConfig.DEATHTYPE);
+            var enemyObj = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, null, null, null, enemyConfig.DEATHTYPE);
 
             if (enemyConfig.ANIMATE) {
                 enemyObj.addClass('animated');
@@ -913,17 +921,17 @@ var ZOMBIES = {
     },
     addMonster: function () {
         ZOMBIES.monster = false;
-        ZOMBIES.MONSTERAPPEARED = true ;
+        ZOMBIES.MONSTERAPPEARED = true;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,50,null,monsterConfig.DEATHTYPE);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2, 50, null, monsterConfig.DEATHTYPE);
         //ZOMBIES.monsterObj.addClass('animated');
         //ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
         ZOMBIES.monsterAction();
 
     },
-    addHeart:function(i){
+    addHeart: function (i) {
         var heart = document.createElement('span');
         heart.classList.add("heart");
         heart.classList.add("animated");
@@ -944,16 +952,16 @@ var ZOMBIES = {
         }
 
     },
-    playSound:function(path){
-      var effect = new Audio(path) ;
-      effect.play() ;
+    playSound: function (path) {
+        var effect = new Audio(path);
+        effect.play();
     }
     ,
-    stopBackgroundMusic:function(){
-        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL -1 ].pause() ;
+    stopBackgroundMusic: function () {
+        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL - 1].pause();
     },
-    playBackgroundMusic:function(){
-        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play() ;
+    playBackgroundMusic: function () {
+        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play();
     },
     /*
      function to add rockets to monster
@@ -982,7 +990,7 @@ var ZOMBIES = {
                 var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
 
 
-                var monsterRockets = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y, enemyDirection,enemyConfig.DEATHTYPE);
+                var monsterRockets = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y, enemyDirection, enemyConfig.DEATHTYPE);
 
                 if (enemyConfig.ANIMATE) {
                     monsterRockets.addClass('animated');
@@ -994,7 +1002,6 @@ var ZOMBIES = {
             }
         }
     },
-
 
 
 };
