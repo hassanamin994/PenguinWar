@@ -152,8 +152,8 @@ var ZOMBIES = {
             NAME: 'Kill Duke',
             ENEMY_SPEED: 5,
             EXIRS: ['RUBY', 'PYTHON','FEDORA'],
-            ENEMIES: ['EXPLORER'],
-            MONSTER: ['EXPLORER'],
+            ENEMIES: ['DUKE'],
+            MONSTER: ['DUKE'],
             BACKGROUND:'clouds'
 
         },
@@ -483,6 +483,7 @@ var ZOMBIES = {
                 if (ZOMBIES.exirArray[i].config.ACTION == 'CHANGE_HERO'){
                     ZOMBIES.hero.element.children[0].src = 'assets/images/heros/' + ZOMBIES.exirArray[i].config.VALUE;
                     ZOMBIES.hero.HERO_MOVEMENT = ZOMBIES.exirArray[i].config.HERO_MOVEMENT;
+                    ZOMBIES.addToTerminal('sudo switch to ' + ZOMBIES.exirArray[i].config.NAME, 'green');
                 }
                 ZOMBIES.exirArray[i].remove();
                 ZOMBIES.exirArray.splice(i, 1);
