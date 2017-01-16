@@ -85,12 +85,14 @@ var ZOMBIES = {
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
+            DEATHTYPE : 'explode_404'
         },
         EXPLORER: {
             IMAGE: ['explorer.png'],
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
+            DEATHTYPE : 'explode_404'
         }
     },
     MONSTERS_MAP: {
@@ -101,6 +103,7 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 5,
             ROCKETS: 4,
+            DEATHTYPE : 'explode'
         },
         EXPLORER: {
             IMAGE: 'explorer.png',
@@ -109,6 +112,7 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 10,
             ROCKETS: 4,
+            DEATHTYPE : 'explode'
         },
     },
     EXIRS_MAP: {
@@ -788,7 +792,7 @@ var ZOMBIES = {
             var enemyKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMIES.random();
             var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
 
-            var enemyObj = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH);
+            var enemyObj = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH,false,null,null,null,enemyConfig.DEATHTYPE);
 
             if (enemyConfig.ANIMATE) {
                 enemyObj.addClass('animated');
@@ -804,7 +808,7 @@ var ZOMBIES = {
         ZOMBIES.MONSTERAPPEARED = true ;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,null,null,monsterConfig.DEATHTYPE);
         //ZOMBIES.monsterObj.addClass('animated');
         //ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
@@ -848,7 +852,7 @@ var ZOMBIES = {
                 var enemyConfig = ZOMBIES.ENEMIES_MAP[enemyKey];
 
 
-                var monsterRockets = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y, enemyDirection);
+                var monsterRockets = new Enemy('assets/images/enemy/' + enemyConfig.IMAGE.random(), enemyConfig.HEIGHT, enemyConfig.WIDTH, false, ZOMBIES.monsterObj.x + (ZOMBIES.monsterObj.w / 2) - 10, ZOMBIES.monsterObj.y, enemyDirection,enemyConfig.DEATHTYPE);
 
                 if (enemyConfig.ANIMATE) {
                     monsterRockets.addClass('animated');
