@@ -439,7 +439,6 @@ var ZOMBIES = {
         }                                                                   // Prevent hero from firing when is died
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
             var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
-            attackSound.play() ;
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -459,7 +458,7 @@ var ZOMBIES = {
                     }
 
                     var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y, laserDirection);
-
+                    attackSound.play() ;
                     //if the current weapon has animation effect
                     if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
                         lasser.addClass('animated');

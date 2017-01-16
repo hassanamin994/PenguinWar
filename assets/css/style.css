@@ -310,7 +310,7 @@ div.xpiece {
 }
 div.xpiece:nth-child(2) {
     left: 20px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-2;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -336,7 +336,7 @@ div.xpiece:nth-child(2) {
 }
 div.xpiece:nth-child(3) {
     left: 30px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-3;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -362,7 +362,7 @@ div.xpiece:nth-child(3) {
 }
 div.xpiece:nth-child(4) {
     left: 40px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-4;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -388,7 +388,7 @@ div.xpiece:nth-child(4) {
 }
 div.xpiece:nth-child(5) {
     left: 50px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-5;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -414,7 +414,7 @@ div.xpiece:nth-child(5) {
 }
 div.xpiece:nth-child(6) {
     left: 60px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-6;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -440,7 +440,7 @@ div.xpiece:nth-child(6) {
 }
 div.xpiece:nth-child(7) {
     left: 70px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-7;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -466,7 +466,7 @@ div.xpiece:nth-child(7) {
 }
 div.xpiece:nth-child(8) {
     left: 80px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-8;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -492,7 +492,7 @@ div.xpiece:nth-child(8) {
 }
 div.xpiece:nth-child(9) {
     left: 90px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-9;
     animation-iteration-count: infinite;
     animation-direction: normal;
@@ -518,7 +518,7 @@ div.xpiece:nth-child(9) {
 }
 div.xpiece:nth-child(10) {
     left: 100px;
-    animation-duration: 1.8s;
+    animation-duration: 2s;
     animation-name: animi-10;
     animation-iteration-count: infinite;
     animation-direction: normal;

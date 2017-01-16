@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bd15034-a572-4bb3-b60a-98decfecb35e" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/images/exirs/heart.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/style.css" afterPath="$PROJECT_DIR$/assets/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/enemy.js" afterPath="$PROJECT_DIR$/assets/js/enemy.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/zombies.js" afterPath="$PROJECT_DIR$/assets/js/zombies.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,11 +23,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="zombies.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="zombies.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="562" column="18" lean-forward="false" selection-start-line="562" selection-start-column="18" selection-end-line="562" selection-end-column="18" />
+            <state relative-caret-position="13770">
+              <caret line="885" column="0" lean-forward="true" selection-start-line="885" selection-start-column="0" selection-end-line="885" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="285" column="15" lean-forward="false" selection-start-line="285" selection-start-column="15" selection-end-line="285" selection-end-column="15" />
+            <state relative-caret-position="3520">
+              <caret line="520" column="27" lean-forward="false" selection-start-line="520" selection-start-column="27" selection-end-line="520" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -67,8 +67,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>score</find>
-      <find>pause_Img</find>
       <find>LAZER_SPEED</find>
       <find>ENEMYHEIGHT</find>
       <find>stop_Add_Enemy_Wh_Move_To_Next_Level</find>
@@ -97,6 +95,8 @@
       <find>2s</find>
       <find>1.5s</find>
       <find>remove</find>
+      <find>Audio</find>
+      <find>1.8</find>
     </findStrings>
     <replaceStrings>
       <replace>../images/backgrounds</replace>
@@ -113,6 +113,7 @@
       <replace>1.5s</replace>
       <replace>1.8s</replace>
       <replace>e404</replace>
+      <replace>2</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -138,8 +139,8 @@
         <option value="$PROJECT_DIR$/../Game/css-explosion/index.html" />
         <option value="$PROJECT_DIR$/test.html" />
         <option value="$PROJECT_DIR$/assets/js/enemy.js" />
-        <option value="$PROJECT_DIR$/assets/js/zombies.js" />
         <option value="$PROJECT_DIR$/assets/js/components.js" />
+        <option value="$PROJECT_DIR$/assets/js/zombies.js" />
         <option value="$PROJECT_DIR$/assets/css/style.css" />
       </list>
     </option>
@@ -359,12 +360,12 @@
       <workItem from="1484386987074" duration="7930000" />
       <workItem from="1484579592301" duration="4421000" />
       <workItem from="1484585640155" duration="2891000" />
-      <workItem from="1484595323220" duration="1249000" />
+      <workItem from="1484595323220" duration="2444000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98474000" />
+    <option name="totallyTimeSpent" value="99669000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="24" width="1311" height="744" extended-state="6" />
@@ -679,14 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="562" column="18" lean-forward="false" selection-start-line="562" selection-start-column="18" selection-end-line="562" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/components.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="423">
@@ -697,8 +690,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="285" column="15" lean-forward="false" selection-start-line="285" selection-start-column="15" selection-end-line="285" selection-end-column="15" />
+        <state relative-caret-position="3520">
+          <caret line="520" column="27" lean-forward="false" selection-start-line="520" selection-start-column="27" selection-end-line="520" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/zombies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13770">
+          <caret line="885" column="0" lean-forward="true" selection-start-line="885" selection-start-column="0" selection-end-line="885" selection-end-column="0" />
           <folding />
         </state>
       </provider>
