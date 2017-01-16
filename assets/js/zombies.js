@@ -726,6 +726,7 @@ var ZOMBIES = {
               ZOMBIES.hero.dieable = false;
               setTimeout(function () {
                   ZOMBIES.hero.dieable = true;
+                  ZOMBIES.hero.removeClass("protected");                 
                   ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ','red');
                   ZOMBIES.addToTerminal('GO!','green');
               }, 7000);
@@ -733,6 +734,7 @@ var ZOMBIES = {
                   ZOMBIES.hero.removeDieStyle();
                   var element = document.getElementById(hero.id);
                   element.style.visibility = 'visible';
+                  ZOMBIES.hero.addClass("protected");                 
                   ZOMBIES.hero.x = window.innerWidth / 2 - 25;
                   ZOMBIES.hero.y = window.innerHeight - 150;
                   ZOMBIES.addToTerminal('sudo resurrect hero','green');
