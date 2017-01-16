@@ -66,6 +66,7 @@ form.addEventListener('submit',function(e){
     document.getElementById('menu-div').style.visibility = 'hidden' ;
     document.getElementById('menu-div').style.left= "-9999px" ;
     document.getElementById('go').blur() ;
+    document.getElementById('gameover').style.display = "none" ;
     var gender ;
     for (var i = 0; i < charactersInput.length; i++) {
         if (charactersInput[i].checked) {
