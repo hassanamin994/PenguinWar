@@ -438,8 +438,9 @@ var ZOMBIES = {
             }
         }                                                                   // Prevent hero from firing when is died
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
-            var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
-            attackSound.play() ;
+
+            ZOMBIES.playSound(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND );
+          //  attackSound.play() ;
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -533,7 +534,7 @@ var ZOMBIES = {
                     var i2 = i;
                     // Hassan Edit, removed the enemy immediatly after it die instead of in timeout because of a BUG !
                     ZOMBIES.enemies[i2].onDie();
-                    // Playing the sound for the dead enemy 
+                    // Playing the sound for the dead enemy
                     ZOMBIES.playSound(ZOMBIES.ENEMIES_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].ENEMIES[0]].SOUND);
                     var temp = ZOMBIES.enemies[i2];
                     ZOMBIES.enemies.splice(i2, 1);
