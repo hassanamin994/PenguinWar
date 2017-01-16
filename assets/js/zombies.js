@@ -62,21 +62,24 @@ var ZOMBIES = {
             SPEED: 20,
             LIMIT: 0,
             ANIMATE: 'flip',
-            MULTIPLE: 1
+            MULTIPLE: 1,
+            SOUND:'assets/sounds/hit.wav'
         },
         RUBY: {
             IMAGE: 'ruby.png',
             SPEED: 30,
             LIMIT: 10,
             ANIMATE: 'wobble',
-            MULTIPLE: 3
+            MULTIPLE: 3,
+            SOUND:'assets/sounds/'
         },
         PYTHON: {
             IMAGE: 'python.png',
             SPEED: 40,
             LIMIT: 5,
             ANIMATE: 'wobble',
-            MULTIPLE: 5
+            MULTIPLE: 5,
+            SOUND:'assets/sounds/python.ogg'
         }
     },
     ENEMIES_MAP: {
@@ -85,12 +88,14 @@ var ZOMBIES = {
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
+            SOUND:'assets/sounds/duke-die.ogg'
         },
         EXPLORER: {
             IMAGE: ['explorer.png'],
             ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
             WIDTH: 60,
             HEIGHT: 60,
+            SOUND:'assets/sounds/explorer-die.ogg'
         }
     },
     MONSTERS_MAP: {
@@ -101,6 +106,7 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 5,
             ROCKETS: 4,
+            SOUND:'assets/sounds/monster-appear.ogg'
         },
         EXPLORER: {
             IMAGE: 'explorer.png',
@@ -109,6 +115,7 @@ var ZOMBIES = {
             HEIGHT: 100,
             HEALTH: 10,
             ROCKETS: 4,
+            SOUND:'assets/sounds/monster-appear.ogg'
         },
     },
     EXIRS_MAP: {
@@ -154,7 +161,8 @@ var ZOMBIES = {
             EXIRS: ['RUBY', 'PYTHON','FEDORA'],
             ENEMIES: ['DUKE'],
             MONSTER: ['DUKE'],
-            BACKGROUND:'clouds'
+            BACKGROUND:'clouds',
+            SOUND:'assets/sounds/'
 
         },
         2: {
@@ -163,7 +171,8 @@ var ZOMBIES = {
             EXIRS: ['RUBY', 'PYTHON','UBUNTU','CENTOS'],
             ENEMIES: ['EXPLORER'],
             MONSTER: ['EXPLORER'],
-            BACKGROUND: 'sky'
+            BACKGROUND: 'sky',
+            SOUND:'assets/sounds/'
 
         },
         3: {
@@ -172,7 +181,8 @@ var ZOMBIES = {
             EXIRS: ['RUBY', 'PYTHON'],
             ENEMIES: ['DUKE'],
             MONSTER: ['ORACLE3'],
-            BACKGROUND:'clouds'
+            BACKGROUND:'clouds',
+            SOUND:'assets/sounds/'
         }
 
     },
