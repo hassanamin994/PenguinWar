@@ -643,7 +643,8 @@ var ZOMBIES = {
                         // reset the value monster lives for the initial value
                         ////////////
                         ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].HEALTH = ZOMBIES.MONSTER_HEALTH[ZOMBIES.CURRENT_LEVEL] ;
-                        ZOMBIES.moveToNextLevel();
+                        if(ZOMBIES.CURRENT_LEVEL != 3 )
+                          ZOMBIES.moveToNextLevel();
                     })();
                 } else {
 
@@ -720,12 +721,14 @@ var ZOMBIES = {
             '</div>';
             document.getElementById('levelinfo').style.background = '#1b181a url("assets/images/badges/'+ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL-1].BADGE +'") no-repeat center 10px'
         if(ZOMBIES.CURRENT_LEVEL != 4 )
-        setTimeout(function () {
-            ZOMBIES.stopEnemyAdd = false;
-            ZOMBIES.hero.dieable = true;
-            ZOMBIES.levelInfoDiv.style.display = 'none';
-        }, 7000);
+        {
+          setTimeout(function () {
+              ZOMBIES.stopEnemyAdd = false;
+              ZOMBIES.hero.dieable = true;
+              ZOMBIES.levelInfoDiv.style.display = 'none';
+          }, 7000);
 
+        }
         // ZOMBIES.pause = true ;
 
         // setTimeout(function() {
