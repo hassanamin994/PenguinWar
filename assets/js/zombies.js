@@ -100,7 +100,15 @@ var ZOMBIES = {
             HEIGHT: 60,
             SOUND:'assets/sounds/explorer-die.ogg',
             DEATHTYPE : 'explode_xpiece'
-        }
+        },
+        CYBER: {
+            IMAGE: ['cyber.png'],
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 60,
+            HEIGHT: 60,
+            SOUND:'assets/sounds/explorer-die.ogg',
+            DEATHTYPE : 'explode'
+        },
     },
     MONSTERS_MAP: {
         DUKE: {
@@ -123,6 +131,16 @@ var ZOMBIES = {
             SOUND:'assets/sounds/monster-appear.ogg',
             DEATHTYPE : 'explode_xpiece'
         },
+        CYBER: {
+            IMAGE: 'cyber.png',
+            ANIMATE: [],
+            WIDTH: 150,
+            HEIGHT: 100,
+            HEALTH: 10,
+            ROCKETS: 4,
+            SOUND:'assets/sounds/monster-appear.ogg',
+            DEATHTYPE : 'explode'
+        },
     },
     EXIRS_MAP: {
         RUBY: {
@@ -133,7 +151,7 @@ var ZOMBIES = {
         },
         LIVE: {
             NAME: 'LIVE',
-            IMAGE: 'heart.jpg',
+            IMAGE: 'heart.png',
             ACTION: 'LIVE',
             VALUE: 'LIVE'
         },
@@ -176,10 +194,7 @@ var ZOMBIES = {
             BACKGROUND:'clouds',
             BADGE:'duke-badge.png',
             SLOAGAN:'JAVA ASSASIN!',
-
             SOUND:'assets/sounds/background/level1_map'
-
-
         },
         2: {
             NAME: 'Kill Internet Explorer',
@@ -189,15 +204,15 @@ var ZOMBIES = {
             MONSTER: ['EXPLORER'],
             BACKGROUND: 'sky',
             SOUND:'assets/sounds/background/level2_map',
-            BADGE:`microsoft-badge.png`,
+            BADGE:'microsoft-badge.png',
             SLOAGAN:'MICROSOFT ASSASIN!'
         },
         3: {
-            NAME: 'Kill Microsoft',
+            NAME: 'Kill Cyber Security',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON','LIVE'],
-            ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE3'],
+            EXIRS: ['RUBY', 'PYTHON','LIVE','UBUNTU','CENTOS','FEDORA'],
+            ENEMIES: ['CYBER'],
+            MONSTER: ['CYBER'],
             BACKGROUND:'clouds',
             SOUND:'assets/sounds/',
             BADGE:'final-badge.png',
