@@ -273,29 +273,277 @@ img {
     }
 }
 
-.explode_404 {
+/*
+    explode 404
+ */
+
+.explode_xpiece {
     position: absolute;
-    width: 64px;
-    height: 64px;
-    margin-top: -32px;
-    margin-left: -32px;
-    background-image: url(../images/effects/404.png);
-    background-repeat: no-repeat;
-    background-position: 64px 0;
-    -webkit-transform: scale(2);
-    transform: scale(2);
+    width: 300px;
+    height: 300px;
+    color: #ff0000;
 }
 
-.explode_404_ignite {
-    animation: ignite_404 2s steps(25) 0s 1 normal forwards running;
+div.xpiece {
+    position: absolute;
+}
+
+@keyframes animi-1 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 247px;
+        left: 9px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(1) {
+    left: 10px;
+    animation-duration: 1.8s;
+    animation-name: animi-1;
     animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
 }
 
-@keyframes ignite_404 {
-    from {
-        background-position: 0 0;
+@keyframes animi-2 {
+    0% {
+        top: 50%;
+        left: 50%;
     }
-    to {
-        background-position: -320px 0;
+    10% {
+        opacity: 1;
     }
+    35% {
+        top: 100px;
+        left: 114px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(2) {
+    left: 20px;
+    animation-duration: 1.8s;
+    animation-name: animi-2;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-3 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 182px;
+        left: 279px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(3) {
+    left: 30px;
+    animation-duration: 1.8s;
+    animation-name: animi-3;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-4 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 108px;
+        left: 86px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(4) {
+    left: 40px;
+    animation-duration: 1.8s;
+    animation-name: animi-4;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-5 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 120px;
+        left: 256px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(5) {
+    left: 50px;
+    animation-duration: 1.8s;
+    animation-name: animi-5;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-6 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 91px;
+        left: 287px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(6) {
+    left: 60px;
+    animation-duration: 1.8s;
+    animation-name: animi-6;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-7 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 173px;
+        left: 99px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(7) {
+    left: 70px;
+    animation-duration: 1.8s;
+    animation-name: animi-7;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-8 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 294px;
+        left: 178px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(8) {
+    left: 80px;
+    animation-duration: 1.8s;
+    animation-name: animi-8;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-9 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 286px;
+        left: 188px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(9) {
+    left: 90px;
+    animation-duration: 1.8s;
+    animation-name: animi-9;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animi-10 {
+    0% {
+        top: 50%;
+        left: 50%;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        top: 65px;
+        left: 10px;
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+div.xpiece:nth-child(10) {
+    left: 100px;
+    animation-duration: 1.8s;
+    animation-name: animi-10;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
 }
