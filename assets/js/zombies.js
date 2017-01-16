@@ -186,7 +186,7 @@ var ZOMBIES = {
         ZOMBIES.iterations =0 ;
         ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
         /// gives underfind , check back later
-        //  ZOMBIES.playernameDiv.innerHTML = ZOMBIES.CURRENT_PLAYER.name ;
+
         ////////////////////////////////////////
         ZOMBIES.hero.addClass('animated');
         ZOMBIES.hero.addClass('fadeInUp');
@@ -248,6 +248,8 @@ var ZOMBIES = {
         ZOMBIES.FINISH = false ;
         ZOMBIES.loop();
         ZOMBIES.refreshWeaponsList();
+
+        console.log(ZOMBIES.CURRENT_PLAYER.name);
     }
     ,
     // Function that Resets the gameplay
@@ -547,7 +549,7 @@ var ZOMBIES = {
                         // Added to prevent monster from appearing after it die because score is still %3000
                         ZOMBIES.SCORE += 100 ;
                         ////////////////////
-                        // reset the value monster lives for the initial value 
+                        // reset the value monster lives for the initial value
                         ////////////
                         ZOMBIES.MONSTERS_MAP[ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER].HEALTH = ZOMBIES.MONSTER_HEALTH[ZOMBIES.CURRENT_LEVEL] ;
                         ZOMBIES.moveToNextLevel();
@@ -599,7 +601,7 @@ var ZOMBIES = {
     ,
     moveToNextLevel: function () {
         ZOMBIES.CURRENT_LEVEL++;
-        ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
+
         // moved into separate function because it's needed in restart method
         ZOMBIES.clearEnemies() ;
         ZOMBIES.stopEnemyAdd = true;
@@ -607,6 +609,7 @@ var ZOMBIES = {
         ZOMBIES.addToTerminal('move to next Level', 'green');
 
         setTimeout(function(){
+          ZOMBIES.setLevelBackground(ZOMBIES.CURRENT_LEVEL) ;
           ZOMBIES.levelInfoDiv.style.display = 'block';
           ZOMBIES.levelInfoDiv.innerHTML =
               '<div class="leveltext animated rubberBand">' +
