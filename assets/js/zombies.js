@@ -101,7 +101,15 @@ var ZOMBIES = {
             HEIGHT: 60,
             SOUND:'assets/sounds/explorer-die.ogg',
             DEATHTYPE : 'explode_xpiece'
-        }
+        },
+        CYBER: {
+            IMAGE: ['cyber.png'],
+            ANIMATE: ['bounce', 'pulse', 'rubberBand', 'shake', 'headShake', 'swing', 'tada'],
+            WIDTH: 60,
+            HEIGHT: 60,
+            SOUND:'assets/sounds/explorer-die.ogg',
+            DEATHTYPE : 'explode'
+        },
     },
     MONSTERS_MAP: {
         DUKE: {
@@ -124,6 +132,16 @@ var ZOMBIES = {
             SOUND:'assets/sounds/monster-appear.ogg',
             DEATHTYPE : 'explode_xpiece'
         },
+        CYBER: {
+            IMAGE: 'cyber.png',
+            ANIMATE: [],
+            WIDTH: 150,
+            HEIGHT: 100,
+            HEALTH: 10,
+            ROCKETS: 4,
+            SOUND:'assets/sounds/monster-appear.ogg',
+            DEATHTYPE : 'explode'
+        },
     },
     EXIRS_MAP: {
         RUBY: {
@@ -134,7 +152,7 @@ var ZOMBIES = {
         },
         LIVE: {
             NAME: 'LIVE',
-            IMAGE: 'heart.jpg',
+            IMAGE: 'heart.png',
             ACTION: 'LIVE',
             VALUE: 'LIVE'
         },
@@ -177,10 +195,7 @@ var ZOMBIES = {
             BACKGROUND:'clouds',
             BADGE:'duke-badge.png',
             SLOAGAN:'JAVA ASSASIN!',
-
             SOUND:'assets/sounds/background/level1_map.ogg'
-
-
         },
         2: {
             NAME: 'Kill Internet Explorer',
@@ -194,11 +209,11 @@ var ZOMBIES = {
             SLOAGAN:'MICROSOFT ASSASIN!'
         },
         3: {
-            NAME: 'Kill Microsoft',
+            NAME: 'Kill Cyber Security',
             ENEMY_SPEED: 10,
-            EXIRS: ['RUBY', 'PYTHON','LIVE'],
-            ENEMIES: ['DUKE'],
-            MONSTER: ['ORACLE3'],
+            EXIRS: ['RUBY', 'PYTHON','LIVE','UBUNTU','CENTOS','FEDORA'],
+            ENEMIES: ['CYBER'],
+            MONSTER: ['CYBER'],
             BACKGROUND:'clouds',
             SOUND:'assets/sounds/',
             BADGE:'final-badge.png',
@@ -875,7 +890,7 @@ var ZOMBIES = {
         ZOMBIES.MONSTERAPPEARED = true ;
         var monsterKey = ZOMBIES.GAME_MAP[ZOMBIES.CURRENT_LEVEL].MONSTER;
         var monsterConfig = ZOMBIES.MONSTERS_MAP[monsterKey];
-        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,null,null,monsterConfig.DEATHTYPE);
+        ZOMBIES.monsterObj = new Enemy('assets/images/enemy/' + monsterConfig.IMAGE, monsterConfig.HEIGHT, monsterConfig.WIDTH, true, GAME_WIDTH / 2,50,null,monsterConfig.DEATHTYPE);
         //ZOMBIES.monsterObj.addClass('animated');
         //ZOMBIES.monsterObj.addClass('fadeInDown');
         ZOMBIES.enemies.push(ZOMBIES.monsterObj);
@@ -949,6 +964,7 @@ var ZOMBIES = {
                     monsterRockets.addClass(enemyConfig.ANIMATE.random());
                 }
                 ZOMBIES.enemies.push(monsterRockets);
+                console.log(monsterRockets);
             }
         }
     },
