@@ -10,7 +10,7 @@
 - e - go next weapon
 
 #Developers
-- Hassan Amin
+- Hassan Amin <Hassanmamin994@gmail.com>
 - Mohamed Habib
 - Kazafy El-sayed
 - Moustafa El-kady <Moustafa.M.Elkady@gmail.com>
