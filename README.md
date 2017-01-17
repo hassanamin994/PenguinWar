@@ -11,7 +11,7 @@
 
 #Developers
 - Hassan Amin <Hassanmamin994@gmail.com>
-- Mohamed Habib
+- Mohamed Habib  <Muhammad.habib.dev@gmail.com>
 - Kazafy El-sayed
 - Moustafa El-kady <Moustafa.M.Elkady@gmail.com>
 
