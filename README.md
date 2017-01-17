@@ -12,7 +12,7 @@
 #Developers
 - Hassan Amin <Hassanmamin994@gmail.com>
 - Mohamed Habib  <Muhammad.habib.dev@gmail.com>
-- Kazafy El-sayed
+- Kazafy El-sayed <kazafyelsayed@gmail.com>
 - Moustafa El-kady <Moustafa.M.Elkady@gmail.com>
 
 #Demo
