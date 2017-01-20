@@ -27,6 +27,7 @@ var ZOMBIES = {
     SCORE: 0,
     interval: 50,
     MONSTERAPPEARED: false,
+    SCORELIMIT:3000,
 
     laserArray: [],
     exirArray: [],
@@ -211,7 +212,7 @@ var ZOMBIES = {
         },
         3: {
             NAME: 'Kill Cyber Security',
-            ENEMY_SPEED: 10,
+            ENEMY_SPEED: 15,
             EXIRS: ['RUBY', 'PYTHON', 'LIVE', 'UBUNTU', 'CENTOS', 'FEDORA'],
             ENEMIES: ['CYBER'],
             MONSTER: ['CYBER'],
@@ -857,7 +858,7 @@ var ZOMBIES = {
     ,
     // Funtion that handles level transition
     checkScore: function (score) {
-        if (score % 300 == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
+        if (score % ZOMBIES.SCORELIMIT == 0 && score != 0 && !ZOMBIES.MONSTERAPPEARED) {
             ZOMBIES.addMonster();
             ZOMBIES.LEVEL++;
             ZOMBIES.interval -= 5;
