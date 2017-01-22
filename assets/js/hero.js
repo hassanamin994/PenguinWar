@@ -4,7 +4,7 @@ var Hero = function (img, height, width) {
     this.live = 3;
     this.dieable = true;
     Component.call(this, img, x, y, height, width, 'hero');
-    this.HERO_MOVEMENT = 25;
+    this.HERO_MOVEMENT = 15;
     this.controller = {
         left: false,
         right: false,

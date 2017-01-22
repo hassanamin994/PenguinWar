@@ -27,7 +27,7 @@ var ZOMBIES = {
     SCORE: 0,
     interval: 50,
     MONSTERAPPEARED: false,
-    SCORELIMIT:3000,
+    SCORELIMIT:1000,
 
     laserArray: [],
     exirArray: [],
@@ -379,6 +379,16 @@ var ZOMBIES = {
     }
     ,
     updatePositions: function () {
+                //// exir move 
+        for(var i = 0 ; i < ZOMBIES.exirArray.length ; i++){
+            ZOMBIES.exirArray[i].y += 5;
+            console.log("y : "+ZOMBIES.exirArray[i].x);
+            if(ZOMBIES.exirArray[i].isGotOut){
+                ZOMBIES.exirArray[i].remove();
+                ZOMBIES.exirArray.splice(i, 1);
+            }
+        }
+
         for (var i = 0; i < ZOMBIES.laserArray.length; i++) {
             if (ZOMBIES.laserArray[i].isGotOut) {
                 ZOMBIES.laserArray[i].remove();
@@ -830,7 +840,7 @@ var ZOMBIES = {
                     ZOMBIES.addToTerminal('protection unlocked, Get ready for the fight !   ', 'red');
                     ZOMBIES.addToTerminal('GO!', 'green');
 
-                }, 7000);
+                }, 5000);
                 setTimeout(function () {
                     ZOMBIES.hero.removeDieStyle();
                     var element = document.getElementById(hero.id);
@@ -843,7 +853,7 @@ var ZOMBIES = {
                     ZOMBIES.hero.y = window.innerHeight - 150;
                     ZOMBIES.addToTerminal('sudo resurrect hero', 'green');
                     ZOMBIES.addToTerminal('you are protected', 'green');
-                    ZOMBIES.addToTerminal('protection and fire will be unlocked after 5 second ', 'green');
+                    ZOMBIES.addToTerminal('protection and fire will be unlocked after 3 second ', 'green');
                     ZOMBIES.loop();
                 }, 2000);
             }
