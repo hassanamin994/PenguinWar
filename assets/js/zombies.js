@@ -16,6 +16,7 @@ var ZOMBIES = {
     NEXT_WEAPON: 69,
     PREV_WEAPON: 81,
     ESC: 27,
+    Q:81,
     // Player info
     PLAYERS: [],
     CURRENT_PLAYER: {},
@@ -316,6 +317,21 @@ var ZOMBIES = {
                     }
                 }
                 ZOMBIES.pause = !ZOMBIES.pause;
+            }
+
+            if (evt.ctrlKey && evt.keyCode==ZOMBIES.Q) {
+                if(ZOMBIES.mute == false)
+                {
+                    document.getElementById("imgSoundCtrl").src="assets/images/sound/mute.png";
+                    ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].pause();
+                    ZOMBIES.mute = true;
+                }
+                else
+                {
+                    document.getElementById("imgSoundCtrl").src="assets/images/sound/speaker.png";
+                    ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play();
+                    ZOMBIES.mute = false;
+                }
             }
 
             ZOMBIES.toggleKey(evt.keyCode, false);
