@@ -92,8 +92,8 @@ form.addEventListener('submit',function(e){
     setTimeout(document.getElementById('hero').focus() , 2000 )  ;
     // reset the username
         username.value = "" ;
-
-
   }
+
+  
 
 });

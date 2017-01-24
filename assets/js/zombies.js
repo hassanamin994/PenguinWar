@@ -7,9 +7,7 @@ var ZOMBIES = {
     timeInit: 0,
     HEROWIDTH: 80,
     HEROHEIGHT: 80,
-
     iterations: 0,
-
     LEFT_KEY: 65,
     UP_KEY: 87,
     RIGHT_KEY: 68,
@@ -28,18 +26,16 @@ var ZOMBIES = {
     interval: 50,
     MONSTERAPPEARED: false,
     SCORELIMIT:1000,
-
     laserArray: [],
     exirArray: [],
     enemies: [],
-
     pause: false, // to handel pause
     started: false,
-
     stopEnemyAdd: false,
-
     LEVEL: 1,
     MUSIC: [],
+    soundCollector : [],
+    mute:false,
 
     //current level
     CURRENT_LEVEL: 1,
@@ -49,7 +45,6 @@ var ZOMBIES = {
     CURRENT_MUSIC: '',
     // all weapons player take to toggle between them
     MY_WEAPONS: ['OS'],
-
     WEAPONS_LIMITS: {
         'OS': 0
     },
@@ -59,7 +54,6 @@ var ZOMBIES = {
         3: 15
     }
     ,
-
     WEAPONS_MAP: {
         OS: {
             IMAGE: 'os.png',
@@ -330,7 +324,21 @@ var ZOMBIES = {
         ZOMBIES.loop();
         ZOMBIES.refreshWeaponsList();
 
-        console.log(ZOMBIES.CURRENT_PLAYER.name);
+        document.getElementById("soundCtrl").addEventListener('click', function(e){
+            if(ZOMBIES.mute == false)
+            {
+                document.getElementById("imgSoundCtrl").src="assets/images/sound/mute.png";
+                ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].pause();
+                ZOMBIES.mute = true;
+            }
+            else
+            {
+                document.getElementById("imgSoundCtrl").src="assets/images/sound/speaker.png";
+                ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play();
+                ZOMBIES.mute = false;
+            }
+        });
+
     }
     ,
     // Function that Resets the gameplay
@@ -493,9 +501,7 @@ var ZOMBIES = {
             }
         }                                                                   // Prevent hero from firing when is died
         if (keyCode == ZOMBIES.SPACE_KEY && !ZOMBIES.FINISH && !isPressed && ZOMBIES.hero.dieable) {
-
-            var attackSound = new Audio(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND);
-
+            ZOMBIES.playSound(ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].SOUND);
             if (ZOMBIES.laserArray.length < 3) {
                 var laserMultiple = ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].MULTIPLE;
 
@@ -515,7 +521,6 @@ var ZOMBIES = {
                     }
 
                     var lasser = new Laser('assets/images/weapons/' + ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].IMAGE, 20, 20, ZOMBIES.hero.x + (ZOMBIES.hero.w / 2) - 10, ZOMBIES.hero.y, laserDirection);
-                    attackSound.play();
                     //if the current weapon has animation effect
                     if (ZOMBIES.WEAPONS_MAP[ZOMBIES.CURRENT_WEAPON].ANIMATE) {
                         lasser.addClass('animated');
@@ -980,15 +985,18 @@ var ZOMBIES = {
 
     },
     playSound: function (path) {
-        var effect = new Audio(path);
-        effect.play();
+        if (ZOMBIES.mute !=true ) {
+            var effect = new Audio(path);
+            effect.play();
+        }
     }
     ,
     stopBackgroundMusic: function () {
         ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL - 1].pause();
     },
     playBackgroundMusic: function () {
-        ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play();
+        if (ZOMBIES.mute !=true )
+            ZOMBIES.MUSIC[ZOMBIES.CURRENT_LEVEL].play();
     },
     /*
      function to add rockets to monster
@@ -1025,7 +1033,6 @@ var ZOMBIES = {
                     monsterRockets.addClass(enemyConfig.ANIMATE.random());
                 }
                 ZOMBIES.enemies.push(monsterRockets);
-                console.log(monsterRockets);
             }
         }
     },

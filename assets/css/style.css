@@ -23,6 +23,14 @@ img {
   font-weight: bold;
 }
 
+#sound-setting{
+  position: absolute;
+  left: 30px;
+  top: 100px;
+  width: 40px;
+}
+
+
 #hearts {
     position: absolute;
     right: 20px;
