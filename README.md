@@ -8,6 +8,8 @@
 - space - shoot
 - q - go previous weapon
 - e - go next weapon
+- esc -pause & resume game
+- ctrl + q - mute & play sounds
 
 #Developers
 - Hassan Amin <Hassanmamin994@gmail.com>
