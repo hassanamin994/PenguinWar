@@ -593,7 +593,7 @@ var ZOMBIES = {
                 if (ZOMBIES.exirArray[i].config.ACTION == 'LIVE') {
                     ZOMBIES.hero.live++;
                     ZOMBIES.addHeart(ZOMBIES.hero.live);
-                    ZOMBIES.addToTerminal('sudo apt-git upgrade ');
+                    ZOMBIES.addToTerminal('sudo apt-get upgrade ');
                 }
                 ZOMBIES.exirArray[i].remove();
                 ZOMBIES.exirArray.splice(i, 1);
